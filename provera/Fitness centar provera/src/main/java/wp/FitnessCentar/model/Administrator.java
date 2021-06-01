@@ -38,6 +38,22 @@ public class Administrator implements Serializable{
 	
 	@Column
 	private boolean aktivan;
+	
+	 public Administrator() {
+	    }
+
+	public Administrator(String korisnicko_ime, String lozinka, String ime, String prezime, String kontakt_telefon,
+			String email, String datum_rodjenja, String uloga) {
+		super();
+		this.korisnicko_ime = korisnicko_ime;
+		this.lozinka = lozinka;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.kontakt_telefon = kontakt_telefon;
+		this.email = email;
+		this.datum_rodjenja = datum_rodjenja;
+		this.uloga = uloga;
+	}
 
 	public Long getId() {
 		return id;
