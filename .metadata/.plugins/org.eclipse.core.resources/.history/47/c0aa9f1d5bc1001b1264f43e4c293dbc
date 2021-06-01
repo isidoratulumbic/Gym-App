@@ -1,0 +1,57 @@
+package wp.FitnessCentar.model;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
+
+
+@Entity
+public class Trener extends Korisnik{
+	
+	
+	@Column
+	private double srednja_ocena;
+	
+	
+	 @ManyToMany
+	    @JoinTable(name = "trener_trening",
+	    joinColumns = @JoinColumn(name = "trener_id", referencedColumnName = "id"),
+	    inverseJoinColumns = @JoinColumn(name = "trening_id", referencedColumnName = "id"))
+		private Set<Trening> treninzi = new HashSet<>();
+
+		@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+		private FitnessCentar fitness_centar;
+
+		public double getSrednja_ocena() {
+			return srednja_ocena;
+		}
+
+		public void setSrednja_ocena(double srednja_ocena) {
+			this.srednja_ocena = srednja_ocena;
+		}
+
+		public Set<Trening> getTreninzi() {
+			return treninzi;
+		}
+
+		public void setTreninzi(Set<Trening> treninzi) {
+			this.treninzi = treninzi;
+		}
+
+		public FitnessCentar getFitness_centar() {
+			return fitness_centar;
+		}
+
+		public void setFitness_centar(FitnessCentar fitness_centar) {
+			this.fitness_centar = fitness_centar;
+		}
+		
+
+	 
+	 
+	
+	
+}

@@ -1,49 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Pocetna</title>
+  <title>pocetna</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
- 		
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+  <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">	
+  <link rel="stylesheet"  href="/css/naslovna.css"/>	
 
 </head>
-<body  style = "background: url(../images/background.jpg)">
+<body>
+<!-- navigacijski meni-->
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+			<a href="#" class="navbar-brand">
+				<img src="/images/logo1.png" height="28" alt="CoolBrand">
+			</a>
+			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">POCETNA</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="index.html">Pocetna</a></li>
-        
-        
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-      <li><a href="registrationMan.html">Registracija trenera</a></li>
-      <li><a href="registration.html">Registracija korisnika</a></li>
-        <li><a href="prijava.html"> Prijava</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-  
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<div class="navbar-nav ml" >
+					<a href="pocetna.html" class="nav-item nav-link active">Početna</a>
+					
+				</div>
+				<div class="navbar-nav ml-auto">
+					<a  href="prijava.html" class="nav-item nav-link">Prijava</a>
+					<a href="registracija.html" class="nav-item nav-link">Registracija</a>
+				</div>
+				
+			</div>
+		</nav>
+ 
 
 
+<!--SLider slika za filmove-->
+		
+		<div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
+			<!-- Carousel indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+				<li data-target="#myCarousel" data-slide-to="3"></li>
+			</ol>
+			<!-- Wrapper for carousel items -->
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="/images/1.jpg" class="d-block w-100"   alt="First Slide">
+					<div class="carousel-caption d-none d-md-block">
+						
+						
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="/images/2.jpg"  class="d-block w-100" alt="Second Slide">
+					<div class="carousel-caption d-none d-md-block">
+						
+						
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="/images/3.jpg" class="d-block w-100" alt="Third Slide">
+					<div class="carousel-caption d-none d-md-block">
+						
+						
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="images/4.jpg" class="d-block w-100" alt="Third Slide">
+					<div class="carousel-caption d-none d-md-block">
+						
+						
+					</div>
+				</div>
+			</div>
+			<!-- Carousel controls -->
+			<a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+				<span class="carousel-control-prev-icon"></span>
+			</a>
+			<a class="carousel-control-next" href="#myCarousel" data-slide="next">
+				<span class="carousel-control-next-icon"></span>
+			</a>
+		</div>
 
 </body>
 </html>

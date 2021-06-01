@@ -1,0 +1,51 @@
+package wp.FitnessCentar.controller;
+
+import java.util.HashSet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.entity.Employee;
+import com.example.demo.entity.dto.EmployeeDTO;
+
+import wp.FitnessCentar.service.ClanService;
+
+@RestController
+@RequestMapping(value = "/api/clan") //u value definisemo putanjuu do ovog kontrolera, localhost 8080/api/clan..
+public class ClanController {
+
+    private final ClanService clanService; //navedemo polje i napravimo mu konstruktor za emplcont koji prima kao par taj servis i taj par se dodeli polju emp.serv.
+
+    // constructor-based dependency injection
+    @Autowired
+    public ClanController(ClanService clanService) {
+        this.clanService = clanService;
+    }
+    
+    //registracija novog clana
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClanDTO> createClan(@RequestBody ClanDTO clanDTO) throws Exception {
+        // Kreiramo objekat klase Clan, tako što za vrednosti atributa uzimamo
+        // vrednosti iz primljenog DTO objekta
+        Clan clan = new Clan(clanDTO.getFirstName(), clanDTO.getLastName(),
+                clanDTO.getPosition());
+
+        // Pozivanjem metode servisa kreiramo novog zaposlenog
+        Clan newClan = clanService.create(clan);
+
+        // Mapiramo novog zaposlenog na DTO objekat koji vraćamo kroz body odgovora
+        ClanDTO newClanDTO = new ClaneDTO(newClan.getId(), newClan.getFirstName(),
+                newEmployee.getLastName(), newEmployee.getPosition());
+
+        // Vraćamo odgovor 201 CREATED, a kroz body odgovora šaljemo podatke o novokreiranom
+        // zaposlenom, uključujući i ID koji mu je dodeljen
+        return new ResponseEntity<>(newClanDTO, HttpStatus.CREATED);
+    }
+}

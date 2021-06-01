@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Registracija trenera</title>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Registracija trenera</h1>
+    <hr>
+
+
+    <label for="ime">Ime:</label>
+    <input id="ime" type="text" name="ime" required th:field="*{ime}"/>
+     
+    <label for="prezime">Prezime:</label>
+    <input id="prezime" type="text" name="prezime" required th:field="*{prezime}"/>
+    
+    <label for="korisnicko_ime">Korisnicko ime:</label>
+    <input id="korisnicko_ime" type="text" name="korisnicko_ime" required th:field="*{korisnicko_ime}"/>
+    
+    <label for="lozinka">Lozinka:</label>
+    <input id="lozinka" type="password" name="lozinka" required th:field="*{lozinka}"/>
+    
+    <label for="email">Email:</label>
+    <input id="email" type="text" name="email" required />
+	
+	<label for="email">Broj telefona:</label>
+    <input id="email" type="text" name="broj telefona" required />
+    
+   
+    
+
+    <hr>
+	<button type="submit">Registruj se</button>
+   
+  </div>
+
+</form>
+
+</body>
+</html>

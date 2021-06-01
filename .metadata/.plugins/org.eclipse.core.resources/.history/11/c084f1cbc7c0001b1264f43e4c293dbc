@@ -1,0 +1,15 @@
+package wp.FitnessCentar.controller;
+
+import java.util.HashSet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import wp.FitnessCentar.service.ClanService;
+
+@Controller
+public class ClanController {
+	
+	@Autowired
+	private ClanService clanService;
+}

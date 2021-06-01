@@ -1,0 +1,33 @@
+package wp.FitnessCentar.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import wp.FitnessCentar.model.Trener;
+import wp.FitnessCentar.repository.TrenerRepository;
+import wp.FitnessCentar.service.TrenerService;
+
+@Service
+public class TrenerServiceImpl implements TrenerService {
+	private final TrenerRepository trenerRepository;
+	
+	 // constructor-based dependency injection
+    @Autowired
+    public TrenerServiceImpl(TrenerRepository trenerRepository) {
+        this.trenerRepository = trenerRepository;
+    }
+
+    /*
+    Kreiranje novog trenera i čuvanje u bazi pozivanjem metode save.
+    Metoda vraća kreiranog trenera.
+*/
+@Override
+public Trener create(Trener trener) throws Exception {
+    if (trener.getId() != null) {
+        throw new Exception("ID must be null!");
+    }
+    Trener newTrener = this.trenerRepository.save(trener);
+    return newTrener;
+}
+
+}

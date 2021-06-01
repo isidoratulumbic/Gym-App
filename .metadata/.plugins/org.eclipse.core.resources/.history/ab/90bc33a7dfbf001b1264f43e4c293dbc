@@ -1,0 +1,19 @@
+package wp.FitnessCentar.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import wp.FitnessCentar.service.ClanService;
+import wp.FitnessCentar.service.KorisnikService;
+
+@Controller
+@RequestMapping(value="/api")
+public class KorisnikController {
+
+	@Autowired 
+	private KorisnikService korisnikService;
+	@Autowired 
+	private ClanService clanService;
+	
+}

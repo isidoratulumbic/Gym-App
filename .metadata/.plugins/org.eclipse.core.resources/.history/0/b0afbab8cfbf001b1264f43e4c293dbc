@@ -1,0 +1,71 @@
+package com.example.Bioskop.controller;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.example.Bioskop.entity.Film;
+import com.example.Bioskop.entity.Gledalac;
+import com.example.Bioskop.entity.Ocjena;
+import com.example.Bioskop.service.GledalacService;
+
+@Controller
+public class GledalacController {
+	
+	@Autowired
+	private GledalacService gledalacService;
+
+	/*@GetMapping("gledaoci/{id}")
+	public String karte(@PathVariable(name="id") Long id,Model model) {
+		Gledalac g=this.gledalacService.findOne(id);
+		Set<Film> filmovi=g.getRezervisani_filmovi();
+		model.addAttribute("filmovi", filmovi);
+		return "rezervisaneKarte.html";
+	}*/
+	
+	/*@GetMapping("/gledaociOdgledani/{id}")
+	public String odgledaniFilmovi(@PathVariable(name="id")Long id,Model model) {
+		Gledalac g=this.gledalacService.findOne(id);
+		Set<Film> filmovi=g.getOdgledani_filmovi();
+		model.addAttribute("filmovi", filmovi);
+		return "odgledaniFilmovi.html";
+	}*/
+	
+	/*@GetMapping("gledaociOcjenjeni/{id}")
+	public String OcjenjeniFilmovi(@PathVariable(name="id")Long id,Model model) {
+		Gledalac g=this.gledalacService.findOne(id);
+		Set<Ocjena> ocjene=g.getOcjene();
+		model.addAttribute("ocjene", ocjene);
+		return "ocjenjeniFilmovi.html";
+		
+	}*/
+	
+	/*@GetMapping("gledaociNeocjenjeni/{id}")
+	public String NeocjenjeniFilmovi(@PathVariable(name="id")Long id,Model model) {
+		Gledalac g=this.gledalacService.findOne(id);
+		Set<Film> odgledani=g.getOdgledani_filmovi();
+		Set<Ocjena> ocjene=g.getOcjene(); //lista ocjenjenih filmova
+		Set<Film> ocjenjeni=new HashSet<>();
+		Film f=new Film();
+		for (Ocjena o : ocjene) {
+			f=o.getFilm();
+			ocjenjeni.add(f); //dodajm ocjenjene filmove
+			
+		}
+		Set<Film> neocjenjeni=new HashSet<>();
+		for (Film film : odgledani) {
+			if(!ocjenjeni.contains(film)) {
+				neocjenjeni.add(film);
+			}
+		}
+		model.addAttribute("neocjenjeni", neocjenjeni);
+		return "neocjenjeniFilmovi.html";
+		
+	}*/
+	
+}

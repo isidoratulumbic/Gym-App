@@ -1,58 +1,147 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-   
-    <title>Registracija</title>
+	<title>Registracija</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	 
+	  <script src="/js/jquery.min.js"></script>
+	   <script type="text/javascript" src="/js/register.js"></script>
+	 
+	 
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+  	<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
+  	
+  		<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="/css/register.css"/>	
+	
 </head>
+	
 <body>
 
+	<!-- navigacijski meni-->
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+			<a href="#" class="navbar-brand">
+				<img src="/images/logo1.png" height="28" alt="CoolBrand">
+			</a>
+			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<div class="navbar-nav ml" >
+					<a href="pocetna.html" class="nav-item nav-link ">Početna</a>
+					
+				</div>
+				<div class="navbar-nav ml-auto">
+					<a  href="prijava.html" class="nav-item nav-link">Prijava</a>
+					<a href="registracija.html" class="nav-item nav-link active">Registracija</a>
+				</div>
+				
+			</div>
+		</nav>
+		
 
-  <div class="container">
-    <h1>Registracija korisnika</h1>
-    <hr>
+		
+		<!-- kartica za registraciju tj forma -->
+		
+		<div class="container">
+			<div class="d-flex justify-content-center h-100">
+				<div class="card">
+					<div class="card-header">
+						<h3>Registracija</h3>
+					</div>
+					<div class="card-body">
+						<form id="registerForm">
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								</div>
+								<input type="text" id="korisnickoIme" class="form-control" placeholder="korisnicko ime" required>
+								
+							</div>
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-key"></i></span>
+								</div>
+								<input type="password" id="lozinka" class="form-control" placeholder="lozinka" required>
+							</div>
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								</div>
+								<input type="text" id="ime" class="form-control" placeholder="ime" required>
+								
+							</div>
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								</div>
+								<input type="text" id="prezime" class="form-control" placeholder="prezime" required>
+								
+							</div>
+							 <div class="form-group input-group">
+						    	<div class="input-group-prepend">
+								    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+								</div>
+								
+					    		<input name=""  id="kontaktTelefon" class="form-control" placeholder="Kontakt telefon" type="text">
+					   		 </div>
+					   		
+					   		 <div class="form-group input-group">
+						    	<div class="input-group-prepend">
+								    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+								 </div>
+						        <input name="mail" id="mail" class="form-control" placeholder="Email adresa" type="email">
+						    </div>
+						     <div class="form-group input-group">
+						    	<div class="input-group-prepend">
+								    <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
+								 </div>
+						        <input name="" id="datumRodjenja" class="form-control" placeholder="Datum rođenja" type="date">
+						    </div>
+						    
+						   <h1>Registrujete se kao?</h1>
 
-
-    <label for="ime">Ime:</label>
-    <input id="ime" type="text" name="ime" required th:field="*{ime}"/>
-	<br>
-	<br>
-     
-    <label for="prezime">Prezime:</label>
-    <input id="prezime" type="text" name="prezime" required th:field="*{prezime}"/>
-	<br>
-	<br>
-    
-    <label for="korisnicko_ime">Korisnicko ime:</label>
-    <input id="korisnicko_ime" type="text" name="korisnicko_ime" required th:field="*{korisnicko_ime}"/>
-	<br>
-	<br>
-    
-    <label for="lozinka">Lozinka:</label>
-    <input id="lozinka" type="password" name="lozinka" required th:field="*{lozinka}"/>
-	<br>
-	<br>
-    
-    <label for="email">Email:</label>
-    <input id="email" type="text" name="email" required />
-	<br>
-	<br>
-	
-	<label for="email">Kontakt telefon:</label>
-    <input id="email" type="text" name="broj telefona" required />
-	<br>
-	<br>
-    
-   
-    
-
-    <hr>
-	<button type="submit">Registruj se</button>
-   
-  </div>
-
-</form>
-
-</body>
-</html>
+							<form action="/action_page.php">
+ 								<input type="checkbox" >
+  								<label for="vehicle1"> Clan</label><br>
+  								<input type="checkbox" >
+  								<label for="vehicle2"> Trener</label><br>
+ 								<input type="checkbox" >
+ 								 <label for="vehicle3"> Administrator</label><br><br>
+ 
+							</form>
+						   
+						 
+						    
+							<div class="row align-items-center remember">
+								<input type="checkbox">Remember Me
+							</div>
+							<div class="form-group">
+								<input type="submit" value="Register" class="btn float-right login_btn">
+							</div>
+						</form>
+					</div>
+					<div class="card-footer">
+						<div class="d-flex justify-content-center links">
+							Imate nalog?
+						</div>
+						<div class="d-flex justify-content-center">
+							<a href="login.html" >Prijavite se</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		

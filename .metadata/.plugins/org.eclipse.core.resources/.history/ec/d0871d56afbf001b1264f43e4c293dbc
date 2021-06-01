@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+    
+    <title>Prijava na sajt</title>
+</head>
+<body>
+
+<h1>Prijava</h1>
+
+
+  <div class="container">
+    <label for="korisnicko_ime"><b>Korisnicko ime</b></label>
+    <input type="text" placeholder="Ukucaj korisnicko ime" name="korisnicko_ime" required>
+    <br>
+    <br>
+
+    <label for="lozinka"><b>Lozinka</b></label>
+    <input type="password" placeholder="Ukucaj lozinku" name="lozinka" required>
+        
+    <button type="submit">Prijavi se</button>
+  </div>
+
+</form>
+
+</body>
+</html>

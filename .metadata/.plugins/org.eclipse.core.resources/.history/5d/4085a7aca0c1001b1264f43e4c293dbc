@@ -1,0 +1,10 @@
+package wp.FitnessCentar.model;
+
+
+import javax.persistence.*;
+
+
+@Entity
+public class Administrator extends Korisnik{
+	
+}

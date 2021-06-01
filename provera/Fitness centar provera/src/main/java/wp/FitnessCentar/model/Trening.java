@@ -31,23 +31,29 @@ public class Trening implements Serializable{
 	private String trajanje;
 	
 	@ManyToMany(mappedBy = "odradjeni_treninzi")
-	private Set<ClanFitnessCentra> clanovi = new HashSet<>();
+	private Set<Clan> clanovi;
 	
 	@ManyToMany(mappedBy = "rezervisani_treninzi")
-	private Set<ClanFitnessCentra> clan_rez = new HashSet<>();
+	private Set<Clan> clan_rez;
 
-	@ManyToMany(mappedBy = "ocene")
-	private Set<ClanFitnessCentra> clanovi_ocene = new HashSet<>();
+	@OneToMany(mappedBy= "trening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Ocena> ocene;
 	
-	@ManyToMany(mappedBy="treninzi")
-	private Set<Trener>treneri=new HashSet<>();
-	
-	
+	@OneToMany(mappedBy= "trening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Termin> termini;
+
+
+
+
+
 
 
 	public Long getId() {
 		return id;
 	}
+
+
+
 
 
 
@@ -59,9 +65,15 @@ public class Trening implements Serializable{
 
 
 
+
+
+
 	public String getNaziv() {
 		return naziv;
 	}
+
+
+
 
 
 
@@ -73,9 +85,15 @@ public class Trening implements Serializable{
 
 
 
+
+
+
 	public String getOpis() {
 		return opis;
 	}
+
+
+
 
 
 
@@ -87,9 +105,15 @@ public class Trening implements Serializable{
 
 
 
+
+
+
 	public String getTip_treninga() {
 		return tip_treninga;
 	}
+
+
+
 
 
 
@@ -101,9 +125,15 @@ public class Trening implements Serializable{
 
 
 
+
+
+
 	public String getTrajanje() {
 		return trajanje;
 	}
+
+
+
 
 
 
@@ -115,58 +145,85 @@ public class Trening implements Serializable{
 
 
 
-	public Set<ClanFitnessCentra> getClanovi() {
+
+
+
+	public Set<Clan> getClanovi() {
 		return clanovi;
 	}
 
 
 
 
-	public void setClanovi(Set<ClanFitnessCentra> clanovi) {
+
+
+
+	public void setClanovi(Set<Clan> clanovi) {
 		this.clanovi = clanovi;
 	}
 
 
 
 
-	public Set<ClanFitnessCentra> getClan_rez() {
+
+
+
+	public Set<Clan> getClan_rez() {
 		return clan_rez;
 	}
 
 
 
 
-	public void setClan_rez(Set<ClanFitnessCentra> clan_rez) {
+
+
+
+	public void setClan_rez(Set<Clan> clan_rez) {
 		this.clan_rez = clan_rez;
 	}
 
 
 
 
-	public Set<ClanFitnessCentra> getClanovi_ocene() {
-		return clanovi_ocene;
+
+
+
+	public Set<Ocena> getOcene() {
+		return ocene;
 	}
 
 
 
 
-	public void setClanovi_ocene(Set<ClanFitnessCentra> clanovi_ocene) {
-		this.clanovi_ocene = clanovi_ocene;
+
+
+
+	public void setOcene(Set<Ocena> ocene) {
+		this.ocene = ocene;
 	}
 
 
 
 
-	public Set<Trener> getTreneri() {
-		return treneri;
+
+
+
+	public Set<Termin> getTermini() {
+		return termini;
 	}
 
 
 
 
-	public void setTreneri(Set<Trener> treneri) {
-		this.treneri = treneri;
+
+
+
+	public void setTermini(Set<Termin> termini) {
+		this.termini = termini;
 	}
+
+
+
 
 
 
@@ -174,6 +231,9 @@ public class Trening implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+
+
 
 
 

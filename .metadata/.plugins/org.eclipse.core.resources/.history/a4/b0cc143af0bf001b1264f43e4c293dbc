@@ -1,0 +1,62 @@
+package wp.FitnessCentar.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import wp.FitnessCentar.model.Korisnik;
+import wp.FitnessCentar.service.AdministratorService;
+import wp.FitnessCentar.service.ClanService;
+import wp.FitnessCentar.service.KorisnikService;
+import wp.FitnessCentar.service.OcenaService;
+import wp.FitnessCentar.service.TreningService;
+
+@Controller
+@RequestMapping(value="/api")
+public class KorisnikController {
+
+	public static int role=1; //promenljiva koja odredjuje ulogu(1 clan, 2 trener , 3 administrator)
+	
+	@Autowired 
+	private KorisnikService korisnikService;
+	@Autowired 
+	private ClanService clanService;
+	@Autowired 
+	private AdministratorService administratorService;
+	@Autowired 
+	private TreningService treningService;
+	@Autowired 
+	private OcenaService ocenaService;
+
+//registracija člana
+
+@PostMapping(
+		value="/registracija",
+		consumes=MediaType.APPLICATION_JSON_VALUE,
+		produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Korisnik> registracija(@RequestBody Korisnik k) throws Exception{
+		Korisnik korisnik=new Korisnik(k.getId(),k.getKorisnicko_ime(),k.getLozinka(),k.getIme(),k.getPrezime(),k.getKontakt_telefon(),k.getEmail(),k.getDatum_rodjenja(),k.getUloga());
+		Korisnik noviKorisnik=clanService.registracija(korisnik);
+		return new ResponseEntity<>(noviKorisnik,HttpStatus.OK);
+	}
+
+//registracija trenera
+
+@PostMapping(
+		value="/registracijaTrenera",
+		consumes=MediaType.APPLICATION_JSON_VALUE,
+		produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Korisnik> registracijaTrenera(@RequestBody Korisnik k) throws Exception{
+	if(role==3){
+		Korisnik korisnik=new Korisnik(k.getId(),k.getKorisnicko_ime(),k.getLozinka(),k.getIme(),k.getPrezime(),k.getKontakt_telefon(),k.getEmail(),k.getDatum_rodjenja(),k.getUloga());
+		Korisnik noviKorisnik=trenerService.registracija(korisnik);
+		return new ResponseEntity<>(noviKorisnik,HttpStatus.OK);
+	}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+}

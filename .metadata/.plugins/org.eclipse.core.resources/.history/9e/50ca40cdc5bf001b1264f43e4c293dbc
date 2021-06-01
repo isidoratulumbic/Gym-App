@@ -1,0 +1,5 @@
+package wp.FitnessCentar.repository;
+
+public class ClanRepository {
+
+}

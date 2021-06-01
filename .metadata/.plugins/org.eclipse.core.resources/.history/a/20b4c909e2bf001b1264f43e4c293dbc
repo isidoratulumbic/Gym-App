@@ -1,0 +1,17 @@
+package wp.FitnessCentar.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import wp.FitnessCentar.model.Korisnik;
+import wp.FitnessCentar.repository.ClanRepository;
+
+@Service
+public class ClanService {
+	
+	@Autowired
+	private ClanRepository clanRepository;
+	
+
+}

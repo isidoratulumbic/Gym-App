@@ -11,11 +11,6 @@ import javax.persistence.*;
 @Entity
 public class Trener implements Serializable{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -42,119 +37,154 @@ public class Trener implements Serializable{
     private String datum_rodjenja;
 	
 	@Column
+	protected String uloga;
+	
+	@Column
 	private boolean aktivan;
 	
 	@Column
 	private double srednja_ocena;
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	private FitnessCentar fitness_centar;
+	
 	
 	 @ManyToMany
 	    @JoinTable(name = "trener_trening",
 	    joinColumns = @JoinColumn(name = "trener_id", referencedColumnName = "id"),
 	    inverseJoinColumns = @JoinColumn(name = "trening_id", referencedColumnName = "id"))
-		private Set<Trening> treninzi = new HashSet<>();
+		private Set<Trening> treninzi;
 
-	public Long getId() {
-		return id;
-	}
+		@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+		private FitnessCentar fitness_centar;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+		
 
-	public String getKorisnicko_ime() {
-		return korisnicko_ime;
-	}
+		public Trener(Long id, String korisnicko_ime, String lozinka, String ime, String prezime,
+				String kontakt_telefon, String email, String datum_rodjenja, String uloga, boolean aktivan,
+				Set<Trening> treninzi, FitnessCentar fitness_centar) {
+			super();
+			this.id = id;
+			this.korisnicko_ime = korisnicko_ime;
+			this.lozinka = lozinka;
+			this.ime = ime;
+			this.prezime = prezime;
+			this.kontakt_telefon = kontakt_telefon;
+			this.email = email;
+			this.datum_rodjenja = datum_rodjenja;
+			this.uloga = uloga;
+			this.aktivan = aktivan;
+			//this.srednja_ocena = srednja_ocena;
+			this.treninzi = treninzi;
+			this.fitness_centar = fitness_centar;
+		}
 
-	public void setKorisnicko_ime(String korisnicko_ime) {
-		this.korisnicko_ime = korisnicko_ime;
-	}
+		public Long getId() {
+			return id;
+		}
 
-	public String getLozinka() {
-		return lozinka;
-	}
+		public void setId(Long id) {
+			this.id = id;
+		}
 
-	public void setLozinka(String lozinka) {
-		this.lozinka = lozinka;
-	}
+		public String getKorisnicko_ime() {
+			return korisnicko_ime;
+		}
 
-	public String getIme() {
-		return ime;
-	}
+		public void setKorisnicko_ime(String korisnicko_ime) {
+			this.korisnicko_ime = korisnicko_ime;
+		}
 
-	public void setIme(String ime) {
-		this.ime = ime;
-	}
+		public String getLozinka() {
+			return lozinka;
+		}
 
-	public String getPrezime() {
-		return prezime;
-	}
+		public void setLozinka(String lozinka) {
+			this.lozinka = lozinka;
+		}
 
-	public void setPrezime(String prezime) {
-		this.prezime = prezime;
-	}
+		public String getIme() {
+			return ime;
+		}
 
-	public String getKontakt_telefon() {
-		return kontakt_telefon;
-	}
+		public void setIme(String ime) {
+			this.ime = ime;
+		}
 
-	public void setKontakt_telefon(String kontakt_telefon) {
-		this.kontakt_telefon = kontakt_telefon;
-	}
+		public String getPrezime() {
+			return prezime;
+		}
 
-	public String getEmail() {
-		return email;
-	}
+		public void setPrezime(String prezime) {
+			this.prezime = prezime;
+		}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+		public String getKontakt_telefon() {
+			return kontakt_telefon;
+		}
 
-	public String getDatum_rodjenja() {
-		return datum_rodjenja;
-	}
+		public void setKontakt_telefon(String kontakt_telefon) {
+			this.kontakt_telefon = kontakt_telefon;
+		}
 
-	public void setDatum_rodjenja(String datum_rodjenja) {
-		this.datum_rodjenja = datum_rodjenja;
-	}
+		public String getEmail() {
+			return email;
+		}
 
-	public boolean isAktivan() {
-		return aktivan;
-	}
+		public void setEmail(String email) {
+			this.email = email;
+		}
 
-	public void setAktivan(boolean aktivan) {
-		this.aktivan = aktivan;
-	}
+		public String getDatum_rodjenja() {
+			return datum_rodjenja;
+		}
 
-	public double getSrednja_ocena() {
-		return srednja_ocena;
-	}
+		public void setDatum_rodjenja(String datum_rodjenja) {
+			this.datum_rodjenja = datum_rodjenja;
+		}
 
-	public void setSrednja_ocena(double srednja_ocena) {
-		this.srednja_ocena = srednja_ocena;
-	}
+		public String getUloga() {
+			return uloga;
+		}
 
-	public FitnessCentar getFitness_centar() {
-		return fitness_centar;
-	}
+		public void setUloga(String uloga) {
+			this.uloga = uloga;
+		}
 
-	public void setFitness_centar(FitnessCentar fitness_centar) {
-		this.fitness_centar = fitness_centar;
-	}
+		public boolean isAktivan() {
+			return aktivan;
+		}
 
-	public Set<Trening> getTreninzi() {
-		return treninzi;
-	}
+		public void setAktivan(boolean aktivan) {
+			this.aktivan = aktivan;
+		}
 
-	public void setTreninzi(Set<Trening> treninzi) {
-		this.treninzi = treninzi;
-	}
+		public double getSrednja_ocena() {
+			return srednja_ocena;
+		}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+		public void setSrednja_ocena(double srednja_ocena) {
+			this.srednja_ocena = srednja_ocena;
+		}
+
+		public Set<Trening> getTreninzi() {
+			return treninzi;
+		}
+
+		public void setTreninzi(Set<Trening> treninzi) {
+			this.treninzi = treninzi;
+		}
+
+		public FitnessCentar getFitness_centar() {
+			return fitness_centar;
+		}
+
+		public void setFitness_centar(FitnessCentar fitness_centar) {
+			this.fitness_centar = fitness_centar;
+		}
+
+		
+		
+		
+	
 	 
 	 
 	

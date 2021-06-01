@@ -1,0 +1,13 @@
+package wp.FitnessCentar.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import wp.FitnessCentar.repository.AdministratorRepository;
+
+@Service
+public class AdministratorService {
+	@Autowired
+	private AdministratorRepository administratorRepository;
+
+}

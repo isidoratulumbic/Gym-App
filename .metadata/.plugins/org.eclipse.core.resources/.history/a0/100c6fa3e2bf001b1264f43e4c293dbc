@@ -1,0 +1,57 @@
+package wp.FitnessCentar.model;
+
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
+
+@Entity
+public class ClanFitnessCentra extends Korisnik{
+	
+	 @ManyToMany
+	    @JoinTable(name = "clan_trening",
+	    joinColumns = @JoinColumn(name = "clan_id", referencedColumnName = "id"),
+	    inverseJoinColumns = @JoinColumn(name = "trening_id", referencedColumnName = "id"))
+		private Set<Trening> odradjeni_treninzi = new HashSet<>();
+	 
+	 @ManyToMany
+	    @JoinTable(name = "clan_rez_trening",
+	    joinColumns = @JoinColumn(name = "clan_id", referencedColumnName = "id"),
+	    inverseJoinColumns = @JoinColumn(name = "trening_id", referencedColumnName = "id"))
+		private Set<Trening> rezervisani_treninzi = new HashSet<>();
+	 
+	 @OneToMany (mappedBy="clan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 	private Set<Ocena> ocene;
+
+	public Set<Trening> getOdradjeni_treninzi() {
+		return odradjeni_treninzi;
+	}
+
+	public void setOdradjeni_treninzi(Set<Trening> odradjeni_treninzi) {
+		this.odradjeni_treninzi = odradjeni_treninzi;
+	}
+
+	public Set<Trening> getRezervisani_treninzi() {
+		return rezervisani_treninzi;
+	}
+
+	public void setRezervisani_treninzi(Set<Trening> rezervisani_treninzi) {
+		this.rezervisani_treninzi = rezervisani_treninzi;
+	}
+
+	public Set<Ocena> getOcene() {
+		return ocene;
+	}
+
+	public void setOcene(Set<Ocena> ocene) {
+		this.ocene = ocene;
+	}
+
+	 
+	 
+	
+	
+}
+

@@ -18,16 +18,14 @@ public class Sala implements Serializable{
 	
 	@Column 
 	private String oznaka;
+
 	
-	@ManyToMany
-    @JoinTable(name = "sala_treninga",
-    joinColumns = @JoinColumn(name = "sala_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "treninzi_id", referencedColumnName = "id"))
-	private Set<Trening> treninzi = new HashSet<>();
-	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private FitnessCentar fitness_centar;
 
+	@OneToMany(mappedBy="sala_treninga", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Termin> termini;
+	
 	
 	
 	public Long getId() {
@@ -66,18 +64,6 @@ public class Sala implements Serializable{
 
 
 
-	public Set<Trening> getTreninzi() {
-		return treninzi;
-	}
-
-
-
-	public void setTreninzi(Set<Trening> treninzi) {
-		this.treninzi = treninzi;
-	}
-
-
-
 	public FitnessCentar getFitness_centar() {
 		return fitness_centar;
 	}
@@ -90,6 +76,18 @@ public class Sala implements Serializable{
 
 
 
+	public Set<Termin> getTermini() {
+		return termini;
+	}
+
+
+
+	public void setTermini(Set<Termin> termini) {
+		this.termini = termini;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Sala [id=" + id + ", kapacitet=" + kapacitet + ", oznaka=" + oznaka + "]";
@@ -98,3 +96,4 @@ public class Sala implements Serializable{
 	
 
 }
+	

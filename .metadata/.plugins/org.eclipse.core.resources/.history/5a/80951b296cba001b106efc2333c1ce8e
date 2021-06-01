@@ -1,0 +1,20 @@
+package wp.FitnessCentar.model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+@Entity 
+public class Ocena implements Serializable{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private  ClanFitnessCentra clan;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private  Trening trening;
+	
+	
+	
+}

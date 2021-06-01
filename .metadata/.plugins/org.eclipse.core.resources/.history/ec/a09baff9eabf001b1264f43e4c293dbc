@@ -1,0 +1,48 @@
+package wp.FitnessCentar.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import wp.FitnessCentar.model.Korisnik;
+import wp.FitnessCentar.model.Trener;
+import wp.FitnessCentar.repository.TrenerRepository;
+
+
+@Service
+public class TrenerService {
+
+	@Autowired
+	private TrenerRepository trenerRepository;
+	
+	
+	
+	
+//registracija tj dodavanje novog
+public Trener registracija(Korisnik g) {
+//treba da imam throws kao exception da li vec postiji takav
+	Trener t=new Trener();
+	t.setKorisnicko_ime(g.getKorisnicko_ime());
+	t.setLozinka(g.getLozinka());
+	t.setIme(g.getIme());
+	t.setPrezime(g.getPrezime());
+	t.setKontakt_telefon(g.getKontakt_telefon());
+	t.setDatum_rodjenja(g.getDatum_rodjenja());
+	t.setEmail(g.getEmail());
+	//nez jel ovako treba uloga i aktivnost
+	t.setUloga("Trener");
+	t.setAktivan(true);
+			
+	return this.trenerRepository.save(t);
+			
+		}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

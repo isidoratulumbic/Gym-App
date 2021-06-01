@@ -1,0 +1,10 @@
+package wp.FitnessCentar.service;
+
+import wp.FitnessCentar.model.Clan;
+
+public interface ClanService {
+	 Clan findOne(Long id);
+	 
+	 Clan create(Clan clan) throws Exception;
+
+}

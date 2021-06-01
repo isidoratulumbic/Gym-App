@@ -1,0 +1,175 @@
+package com.example.demo.controller;
+
+import com.example.demo.entity.Employee;
+import com.example.demo.entity.dto.EmployeeDTO;
+import com.example.demo.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+    @RestController anotacija govori MVC framework-u da se radi o kontroleru
+    koji funkcioniše kao endpoint RESTful servisa. Rezultat svake funkcije
+    treba da se vrati kao JSON zapis u telu poruke.
+
+    @RequestMapping anotacija iznad kontrolera označava da svi endpoint-i
+    (putanje do metoda) ovog kontrolera imaju navedeni prefiks. U našem primeru,
+    svaka putanja kontrolera ima prefiks '/api/employees'.
+*/
+@RestController
+@RequestMapping(value = "/api/employees") //u value definisemo putanjuu do ovog kontrolera, localhost 8080/api/empl..
+public class EmployeeController {
+
+    private final EmployeeService employeeService;
+
+    // constructor-based dependency injection
+    @Autowired
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+
+    /*
+        Metoda za dobavljanje traženog zaposlenog
+      ---------------------------------------------
+        Parametri @GetMapping anotacije:
+         - value - služi za definisanje URL putanje do metode (ako se izostavi,
+            za putanju do metode uzima se putanja do samog kontrolera '/api/employees').
+         - produces - definiše tip odgovora. U ovom slučaju definiše da se objekat
+            klase EmployeeDTO konvertuje u JSON format i kao takav vraća u odgovoru.
+
+        @PathVariable anotacija omogućava da se iz URL-a ekstrahuju podaci koji su
+        namapirani na pozicione parametre. U ovom slučaju pozicioni parametar je
+        ID zaposlenog koji se traži.
+
+        Primer putanje:  http://localhost:8080/api/employees/2
+    */
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable("id") Long id) {
+        // Pozivanjem metode servisa dobavljamo zaposlenog po ID-ju
+        Employee employee = this.employeeService.findOne(id);
+
+        // Kreiramo objekat klase EmployeeDTO koji ćemo vratiti u odgovoru na zahtev
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        employeeDTO.setId(employee.getId());
+        employeeDTO.setFirstName(employee.getFirstName());
+        employeeDTO.setLastName(employee.getLastName());
+        employeeDTO.setPosition(employee.getPosition());
+
+        /*
+            Kreiramo objekat klase ResponseEntity
+          -----------------------------------------
+            Sa ResponseEntity možemo da kontrolišemo ceo HTTP odgovor: statusni kod,
+            zaglavlja i body. Recimo, ako je došlo do greške, možemo da postavimo
+            drugi statusni kod npr. HttpStatus.BAD_REQUEST.
+
+            U ovom slučaju, vraćamo odgovor 200 OK, a kroz body odgovora šaljemo
+            podatke o pronađenom zaposlenom.
+         */
+        return new ResponseEntity<>(employeeDTO, HttpStatus.OK);
+    }
+
+    /*
+        Metoda za dobavljanje svih zaposlenih
+      -----------------------------------------
+        U @GetMapping anotaciji smo izostavili 'value' parametar, pa je URL putanja
+        do metode isto što i putanja do kontrolera '/api/employees'.
+
+        Putanja: http://localhost:8080/api/employees
+    */
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EmployeeDTO>> getEmployees() {
+        // Pozivanjem metode servisa dobavljamo sve zaposlene
+        List<Employee> employeeList = this.employeeService.findAll();
+
+        // Kreiramo listu DTO objekata koju ćemo vratiti u odgovoru na zahtev
+        List<EmployeeDTO> employeeDTOS = new ArrayList<>();
+
+        for (Employee employee : employeeList) {
+            // Kreiramo EmployeeDTO za svakog zaposlenog, kojeg je vratila metoda findAll()
+            // i ubacujemo ga u listu employeeDTOS
+            EmployeeDTO employeeDTO = new EmployeeDTO(employee.getId(), employee.getFirstName(),
+                    employee.getLastName(), employee.getPosition());
+            employeeDTOS.add(employeeDTO);
+        }
+
+        // Vraćamo odgovor 200 OK, a kroz body odgovora šaljemo podatke o pronađenim zaposlenima
+        return new ResponseEntity<>(employeeDTOS, HttpStatus.OK);
+    }
+
+    /*
+        Metoda za kreiranje novog zaposlenog
+      ----------------------------------------
+        Parametri @PostMapping anotacije:
+         - value - služi za definisanje URL putanje do metode (ako se izostavi,
+            za putanju do metode uzima se putanja do samog kontrolera '/api/employees').
+         - produces - definiše tip odgovora. U ovom slučaju definiše da se objekat
+            klase EmployeeDTO konvertuje u JSON format i kao takav vraća u odgovoru.
+         - consumes - definiše tip podataka koje metoda može da primi. U ovom slučaju
+            metoda može da primi samo podatke u JSON formatu.
+
+        Anotiranjem parametra metode sa @RequestBody, Spring ce pokušati da od
+        primljenog JSON-a napravi objekat tipa EmployeeDTO.
+    */
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) throws Exception {
+        // Kreiramo objekat klase Employee, tako što za vrednosti atributa uzimamo
+        // vrednosti iz primljenog DTO objekta
+        Employee employee = new Employee(employeeDTO.getFirstName(), employeeDTO.getLastName(),
+                employeeDTO.getPosition());
+
+        // Pozivanjem metode servisa kreiramo novog zaposlenog
+        Employee newEmployee = employeeService.create(employee);
+
+        // Mapiramo novog zaposlenog na DTO objekat koji vraćamo kroz body odgovora
+        EmployeeDTO newEmployeeDTO = new EmployeeDTO(newEmployee.getId(), newEmployee.getFirstName(),
+                newEmployee.getLastName(), newEmployee.getPosition());
+
+        // Vraćamo odgovor 201 CREATED, a kroz body odgovora šaljemo podatke o novokreiranom
+        // zaposlenom, uključujući i ID koji mu je dodeljen
+        return new ResponseEntity<>(newEmployeeDTO, HttpStatus.CREATED);
+    }
+
+    /*
+        Metoda za ažuriranje postojećeg zaposlenog
+     */
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO) throws Exception {
+        // Kreiramo objekat klase Employee, tako što za vrednosti atributa uzimamo
+        // vrednosti iz primljenog DTO objekta
+        Employee employee = new Employee(employeeDTO.getFirstName(), employeeDTO.getLastName(),
+                employeeDTO.getPosition());
+        // Pošto menjamo postojeći objekat, u zahtevu ćemo dobiti i njegov ID
+        employee.setId(id);
+
+        // Pozivanjem metode servisa ažuriramo podatke o zaposlenom
+        Employee updatedEm = employeeService.update(employee);
+
+        // Mapiramo ažuriranog zaposlenog na DTO objekat koji vraćamo kroz body odgovora
+        EmployeeDTO updatedEmDTO = new EmployeeDTO(updatedEm.getId(), updatedEm.getFirstName(),
+                updatedEm.getLastName(), updatedEm.getPosition());
+
+        // Vraćamo odgovor 200 OK, a kroz body odgovora šaljemo podatke o ažuriranom zaposlenom
+        return new ResponseEntity<>(updatedEmDTO, HttpStatus.OK);
+    }
+
+    /*
+        Metoda za brisanje postojećeg zaposlenog
+     */
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+        // Pozivanjem metode servisa brišemo zaposlenog po ID-ju
+        this.employeeService.delete(id);
+
+        // Vraćamo odgovor 204 NO_CONTENT koji signalizira uspešno brisanje
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+}

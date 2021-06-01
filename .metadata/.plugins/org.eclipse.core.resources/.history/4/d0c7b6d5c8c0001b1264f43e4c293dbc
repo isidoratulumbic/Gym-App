@@ -1,0 +1,6 @@
+package wp.FitnessCentar.service;
+
+public interface ClanService {
+	 Clan create(Clan clan) throws Exception;
+
+}

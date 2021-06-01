@@ -1,0 +1,5 @@
+package wp.FitnessCentar.model.DTO;
+
+public class ClanDTO {
+
+}

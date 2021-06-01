@@ -1,0 +1,35 @@
+package wp.FitnessCentar.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+import wp.FitnessCentar.model.Clan;
+
+public interface ClanRepository extends JpaRepository<Clan, Long> {
+	
+	 /*
+    Spring na osnovu imena metode kreira upit za bazu.
+
+    Traži sve zaposlene (employee) koji imaju poziciju koja se prosledjuje ovoj metodi kao string (String position).
+    Sortira sve koje je pronašao po imenu i vraća kolekciju zaposlenih.
+ */
+List<Clan> findAllByPositionOrderByFirstName(String position);
+
+/*
+    Traži sve zaposlene po imenu ili prezimenu.
+ */
+List<Clan> findByFirstNameOrLastName(String firstName, String lastName);
+
+/*
+    Traži sve zaposlene po imenu, ignorišu se mala i velika slova.
+ */
+List<Clan> findByFirstNameIgnoreCase(String firstName);
+
+/*
+    Traži sve zaposlene po nazivu departmana.
+ */
+List<Clan> findByDepartmentName(String departmentName);
+}
+

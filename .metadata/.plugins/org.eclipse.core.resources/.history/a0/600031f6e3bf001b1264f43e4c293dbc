@@ -1,0 +1,35 @@
+package wp.FitnessCentar.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import wp.FitnessCentar.model.Korisnik;
+import wp.FitnessCentar.repository.ClanRepository;
+
+@Service
+public class ClanService {
+	
+	@Autowired
+	private ClanRepository clanRepository;
+
+	//registracija clana
+	public Clan registracija(Korisnik g) {
+		//treba da imam throws kao exception da li vec postiji takav
+		Clan gledalac=new Clan();
+		clan.setKorisnicko_ime(g.getKorisnicko_ime());
+		clan.setLozinka(g.getLozinka());
+		clan.setIme(g.getIme());
+		clan.setPrezime(g.getPrezime());
+		clan.setKontakt_telefon(g.getKontakt_telefon());
+		clan.setDatum_rodjenja(g.getDatum_rodjenja());
+		clan.setEmail(g.getEmail());
+		//nez jel ovako treba uloga i aktivnost
+		clan.setUloga("Clan Fitness Centra");
+		clan.setAktivan(true);
+		
+		return this.clanRepository.save(clan);
+		
+	}
+
+}

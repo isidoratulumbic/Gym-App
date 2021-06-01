@@ -29,17 +29,11 @@ public class FitnessCentar implements Serializable{
 	private String email;
 	
 	@OneToMany(mappedBy="fitness_centar",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Trener> treneri = new HashSet<>();
+	private Set<Trener> treneri ;
 	
 	@OneToMany(mappedBy = "fitness_centar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Sala> sale = new HashSet<>();
+	private Set<Sala> sale;
 
-	@ManyToMany
-    @JoinTable(name = "FitnessCentar_treninzi",
-    joinColumns = @JoinColumn(name = "fitness_centar_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "trening_id", referencedColumnName = "id"))
-	private Set<Treninzi> raspored = new HashSet<>();
-	
 	
 	
 	public Long getId() {
@@ -122,18 +116,6 @@ public class FitnessCentar implements Serializable{
 
 	public void setSale(Set<Sala> sale) {
 		this.sale = sale;
-	}
-
-
-
-	public Set<Treninzi> getRaspored() {
-		return raspored;
-	}
-
-
-
-	public void setRaspored(Set<Treninzi> raspored) {
-		this.raspored = raspored;
 	}
 
 

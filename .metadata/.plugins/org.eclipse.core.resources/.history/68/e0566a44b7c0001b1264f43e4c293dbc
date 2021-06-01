@@ -1,0 +1,8 @@
+package wp.FitnessCentar.service;
+
+@Service
+public class SalaService {
+	@Autowired
+	private SalaRepository salaRepository;
+
+}

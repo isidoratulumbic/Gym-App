@@ -34,6 +34,9 @@ public class Administrator implements Serializable{
     private String datum_rodjenja;
 	
 	@Column
+	private String uloga;
+	
+	@Column
 	private boolean aktivan;
 
 	public Long getId() {
@@ -98,6 +101,15 @@ public class Administrator implements Serializable{
 
 	public void setDatum_rodjenja(String datum_rodjenja) {
 		this.datum_rodjenja = datum_rodjenja;
+	}
+	
+
+	public String getUloga() {
+		return uloga;
+	}
+
+	public void setUloga(String uloga) {
+		this.uloga = uloga;
 	}
 
 	public boolean isAktivan() {

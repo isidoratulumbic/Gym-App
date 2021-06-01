@@ -1,0 +1,9 @@
+package wp.FitnessCentar.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import wp.FitnessCentar.model.ClanFitnessCentra;
+
+public interface ClanRepository extends JpaRepository<ClanFitnessCentra, Long> {
+}
+

@@ -1,0 +1,96 @@
+package wp.FitnessCentar.controller;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.entity.Employee;
+import com.example.demo.entity.dto.EmployeeDTO;
+
+import wp.FitnessCentar.entity.dto.ClanDTO;
+import wp.FitnessCentar.model.Clan;
+import wp.FitnessCentar.service.ClanService;
+
+@RestController
+@RequestMapping(value = "/api/clan") //u value definisemo putanjuu do ovog kontrolera, localhost 8080/api/clan..
+public class ClanController {
+
+    private final ClanService clanService; //navedemo polje i napravimo mu konstruktor za emplcont koji prima kao par taj servis i taj par se dodeli polju emp.serv.
+
+    // constructor-based dependency injection
+    @Autowired
+    public ClanController(ClanService clanService) {
+        this.clanService = clanService;
+    }
+    
+    //dobavljanje 1 clana
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClanDTO> getClan(@PathVariable("id") Long id) {
+        // Pozivanjem metode servisa dobavljamo zaposlenog po ID-ju
+        Clan clan = this.clanService.findOne(id);
+
+        // Kreiramo objekat klase ClanDTO koji ćemo vratiti u odgovoru na zahtev
+        ClanDTO clanDTO = new ClanDTO();
+        clanDTO.setId(clan.getId());
+        clanDTO.setKorisnicko_ime(clan.getKorisnicko_ime());
+        clanDTO.setIme(clan.getIme());
+        clanDTO.setPrezime(clan.getPrezime());
+        clanDTO.setKontakt_telefon(clan.getKontakt_telefon());
+        clanDTO.setDatum_rodjenja(clan.getDatum_rodjenja());
+        clanDTO.setUloga(clan.getUloga());
+        
+        return new ResponseEntity<>(clanDTO, HttpStatus.OK);//prosl.sta ce biti body i sta ce biti statusni kod samog odg
+        }
+        
+    /*
+    Metoda za dobavljanje svih clanova
+  -----------------------------------------
+*/
+@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<List<ClanDTO>> getClanovi() {
+    // Pozivanjem metode servisa dobavljamo sve zaposlene
+    List<Clan> employeeList = this.clanService.findAll();
+
+    // Kreiramo listu DTO objekata koju ćemo vratiti u odgovoru na zahtev
+    List<ClanDTO> clanDTOS = new ArrayList<>();
+
+    for (Clan clan : clanList) {
+        // Kreiramo EmployeeDTO za svakog zaposlenog, kojeg je vratila metoda findAll()
+        // i ubacujemo ga u listu employeeDTOS
+        ClanDTO clanDTO = new ClanDTO(clan.getId(), clan.getKorisnicko_ime(),
+                clan.getIme(), clan.getPrezime(),clan.getKontakt_telefon(),clan.getDatum_rodjenja(),clan.getUloga());
+        clanDTOS.add(clanDTO);
+    }
+
+    // Vraćamo odgovor 200 OK, a kroz body odgovora šaljemo podatke o pronađenim zaposlenima
+    return new ResponseEntity<>(clanDTOS, HttpStatus.OK);
+}
+
+    //registracija novog clana
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Clan> createClan(@RequestBody Clan c) throws Exception {
+        // Kreiramo objekat klase Clan, tako što za vrednosti atributa uzimamo
+        // vrednosti iz primljenog DTO objekta
+        Clan clan = new Clan(c.getKorisnicko_ime(), c.getLozinka(),
+                c.getIme(),  c.getPrezime(),  c.getKontakt_telefon(), c.getEmail(),  c.getDatum_rodjenja(), c.getUloga());
+
+        // Pozivanjem metode servisa kreiramo novog zaposlenog
+        Clan newClan = clanService.create(clan);
+
+        // Vraćamo odgovor 201 CREATED, a kroz body odgovora šaljemo podatke o novokreiranom
+        // zaposlenom, uključujući i ID koji mu je dodeljen
+        return new ResponseEntity<>(newClan, HttpStatus.CREATED);
+    }
+}

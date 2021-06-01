@@ -1,0 +1,8 @@
+package Repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import wp.FitnessCentar.model.Ocena;
+
+public interface Ocena extends JpaRepository<Ocena, Long> {
+}
