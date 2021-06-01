@@ -49,7 +49,7 @@ public Clan create(Clan clan) throws Exception {
 }
 
 /*
-Brisanje zaposlenog.
+Brisanje clana.
 */
 @Override
 public void delete(Long id) {

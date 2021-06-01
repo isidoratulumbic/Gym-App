@@ -42,8 +42,8 @@ public class Trener implements Serializable{
 	@Column
 	private boolean aktivan;
 	
-	@Column
-	private double srednja_ocena;
+	/*@Column
+	private double srednja_ocena;*/
 	
 	
 	
@@ -56,13 +56,12 @@ public class Trener implements Serializable{
 		@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 		private FitnessCentar fitness_centar;
 
+		public Trener() {
+	    }
 		
-
-		public Trener(Long id, String korisnicko_ime, String lozinka, String ime, String prezime,
-				String kontakt_telefon, String email, String datum_rodjenja, String uloga, boolean aktivan,
-				Set<Trening> treninzi, FitnessCentar fitness_centar) {
+		public Trener(String korisnicko_ime, String lozinka, String ime, String prezime, String kontakt_telefon,
+				String email, String datum_rodjenja, String uloga) {
 			super();
-			this.id = id;
 			this.korisnicko_ime = korisnicko_ime;
 			this.lozinka = lozinka;
 			this.ime = ime;
@@ -71,10 +70,6 @@ public class Trener implements Serializable{
 			this.email = email;
 			this.datum_rodjenja = datum_rodjenja;
 			this.uloga = uloga;
-			this.aktivan = aktivan;
-			//this.srednja_ocena = srednja_ocena;
-			this.treninzi = treninzi;
-			this.fitness_centar = fitness_centar;
 		}
 
 		public Long getId() {
@@ -157,13 +152,13 @@ public class Trener implements Serializable{
 			this.aktivan = aktivan;
 		}
 
-		public double getSrednja_ocena() {
+		/*public double getSrednja_ocena() {
 			return srednja_ocena;
 		}
 
 		public void setSrednja_ocena(double srednja_ocena) {
 			this.srednja_ocena = srednja_ocena;
-		}
+		}*/
 
 		public Set<Trening> getTreninzi() {
 			return treninzi;

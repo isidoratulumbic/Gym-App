@@ -94,7 +94,7 @@ public ResponseEntity<List<ClanDTO>> getClanovi() {
     }
     
 /*
-    Metoda za brisanje postojećeg zaposlenog
+    Metoda za brisanje postojećeg clana
  */
 @DeleteMapping(value = "/{id}")
 public ResponseEntity<Void> deleteClan(@PathVariable Long id) {
