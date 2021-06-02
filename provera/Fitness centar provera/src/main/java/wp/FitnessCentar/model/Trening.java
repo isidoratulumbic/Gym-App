@@ -44,6 +44,23 @@ public class Trening implements Serializable{
 
 
 
+	public Trening() {
+    }
+
+
+
+
+	public Trening(Long id, String naziv, String opis, String tip_treninga, String trajanje) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.opis = opis;
+		this.tip_treninga = tip_treninga;
+		this.trajanje = trajanje;
+	}
+
+
+
 
 
 
