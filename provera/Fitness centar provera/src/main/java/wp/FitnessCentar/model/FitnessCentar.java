@@ -34,7 +34,9 @@ public class FitnessCentar implements Serializable{
 	@OneToMany(mappedBy = "fitness_centar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Sala> sale;
 
-	/*private Administrator administrator;*/
+	
+
+	private Administrator administrator;
 
 	public FitnessCentar() {
 	}
@@ -153,12 +155,11 @@ public class FitnessCentar implements Serializable{
 
 
 
-	/*public void setAdministrator(Administrator administrator) {
+	public void setAdministrator(Administrator administrator) {
 		this.administrator=administrator;
 		
-	}*/
-	
-	
-	
+	}
 
-}
+		
+	}
+	

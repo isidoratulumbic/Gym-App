@@ -9,7 +9,7 @@ public interface FitnessCentarService {
 	 
 	 FitnessCentar create(FitnessCentar fitnessCentar) throws Exception;
 
-/*	 FitnessCentar save(FitnessCentar fitnessCentar);*/
+	 FitnessCentar save(FitnessCentar fitnessCentar);
 
 	
 	

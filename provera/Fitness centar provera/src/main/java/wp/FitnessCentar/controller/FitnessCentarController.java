@@ -35,17 +35,19 @@ public class FitnessCentarController {
     public FitnessCentarController(FitnessCentarService fitnessCentarService) {
         this.fitnessCentarService = fitnessCentarService;
     }
-   /* @Autowired
+    @Autowired
 	private AdministratorService administratorService;
     
-    //dodavanje Fitness Centra od strane administratora
+    /*Dodavanje Fitness Centra od strane administratora
+     * 
+     */
     @PostMapping(
     		consumes=MediaType.APPLICATION_JSON_VALUE,
     		produces=MediaType.APPLICATION_JSON_VALUE)
     	public ResponseEntity<FitnessCentarDTOAdd> dodaj(@RequestBody FitnessCentarDTOAdd f) throws Exception	{
     	FitnessCentar fitnessCentar=new FitnessCentar(f.getNaziv(), f.getAdresa(), f.getBroj_telefona_centrale(), f.getEmail());
     		String a=f.getAdministrator();
-    		Administrator administrator=this.administratorService.findByKorisnicko_ime(a);
+    		Administrator administrator=this.administratorService.findByKorisnickoIme(a);
     	
     		if(administrator==null) {
     			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -59,7 +61,7 @@ public class FitnessCentarController {
     		}
     		
     		
-    	}*/
+    	}
     
     
     

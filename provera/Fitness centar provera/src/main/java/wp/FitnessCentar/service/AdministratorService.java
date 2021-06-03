@@ -13,11 +13,11 @@ public interface AdministratorService {
 	 
 	 Administrator create(Administrator administrator) throws Exception;
 
-	  void delete(Long id);
+	 void delete(Long id);
 
-	  Administrator Find(String korisnickoIme, String lozinka);
+	 Administrator Find(String korisnickoIme, String lozinka);
 	  
-	/*Administrator findByKorisnickoIme(String a);*/
+	 Administrator findByKorisnickoIme(String a);
 	
 
 }

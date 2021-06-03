@@ -14,7 +14,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, Lo
 	
 	Administrator findBykorisnickoImeAndLozinka(String korisnickoIme,String lozinka);
 	
-	/*Administrator findByKorisnickoIme(String korisnickoIme);*/
+	Administrator findByKorisnickoIme(String korisnickoIme);
 	
 }
 

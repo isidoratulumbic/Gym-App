@@ -78,11 +78,11 @@ putem korisnickog imena
 		Administrator a=this.administratorRepository.findBykorisnickoImeAndLozinka(korisnickoIme, lozinka);
 		return a;
 	}
-/*
+
 //za dodavanje fc
-public Administrator findByKorisnicko_ime(String korisnicko_ime) {
-	Administrator a=this.administratorRepository.findByKorisnicko_ime(korisnicko_ime);
+public Administrator findByKorisnickoIme(String korisnickoIme) {
+	Administrator a=this.administratorRepository.findByKorisnickoIme(korisnickoIme);
 	return  a;
-}*/
+}
 
 }

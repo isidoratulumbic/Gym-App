@@ -30,11 +30,11 @@ public class FitnessCentarServiceImpl implements FitnessCentarService {
         return newFitnessCentar;
     }
 
-	/*@Override
+	@Override
 	public FitnessCentar save(FitnessCentar f) {
 		return this.fitnessCentarRepository.save(f);
 		
-	}*/
+	}
 
 		
 	}
