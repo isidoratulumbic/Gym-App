@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.dto.ClanDTO;
+import wp.FitnessCentar.model.dto.ClanDTOReg;
 import wp.FitnessCentar.service.ClanService;
 
 @RestController
@@ -56,7 +57,6 @@ public class ClanController {
         
     /*
     Metoda za dobavljanje svih clanova
-  -----------------------------------------
 */
 @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public ResponseEntity<List<ClanDTO>> getClanovi() {
@@ -77,20 +77,26 @@ public ResponseEntity<List<ClanDTO>> getClanovi() {
     return new ResponseEntity<>(clanDTOS, HttpStatus.OK);
 }
 
-    //registracija novog clana
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Clan> createClan(@RequestBody Clan c) throws Exception {
-        
-        Clan clan = new Clan(c.getId(),c.getkorisnickoIme(), c.getLozinka(),
-                c.getIme(),  c.getPrezime(),  c.getKontakt_telefon(), c.getEmail(),  c.getDatum_rodjenja(), c.getUloga());
+  /*
+   * Registracija novog clana
+   */
+@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+	produces = MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<ClanDTOReg> createClan(@RequestBody ClanDTOReg clanDTOReg) throws Exception {
+	
+Clan clan = new Clan(clanDTOReg.getKorisnickoIme(), clanDTOReg.getLozinka(),
+		clanDTOReg.getIme(),clanDTOReg.getPrezime(), clanDTOReg.getKontakt_telefon(),clanDTOReg.getEmail(),clanDTOReg.getDatum_rodjenja(),clanDTOReg.getUloga());
 
-        
-        Clan newClan = clanService.create(clan);
 
-     
-        return new ResponseEntity<>(newClan, HttpStatus.CREATED);
-    }
+Clan newClan = clanService.create(clan);
+
+
+ClanDTOReg newClanDTOReg = new ClanDTOReg(newClan.getId(), newClan.getkorisnickoIme(),
+    newClan.getLozinka(), newClan.getIme(), newClan.getPrezime(),newClan.getKontakt_telefon(),newClan.getEmail(),newClan.getDatum_rodjenja(),newClan.getUloga());
+
+
+return new ResponseEntity<>(newClanDTOReg, HttpStatus.CREATED);
+}
     
 /*
     Metoda za brisanje postojećeg clana

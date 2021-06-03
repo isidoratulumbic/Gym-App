@@ -61,10 +61,23 @@ public class Clan implements Serializable{
 	    }
 
 
+	public Clan(String korisnickoIme, String lozinka, String ime, String prezime, String kontakt_telefon,
+			String email, String datum_rodjenja, String uloga) {
+		super();
+		this.korisnickoIme = korisnickoIme;
+		this.lozinka = lozinka;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.kontakt_telefon = kontakt_telefon;
+		this.email = email;
+		this.datum_rodjenja = datum_rodjenja;
+		this.uloga = uloga;
+	}
+
 	public Clan(Long id,String korisnickoIme, String lozinka, String ime, String prezime, String kontakt_telefon,
 			String email, String datum_rodjenja, String uloga) {
 		super();
-		this.id= id;
+		this.id=id;
 		this.korisnickoIme = korisnickoIme;
 		this.lozinka = lozinka;
 		this.ime = ime;

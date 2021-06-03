@@ -4,6 +4,7 @@ import java.util.List;
 
 import java.util.List;
 
+import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.Trener;
 
 public interface TrenerService {
@@ -13,7 +14,8 @@ public interface TrenerService {
 	 
 	 Trener create(Trener trener) throws Exception;
 
-	  void delete(Long id);
-
+	 void delete(Long id);
+     
+	  Trener Find(String korisnickoIme, String lozinka);
 }
 

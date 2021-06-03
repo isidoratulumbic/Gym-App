@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import wp.FitnessCentar.model.Trener;
+import wp.FitnessCentar.model.Trener;
 import wp.FitnessCentar.repository.TrenerRepository;
 import wp.FitnessCentar.service.TrenerService;
 
@@ -54,5 +55,23 @@ Brisanje trenera.
 public void delete(Long id) {
 this.trenerRepository.deleteById(id);
 }
-
+/*Prijava na sistem
+putem korisnickog imena 
+*/
+	public Trener prijava(String korisnickoIme) {
+		//vracam trenera sa tim korisnickoim imenom
+		Trener t=this.trenerRepository.findBykorisnickoIme(korisnickoIme);
+		if(t==null) {
+		
+			return null;
+		}
+		else {
+			return t;
+		}
+	}
+	
+	public Trener Find(String korisnickoIme,String lozinka) {
+		Trener t=this.trenerRepository.findBykorisnickoImeAndLozinka(korisnickoIme, lozinka);
+		return t;
+	}
 }

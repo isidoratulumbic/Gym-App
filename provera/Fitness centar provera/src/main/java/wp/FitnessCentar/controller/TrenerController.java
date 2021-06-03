@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import wp.FitnessCentar.model.Trener;
+import wp.FitnessCentar.model.Trener;
+import wp.FitnessCentar.model.dto.TrenerDTOReg;
 import wp.FitnessCentar.model.dto.TrenerDTO;
 import wp.FitnessCentar.service.TrenerService;
 
@@ -34,7 +35,7 @@ public class TrenerController {
         this.trenerService = trenerService;
     }
     
-    /*dobavljanje 1 clana
+    /*dobavljanje 1 trenera
      -----------------*/
      
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,7 +57,7 @@ public class TrenerController {
         }
         
     /*
-    Metoda za dobavljanje svih clanova
+    Metoda za dobavljanje svih trenera
   -----------------------------------------
 */
 @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -78,20 +79,26 @@ public ResponseEntity<List<TrenerDTO>> getTreneri() {
     return new ResponseEntity<>(trenerDTOS, HttpStatus.OK);
 }
 
-    //registracija novog trenera
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Trener> createTrener(@RequestBody Trener t) throws Exception {
-        
-    	Trener trener = new Trener(t.getKorisnickoIme(), t.getLozinka(),
-                t.getIme(),  t.getPrezime(),  t.getKontakt_telefon(), t.getEmail(),  t.getDatum_rodjenja(), t.getUloga());
+/*
+ * Registracija novog trenera
+ */
+@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+	produces = MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<TrenerDTOReg> createTrener(@RequestBody TrenerDTOReg trenerDTOReg) throws Exception {
+	
+Trener trener = new Trener(trenerDTOReg.getKorisnickoIme(), trenerDTOReg.getLozinka(),
+		trenerDTOReg.getIme(),trenerDTOReg.getPrezime(), trenerDTOReg.getKontakt_telefon(),trenerDTOReg.getEmail(),trenerDTOReg.getDatum_rodjenja(),trenerDTOReg.getUloga());
 
-        
-    	Trener newTrener = trenerService.create(trener);
 
-     
-        return new ResponseEntity<>(newTrener, HttpStatus.CREATED);
-    }
+Trener newTrener = trenerService.create(trener);
+
+
+TrenerDTOReg newTrenerDTOReg = new TrenerDTOReg(newTrener.getId(), newTrener.getKorisnickoIme(),
+  newTrener.getLozinka(), newTrener.getIme(), newTrener.getPrezime(),newTrener.getKontakt_telefon(),newTrener.getEmail(),newTrener.getDatum_rodjenja(),newTrener.getUloga());
+
+
+return new ResponseEntity<>(newTrenerDTOReg, HttpStatus.CREATED);
+}
     
 /*
     Metoda za brisanje postojećeg trenera
@@ -104,5 +111,22 @@ public ResponseEntity<Void> deleteTrener(@PathVariable Long id) {
  
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 }
+
+/* Logovanje tj pronalazenje trenera u bazi
+ */
+	@PostMapping(
+		value="/loginTrenera",
+		consumes = MediaType.APPLICATION_JSON_VALUE,     
+       produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Trener> login(@RequestBody Trener trener) throws Exception{
+		Trener t=this.trenerService.Find(trener.getKorisnickoIme(),trener.getLozinka());
+		if(t!=null) {
+			Trener povratna=new Trener(t.getId(),t.getKorisnickoIme(),t.getLozinka(),t.getIme(),t.getPrezime(),t.getKontakt_telefon(),t.getEmail(),t.getDatum_rodjenja(),t.getUloga());
+			System.out.println(povratna.getEmail());
+			return new ResponseEntity<>(povratna,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
 }
