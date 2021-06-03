@@ -25,8 +25,8 @@ public class AdministratorServiceImpl implements AdministratorService {
 */
 @Override
 public Administrator findOne(Long id) {
-	Administrator administrator = this.administratorRepository.getOne(id);
-    return administrator;
+	Administrator a = this.administratorRepository.getOne(id);
+    return a;
 }
 /*
 Prikaz svih administratora*/
@@ -37,6 +37,9 @@ List<Administrator> administrator = this.administratorRepository.findAll();
 return administrator;
 }
 
+public Administrator save(Administrator a) {
+	return this.administratorRepository.save(a);
+}
 
 @Override
 public Administrator create(Administrator administrator) throws Exception {
@@ -54,5 +57,11 @@ Brisanje administator.
 public void delete(Long id) {
 this.administratorRepository.deleteById(id);
 }
+/*
+//za dodavanje fc
+public Administrator findByKorisnicko_ime(String korisnicko_ime) {
+	Administrator a=this.administratorRepository.findByKorisnicko_ime(korisnicko_ime);
+	return  a;
+}*/
 
 }

@@ -44,7 +44,7 @@ public class AdministratorController {
        
     	AdministratorDTO administratorDTO = new AdministratorDTO();
     	administratorDTO.setId(administrator.getId());
-    	administratorDTO.setKorisnicko_ime(administrator.getKorisnicko_ime());
+    	administratorDTO.setKorisnickoIme(administrator.getKorisnickoIme());
     	administratorDTO.setIme(administrator.getIme());
     	administratorDTO.setPrezime(administrator.getPrezime());
     	administratorDTO.setKontakt_telefon(administrator.getKontakt_telefon());
@@ -68,7 +68,7 @@ public ResponseEntity<List<AdministratorDTO>> getAdministratori() {
 
     for (Administrator administrator: administratorList) {
         
-    	AdministratorDTO administratorDTO = new AdministratorDTO(administrator.getId(), administrator.getKorisnicko_ime(),
+    	AdministratorDTO administratorDTO = new AdministratorDTO(administrator.getId(), administrator.getKorisnickoIme(),
     			administrator.getIme(), administrator.getPrezime(),administrator.getKontakt_telefon(),administrator.getDatum_rodjenja(),administrator.getUloga());
     	administratorDTOS.add(administratorDTO);
     }
@@ -82,7 +82,7 @@ public ResponseEntity<List<AdministratorDTO>> getAdministratori() {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Administrator> createAdministrator(@RequestBody Administrator a) throws Exception {
         
-    	Administrator administrator = new Administrator(a.getKorisnicko_ime(), a.getLozinka(),
+    	Administrator administrator = new Administrator(a.getKorisnickoIme(), a.getLozinka(),
                 a.getIme(),  a.getPrezime(),  a.getKontakt_telefon(), a.getEmail(),  a.getDatum_rodjenja(), a.getUloga());
 
         

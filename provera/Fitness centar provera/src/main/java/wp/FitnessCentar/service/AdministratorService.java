@@ -14,4 +14,7 @@ public interface AdministratorService {
 
 	  void delete(Long id);
 
+	/*Administrator findByKorisnickoIme(String a);*/
+	
+
 }

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.dto.ClanDTO;
 import wp.FitnessCentar.service.ClanService;
@@ -45,7 +44,7 @@ public class ClanController {
        
         ClanDTO clanDTO = new ClanDTO();
         clanDTO.setId(clan.getId());
-        clanDTO.setKorisnicko_ime(clan.getKorisnicko_ime());
+        clanDTO.setkorisnickoIme(clan.getkorisnickoIme());
         clanDTO.setIme(clan.getIme());
         clanDTO.setPrezime(clan.getPrezime());
         clanDTO.setKontakt_telefon(clan.getKontakt_telefon());
@@ -69,7 +68,7 @@ public ResponseEntity<List<ClanDTO>> getClanovi() {
 
     for (Clan clan : clanList) {
         
-        ClanDTO clanDTO = new ClanDTO(clan.getId(), clan.getKorisnicko_ime(),
+        ClanDTO clanDTO = new ClanDTO(clan.getId(), clan.getkorisnickoIme(),
                 clan.getIme(), clan.getPrezime(),clan.getKontakt_telefon(),clan.getDatum_rodjenja(),clan.getUloga());
         clanDTOS.add(clanDTO);
     }
@@ -83,7 +82,7 @@ public ResponseEntity<List<ClanDTO>> getClanovi() {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Clan> createClan(@RequestBody Clan c) throws Exception {
         
-        Clan clan = new Clan(c.getKorisnicko_ime(), c.getLozinka(),
+        Clan clan = new Clan(c.getId(),c.getkorisnickoIme(), c.getLozinka(),
                 c.getIme(),  c.getPrezime(),  c.getKontakt_telefon(), c.getEmail(),  c.getDatum_rodjenja(), c.getUloga());
 
         
@@ -105,4 +104,20 @@ public ResponseEntity<Void> deleteClan(@PathVariable Long id) {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 }
 
+/* Logovanje tj pronalazenje clana u bazi
+  */
+	@PostMapping(
+		value="/loginClana",
+		consumes = MediaType.APPLICATION_JSON_VALUE,     
+        produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Clan> login(@RequestBody Clan clan) throws Exception{
+		Clan c=this.clanService.Find(clan.getkorisnickoIme(),clan.getLozinka());
+		if(c!=null) {
+			Clan povratna=new Clan(c.getId(),c.getkorisnickoIme(),c.getLozinka(),c.getIme(),c.getPrezime(),c.getKontakt_telefon(),c.getEmail(),c.getDatum_rodjenja(),c.getUloga());
+			System.out.println(povratna.getEmail());
+			return new ResponseEntity<>(povratna,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 }

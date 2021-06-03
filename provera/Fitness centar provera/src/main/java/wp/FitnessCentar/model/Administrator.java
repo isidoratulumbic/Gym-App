@@ -13,7 +13,7 @@ public class Administrator implements Serializable{
 	private Long id;
 	
 	@Column(nullable=false, unique= true)
-	private String korisnicko_ime;
+	private String korisnickoIme;
 	
 	@Column(nullable=false, unique= true)
 	private String lozinka;
@@ -42,10 +42,10 @@ public class Administrator implements Serializable{
 	 public Administrator() {
 	    }
 
-	public Administrator(String korisnicko_ime, String lozinka, String ime, String prezime, String kontakt_telefon,
+	public Administrator(String korisnickoIme, String lozinka, String ime, String prezime, String kontakt_telefon,
 			String email, String datum_rodjenja, String uloga) {
 		super();
-		this.korisnicko_ime = korisnicko_ime;
+		this.korisnickoIme = korisnickoIme;
 		this.lozinka = lozinka;
 		this.ime = ime;
 		this.prezime = prezime;
@@ -63,12 +63,12 @@ public class Administrator implements Serializable{
 		this.id = id;
 	}
 
-	public String getKorisnicko_ime() {
-		return korisnicko_ime;
+	public String getKorisnickoIme() {
+		return korisnickoIme;
 	}
 
-	public void setKorisnicko_ime(String korisnicko_ime) {
-		this.korisnicko_ime = korisnicko_ime;
+	public void setKorisnickoIme(String korisnickoIme) {
+		this.korisnickoIme = korisnickoIme;
 	}
 
 	public String getLozinka() {

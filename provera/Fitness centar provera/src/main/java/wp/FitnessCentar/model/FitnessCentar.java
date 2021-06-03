@@ -34,8 +34,26 @@ public class FitnessCentar implements Serializable{
 	@OneToMany(mappedBy = "fitness_centar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Sala> sale;
 
+	/*private Administrator administrator;*/
+
+	public FitnessCentar() {
+	}
 	
 	
+	
+	
+	public FitnessCentar( String naziv, String adresa, long broj_telefona_centrale, String email) {
+		super();
+		
+		this.naziv = naziv;
+		this.adresa = adresa;
+		this.broj_telefona_centrale = broj_telefona_centrale;
+		this.email = email;
+	}
+
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -131,6 +149,14 @@ public class FitnessCentar implements Serializable{
 		return "FitnessCentar [id=" + id + ", naziv=" + naziv + ", adresa=" + adresa + ", broj_telefona_centrale=" + broj_telefona_centrale+ ", email=" + email
 				+ "]";
 	}
+
+
+
+
+	/*public void setAdministrator(Administrator administrator) {
+		this.administrator=administrator;
+		
+	}*/
 	
 	
 	

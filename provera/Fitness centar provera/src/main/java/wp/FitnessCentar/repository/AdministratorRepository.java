@@ -9,6 +9,8 @@ import wp.FitnessCentar.model.Administrator;
 
 public interface AdministratorRepository extends JpaRepository<Administrator, Long> {
 	
+	/*Administrator findByKorisnickoIme(String korisnickoIme);*/
+	
 }
 
 

@@ -3,7 +3,7 @@ package wp.FitnessCentar.model.dto;
 public class ClanDTO {
 
     private Long id;
-    private String korisnicko_ime;
+    private String korisnickoIme;
     private String ime;
     private String prezime;
     private String kontakt_telefon;
@@ -13,11 +13,11 @@ public class ClanDTO {
     public ClanDTO() {
     }
     
-	public ClanDTO(Long id, String korisnicko_ime, String ime, String prezime,
+	public ClanDTO(Long id, String korisnickoIme, String ime, String prezime,
 			String kontakt_telefon, String datum_rodjenja, String uloga) {
 		super();
 		this.id = id;
-		this.korisnicko_ime = korisnicko_ime;
+		this.korisnickoIme = korisnickoIme;
 		this.ime = ime;
 		this.prezime = prezime;
 		this.kontakt_telefon = kontakt_telefon;
@@ -33,12 +33,12 @@ public class ClanDTO {
 		this.id = id;
 	}
 
-	public String getKorisnicko_ime() {
-		return korisnicko_ime;
+	public String getkorisnickoIme() {
+		return korisnickoIme;
 	}
 
-	public void setKorisnicko_ime(String korisnicko_ime) {
-		this.korisnicko_ime = korisnicko_ime;
+	public void setkorisnickoIme(String korisnickoIme) {
+		this.korisnickoIme = korisnickoIme;
 	}
 
 	public String getIme() {

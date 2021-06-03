@@ -45,7 +45,7 @@ public class TrenerController {
        
     	TrenerDTO trenerDTO = new TrenerDTO();
         trenerDTO.setId(trener.getId());
-        trenerDTO.setKorisnicko_ime(trener.getKorisnicko_ime());
+        trenerDTO.setKorisnickoIme(trener.getKorisnickoIme());
         trenerDTO.setIme(trener.getIme());
         trenerDTO.setPrezime(trener.getPrezime());
         trenerDTO.setKontakt_telefon(trener.getKontakt_telefon());
@@ -69,7 +69,7 @@ public ResponseEntity<List<TrenerDTO>> getTreneri() {
 
     for (Trener trener : trenerList) {
         
-    	TrenerDTO trenerDTO = new TrenerDTO(trener.getId(), trener.getKorisnicko_ime(),
+    	TrenerDTO trenerDTO = new TrenerDTO(trener.getId(), trener.getKorisnickoIme(),
     			trener.getIme(), trener.getPrezime(),trener.getKontakt_telefon(),trener.getDatum_rodjenja(),trener.getUloga());
        trenerDTOS.add(trenerDTO);
     }
@@ -83,7 +83,7 @@ public ResponseEntity<List<TrenerDTO>> getTreneri() {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Trener> createTrener(@RequestBody Trener t) throws Exception {
         
-    	Trener trener = new Trener(t.getKorisnicko_ime(), t.getLozinka(),
+    	Trener trener = new Trener(t.getKorisnickoIme(), t.getLozinka(),
                 t.getIme(),  t.getPrezime(),  t.getKontakt_telefon(), t.getEmail(),  t.getDatum_rodjenja(), t.getUloga());
 
         

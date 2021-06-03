@@ -13,4 +13,7 @@ public interface ClanService {
 
 	  void delete(Long id);
 
+	Clan Find(String korisnickoIme, String lozinka);
+	
+
 }

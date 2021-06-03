@@ -3,7 +3,7 @@ package wp.FitnessCentar.model.dto;
 public class TrenerDTO {
 
     private Long id;
-    private String korisnicko_ime;
+    private String korisnickoIme;
     private String ime;
     private String prezime;
     private String kontakt_telefon;
@@ -13,11 +13,11 @@ public class TrenerDTO {
     public TrenerDTO() {
     }
     
-	public TrenerDTO(Long id, String korisnicko_ime, String ime, String prezime,
+	public TrenerDTO(Long id, String korisnickoIme, String ime, String prezime,
 			String kontakt_telefon, String datum_rodjenja, String uloga) {
 		super();
 		this.id = id;
-		this.korisnicko_ime = korisnicko_ime;
+		this.korisnickoIme = korisnickoIme;
 		this.ime = ime;
 		this.prezime = prezime;
 		this.kontakt_telefon = kontakt_telefon;
@@ -33,12 +33,12 @@ public class TrenerDTO {
 		this.id = id;
 	}
 
-	public String getKorisnicko_ime() {
-		return korisnicko_ime;
+	public String getKorisnickoIme() {
+		return korisnickoIme;
 	}
 
-	public void setKorisnicko_ime(String korisnicko_ime) {
-		this.korisnicko_ime = korisnicko_ime;
+	public void setKorisnickoIme(String korisnickoIme) {
+		this.korisnickoIme = korisnickoIme;
 	}
 
 	public String getIme() {
