@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import wp.FitnessCentar.model.Administrator;
+import wp.FitnessCentar.model.Administrator;
+import wp.FitnessCentar.model.Administrator;
 import wp.FitnessCentar.model.dto.AdministratorDTO;
+import wp.FitnessCentar.model.dto.AdministratorDTOReg;
 import wp.FitnessCentar.service.AdministratorService;
 
 @RestController
@@ -33,7 +36,7 @@ public class AdministratorController {
         this.administratorService = administratorService;
     }
     
-    /*dobavljanje 1 administrator
+    /*dobavljanje 1 administratora
      -----------------*/
      
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,7 +59,6 @@ public class AdministratorController {
         
     /*
     Metoda za dobavljanje svih administratora
-  -----------------------------------------
 */
 @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public ResponseEntity<List<AdministratorDTO>> getAdministratori() {
@@ -77,20 +79,26 @@ public ResponseEntity<List<AdministratorDTO>> getAdministratori() {
     return new ResponseEntity<>(administratorDTOS, HttpStatus.OK);
 }
 
-    //registracija novog administratora
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Administrator> createAdministrator(@RequestBody Administrator a) throws Exception {
-        
-    	Administrator administrator = new Administrator(a.getKorisnickoIme(), a.getLozinka(),
-                a.getIme(),  a.getPrezime(),  a.getKontakt_telefon(), a.getEmail(),  a.getDatum_rodjenja(), a.getUloga());
+/*
+ * Registracija novog administratora
+ */
+@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+	produces = MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<AdministratorDTOReg> createAdministrator(@RequestBody AdministratorDTOReg administratorDTOReg) throws Exception {
+	
+Administrator administrator = new Administrator(administratorDTOReg.getKorisnickoIme(), administratorDTOReg.getLozinka(),
+		administratorDTOReg.getIme(),administratorDTOReg.getPrezime(), administratorDTOReg.getKontakt_telefon(),administratorDTOReg.getEmail(),administratorDTOReg.getDatum_rodjenja(),administratorDTOReg.getUloga());
 
-        
-    	Administrator newAdministrator = administratorService.create(administrator);
 
-     
-        return new ResponseEntity<>(newAdministrator, HttpStatus.CREATED);
-    }
+Administrator newAdministrator = administratorService.create(administrator);
+
+
+AdministratorDTOReg newAdministratorDTOReg = new AdministratorDTOReg(newAdministrator.getId(), newAdministrator.getKorisnickoIme(),
+  newAdministrator.getLozinka(), newAdministrator.getIme(), newAdministrator.getPrezime(),newAdministrator.getKontakt_telefon(),newAdministrator.getEmail(),newAdministrator.getDatum_rodjenja(),newAdministrator.getUloga());
+
+
+return new ResponseEntity<>(newAdministratorDTOReg, HttpStatus.CREATED);
+}
     
 /*
     Metoda za brisanje postojećeg administratora
@@ -104,4 +112,20 @@ public ResponseEntity<Void> deleteAdministrator(@PathVariable Long id) {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 }
 
+/* Logovanje tj pronalazenje administratora u bazi
+ */
+	@PostMapping(
+		value="/loginAdministratora",
+		consumes = MediaType.APPLICATION_JSON_VALUE,     
+       produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Administrator> login(@RequestBody Administrator administrator) throws Exception{
+		Administrator a=this.administratorService.Find(administrator.getKorisnickoIme(),administrator.getLozinka());
+		if(a!=null) {
+			Administrator povratna=new Administrator(a.getId(),a.getKorisnickoIme(),a.getLozinka(),a.getIme(),a.getPrezime(),a.getKontakt_telefon(),a.getEmail(),a.getDatum_rodjenja(),a.getUloga());
+			System.out.println(povratna.getEmail());
+			return new ResponseEntity<>(povratna,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 }

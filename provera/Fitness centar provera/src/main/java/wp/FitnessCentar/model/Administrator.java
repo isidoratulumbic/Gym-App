@@ -54,6 +54,22 @@ public class Administrator implements Serializable{
 		this.datum_rodjenja = datum_rodjenja;
 		this.uloga = uloga;
 	}
+	
+	
+	public Administrator(Long id, String korisnickoIme, String lozinka, String ime, String prezime,
+			String kontakt_telefon, String email, String datum_rodjenja, String uloga) {
+		super();
+		this.id = id;
+		this.korisnickoIme = korisnickoIme;
+		this.lozinka = lozinka;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.kontakt_telefon = kontakt_telefon;
+		this.email = email;
+		this.datum_rodjenja = datum_rodjenja;
+		this.uloga = uloga;
+		
+	}
 
 	public Long getId() {
 		return id;

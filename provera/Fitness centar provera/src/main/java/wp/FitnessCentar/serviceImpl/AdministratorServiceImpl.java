@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import wp.FitnessCentar.model.Administrator;
+import wp.FitnessCentar.model.Administrator;
 import wp.FitnessCentar.repository.AdministratorRepository;
 import wp.FitnessCentar.service.AdministratorService;
 
@@ -57,6 +58,26 @@ Brisanje administator.
 public void delete(Long id) {
 this.administratorRepository.deleteById(id);
 }
+
+/*Prijava na sistem
+putem korisnickog imena 
+*/
+	public Administrator prijava(String korisnickoIme) {
+		//vracam administratora sa tim korisnickoim imenom
+		Administrator a=this.administratorRepository.findBykorisnickoIme(korisnickoIme);
+		if(a==null) {
+		
+			return null;
+		}
+		else {
+			return a;
+		}
+	}
+	
+	public Administrator Find(String korisnickoIme,String lozinka) {
+		Administrator a=this.administratorRepository.findBykorisnickoImeAndLozinka(korisnickoIme, lozinka);
+		return a;
+	}
 /*
 //za dodavanje fc
 public Administrator findByKorisnicko_ime(String korisnicko_ime) {
