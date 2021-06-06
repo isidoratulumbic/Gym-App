@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import wp.FitnessCentar.model.Administrator;
 import wp.FitnessCentar.model.FitnessCentar;
+import wp.FitnessCentar.model.dto.FitnessCentarDTO;
 import wp.FitnessCentar.model.dto.FitnessCentarDTOAdd;
 import wp.FitnessCentar.service.AdministratorService;
 import wp.FitnessCentar.service.FitnessCentarService;
@@ -60,14 +61,63 @@ public class FitnessCentarController {
     			return new ResponseEntity<>(fitnessCentarDTO,HttpStatus.OK);
     		}
     		
-    		
-    	}
+    }
+   /*dobavljanje 1 FC
+    	     -----------------*/
     
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FitnessCentarDTO> getFitnessCentar(@PathVariable("id") Long id) {
+        
+    	FitnessCentar fitnessCentar = this.fitnessCentarService.findOne(id);
+
+       
+    	FitnessCentarDTO fitnessCentarDTO = new FitnessCentarDTO();
+    	
+    	fitnessCentarDTO.setId(fitnessCentar.getId());
+    	fitnessCentarDTO.setNaziv(fitnessCentar.getNaziv());
+    	fitnessCentarDTO.setAdresa(fitnessCentar.getAdresa());
+    	fitnessCentarDTO.setBroj_telefona_centrale(fitnessCentar.getBroj_telefona_centrale());
+    	fitnessCentarDTO.setEmail(fitnessCentar.getEmail());
+        
+        
+        return new ResponseEntity<>(fitnessCentarDTO, HttpStatus.OK);
+        }
+    	     
+   
     
+    /*
+    Metoda za dobavljanje svih FC
+*/
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<FitnessCentarDTO>> getFitnessCentri() {
+		   
+		    List<FitnessCentar> fitnessCentarList = this.fitnessCentarService.findAll();
+
+		    
+		    List<FitnessCentarDTO> fitnessCentarDTOS = new ArrayList<>();
+
+		    for (FitnessCentar fitnessCentar : fitnessCentarList) {
+		        
+		    	FitnessCentarDTO fitnessCentarDTO = new FitnessCentarDTO(fitnessCentar.getId(), fitnessCentar.getNaziv(),
+		    			fitnessCentar.getAdresa(), fitnessCentar.getBroj_telefona_centrale(),fitnessCentar.getEmail());
+		    	fitnessCentarDTOS.add(fitnessCentarDTO);
+		    }
+
+		    
+		    return new ResponseEntity<>(fitnessCentarDTOS, HttpStatus.OK);
+		}
     
+    /*
+    Metoda za brisanje postojećeg FC
+ */
+@DeleteMapping(value = "/{id}")
+public ResponseEntity<Void> deleteFitnessCentar(@PathVariable Long id) {
     
-    
-    
+    this.fitnessCentarService.delete(id);
+
+ 
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+}
     
 }
 

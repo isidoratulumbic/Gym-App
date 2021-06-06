@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Prijava</title>
+    <title>Employees</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
@@ -23,8 +23,7 @@
 <body>
 
 
-	<div style="background-image: url('1.jpg');">
-<!-- navigacijski meni-->
+	<!-- navigacijski meni-->
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 			<a href="#" class="navbar-brand">
 				<img src="/images/logo.jpg" height="28" alt="CoolBrand">
@@ -50,85 +49,35 @@
 				
 			</div>
 		</nav>
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div style="background-color: #8585ad" class="col-sm-2 sidenav">
+      <p><a href="sortirani.html">Sortiraj treninge</a></p>
+      
+    </div>
+    <div class="col-sm-8 text-left">
+		 <h2>Pregled svih treninga</h2>
+			<table style = background-color:#ffffff class="table table-dark table-striped" id="pregledSvihTreninga">
+
+				<thead>
+      					<tr>
+      
+       						<th scope="col">Naziv</th>
+					        <th scope="col">Opis</th>
+					        <th scope="col">Tip Treninga</th>
+					        <th scope="col">Trajanje</th>
+					        <th scope="col">Ocena</th>
+					    
+      					</tr>
+     			</thead>
+     		
+ 			 </table>
 		
-	
-<!-- kartica sa loginom -->
-		<div class="container" id="kartica">
-			<div class="d-flex justify-content-center h-100">
-				<div class="card">
-					<div class="card-header">
-						<h3>Prijava</h3>
-						
-					</div>
-					<div class="card-body">
-						<form id="loginForm">
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
-								<input type="text" class="form-control" id="korisnickoIme" placeholder="Korisnicčko ime" required>
-								
-							</div>
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-key"></i></span>
-								</div>
-								<input type="password" class="form-control" id="lozinka" placeholder="Lozinka" required>
-							</div>
-							<div class="row align-items-center remember">
-								<input type="checkbox">Zapamti me
-							</div>
-							<div class="form-group">
-								<input type="submit" value="Prijavi se" class="btn float-right login_btn">
-							</div>
-						</form>
-					</div>
-					<div class="card-footer">
-						<div class="d-flex justify-content-center links">
-							Niste prijavljeni?
-						</div>
-						<div class="d-flex justify-content-center">
-							<a href="register.html">Registrujte se</a>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
-
-
-<!-- IZGLED PROFILA-PRIKAZE SE TEK NAKON STO SE NEKO ULOGUJE -->
-<div id="profil1" class="container my-5 py-5 z-depth-1 d-none" >
-	
-	
-	  <!--Section: Content-->
-	  <section class="text-center">
-	
-	    <!-- Section heading -->
-	    <h3 class="font-weight-bold ">MOJ PROFIL</h3>
-		<hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 200px;">
-	
-	    <div class="row">
-	    <!-- DEO ZA ADMINISTRATORA -->
-	      <div class="col-lg-6 d-none" id="admininistrator">
-	
-	        <img src="/images/profil1.png" style="width:30%"/>
-	    
-	     	<a href="registracijaTrenera.html" style="text-decoration : none">
-			<button type="button" class="btn btn-outline-danger btn-lg btn-block">Registracija trenera</button>
-	        </a>
-	       <a href="treneri.html" style="text-decoration : none">
-			<button type="button" class="btn btn-outline-danger btn-lg btn-block">Uklanjanje trenera</button>
-			</a>
-			
-		  <a href="#" class="btn btn-outline-danger btn-lg btn-block dropdown-toggle" data-toggle="dropdown">FitnessCentar</a>
-			<div class="menii dropdown-menu">
-				<a class="dropdown-item btn btn-outline-danger btn-lg btn-block" href="dodavanjeFC.html">Dodavanje Fitness Centra</a>
-				<a class="dropdown-item btn btn-outline-danger btn-lg btn-block" href="uklanjanje FC.html">Uklanjanje I izmene</a>
-				
-			</div>
-		</div>
-
-		 <!-- Footer -->
+   </div>
+ </div>
+		
+  <!-- Footer -->
 <footer class="footer bg-dark text-white">
 
   <!-- Footer Links -->
@@ -221,16 +170,3 @@
   <!-- Copyright -->
 		
 				
-			
-				
-		
-
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-	
-</body>
-	
-</html>
-
-		

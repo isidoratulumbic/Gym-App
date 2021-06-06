@@ -36,6 +36,11 @@ public class AdministratorController {
         this.administratorService = administratorService;
     }
     
+    @GetMapping("/pocetna")
+    public String welcome() {
+        return "pocetna.html";
+	}
+    
     /*dobavljanje 1 administratora
      -----------------*/
      

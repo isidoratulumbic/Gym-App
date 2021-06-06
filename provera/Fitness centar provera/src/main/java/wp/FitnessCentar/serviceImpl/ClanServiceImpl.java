@@ -57,6 +57,7 @@ public void delete(Long id) {
 this.clanRepository.deleteById(id);
 }
 
+
 /*Prijava na sistem
 putem korisnickog imena 
 */

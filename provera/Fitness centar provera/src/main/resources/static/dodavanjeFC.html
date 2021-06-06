@@ -1,15 +1,13 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Registracija</title>
+	<title>Register</title>
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	 
-	  <script src="/js/jquery.min.js"></script>
-	   <script type="text/javascript" src="/js/registracijaTrenera.js"></script>
-	 
-	 
-	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
@@ -22,15 +20,14 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="/css/register.css"/>	
-	
+	<link rel="stylesheet" type="text/css" href="/css/dodavanjeFC.css"/>	
+	 <script src="/js/jquery.min.js"></script>
+	   <script type="text/javascript" src="/js/dodavanjeFC.js"></script>	
 </head>
 	
 <body>
-
-	<div style="background-image: url('1.jpg');">
+<div style="background-image: url('1.jpg');">
 <!-- navigacijski meni-->
-		<!-- navigacijski meni-->
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 			<a href="#" class="navbar-brand">
 				<img src="/images/logo.jpg" height="28" alt="CoolBrand">
@@ -56,103 +53,72 @@
 				
 			</div>
 		</nav>
+ 
 		
-
-		
-		<!-- kartica za registraciju tj forma -->
-		
+		<!-- kartica sa loginom -->
 		<div class="container">
 			<div class="d-flex justify-content-center h-100">
-				<div class="card">
+				<div class="card" style="height:450px">
 					<div class="card-header">
-						<h3>Registracija</h3>
+						<h3>Dodavanje Fitness Centra:</h3>
 					</div>
 					<div class="card-body">
-						<form id="registerForm">
+						<form id="formFitnessCentar">
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
+									<span class="input-group-text"><i class="fa fa-angle-right"></i></span>
 								</div>
-								<input type="text" id="korisnickoIme" class="form-control" placeholder="Korisničko ime" required>
+								<input type="text" id="naziv" class="form-control" placeholder="Naziv Fitness Centra" required>
 								
 							</div>
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-key"></i></span>
+									<span class="input-group-text"><i class="fa fa-address-card"></i></span>
 								</div>
-								<input type="password" id="lozinka" class="form-control" placeholder="Lozinka" required>
+								<input type="text" id="adresa" class="form-control" placeholder="Adresa" required>
 							</div>
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
-								<input type="text" id="ime" class="form-control" placeholder="Ime" required>
-								
-							</div>
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
-								<input type="text" id="prezime" class="form-control" placeholder="Prezime" required>
-								
-							</div>
-							 <div class="form-group input-group">
+							
+							<div class="form-group input-group">
 						    	<div class="input-group-prepend">
 								    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
 								</div>
 								
-					    		<input name=""  id="kontakt_telefon" class="form-control" placeholder="Kontakt telefon" type="text">
+					    		<input name=""  id="broj_telefona_centrale" class="form-control" placeholder="Broj centrale" type="text">
 					   		 </div>
 					   		
 					   		 <div class="form-group input-group">
 						    	<div class="input-group-prepend">
 								    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 								 </div>
-						        <input name="email" id="email" class="form-control" placeholder="Email adresa" type="email">
+						         <input name="" id="email" class="form-control" placeholder="Email adresa" type="email">
 						    </div>
-						     <div class="form-group input-group">
-						    	<div class="input-group-prepend">
-								    <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
-								 </div>
-						        <input name="" id="datum_rodjenja" class="form-control" placeholder="Datum rođenja" type="date">
-						    </div>
-						 <!--   
-						   <h1>Registrujete se kao?</h1>
-
-							<form action="/action_page.php">
- 								<input type="checkbox" >
-  								<label for="vehicle1"> Clan</label><br>
-  								<input type="checkbox" >
-  								<label for="vehicle2"> Trener</label><br>
- 								<input type="checkbox" >
- 								 <label for="vehicle3"> Administrator</label><br><br>
- 
-							</form>-->
-						   
-						 
 						    
-							<div class="row align-items-center remember">
-								<input type="checkbox">Zapamti me
-							</div>
+						    <div class="form-group input-group">
+						    	<div class="input-group-prepend">
+								    <span class="input-group-text"> <i class="fa fa-male"></i> </span>
+								 </div>
+						         <input name="" id="treneri" class="form-control" placeholder="Treneri" type="text">
+						    </div>
+						     
+						   
+						    
+							
 							<div class="form-group">
-								<input type="submit" value="Registruj se" class="btn float-right login_btn">
+								<input type="submit" value="Dodaj" class="btn float-right login_btn">
 							</div>
 						</form>
 					</div>
-					<div class="card-footer">
-						<div class="d-flex justify-content-center links">
-							Imate nalog?
-						</div>
-						<div class="d-flex justify-content-center">
-							<a href="login.html" >Prijavite se</a>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>
+
 		
 		
- <!-- Footer -->
+		
+		
+		
+		 <!-- Footer -->
 <footer class="footer bg-dark text-white">
 
   <!-- Footer Links -->
@@ -255,3 +221,5 @@
 	
 </body>
 	
+</html>
+

@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import wp.FitnessCentar.model.Termin;
 import wp.FitnessCentar.model.Trening;
 import wp.FitnessCentar.model.dto.TreningDTO;
+import wp.FitnessCentar.service.ClanService;
+import wp.FitnessCentar.service.TerminService;
 import wp.FitnessCentar.service.TreningService;
 
 @RestController
@@ -32,7 +35,8 @@ public class TreningController {
     public TreningController(TreningService treningService) {
         this.treningService = treningService;
     }
-    
+    @Autowired
+	private TerminService terminService;
     
     /*
     Metoda za dobavljanje svih treninga
@@ -50,76 +54,184 @@ public class TreningController {
         for (Trening trening : treningList) {
             
             TreningDTO treningDTO = new TreningDTO(trening.getId(), trening.getNaziv(),
-                    trening.getOpis(), trening.getTip_treninga(), trening.getTrajanje());
+                    trening.getOpis(), trening.getTipTreninga(), trening.getTrajanje(),trening.getSrednja_ocena());
             treningDTOS.add(treningDTO);
         }
 
         return new ResponseEntity<>(treningDTOS, HttpStatus.OK);
     }
     
-/* Pretraga treninga po kriterijumima */
-  /*  //f=t1
+    /*Dodavanje treninga
+     * 
+     */
+    @PostMapping(
+			value="/dodavanjeTreninga",
+			consumes=MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Trening> dodaj(@RequestBody TreningDTO t)throws Exception{
+		Trening trening=new Trening();
+		trening.setNaziv(t.getNaziv());
+		trening.setOpis(t.getOpis());
+		trening.setTipTreninga(t.getTipTreninga());
+		trening.setTrajanje(t.getTrajanje());
+		Double o=Double.parseDouble("0");
+		trening.setSrednja_ocena(o);
+		this.treningService.save(trening);
+		
+		return new ResponseEntity<>(trening,HttpStatus.OK);
+	}
+    
+    /*Sortiranje treninga po nazivu
+     * 
+     */
+    @GetMapping(
+			value="/sortNaziv",
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TreningDTO>> sortNaziv(){
+		List<Trening> treninzi=this.treningService.orderNaziv();
+	
+		
+		List<TreningDTO> treninziDTO=new ArrayList<>();
+		
+		for(Trening trening:treninzi) {
+			TreningDTO treningDTO=new TreningDTO(trening.getId(),trening.getNaziv(),trening.getOpis(),trening.getTipTreninga(),trening.getTrajanje(),trening.getSrednja_ocena());
+			treninziDTO.add(treningDTO);
+		}
+		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
+	}
+    
+    /*Sortiranje treninga po tipu
+     * 
+     */
+    @GetMapping(
+			value="/sortTip",
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TreningDTO>> sortTip(){
+		List<Trening> treninzi=this.treningService.orderTip();
+	
+		
+		List<TreningDTO> treninziDTO=new ArrayList<>();
+		
+		for(Trening trening:treninzi) {
+			TreningDTO treningDTO=new TreningDTO(trening.getId(),trening.getNaziv(),trening.getOpis(),trening.getTipTreninga(),trening.getTrajanje(),trening.getSrednja_ocena());
+			treninziDTO.add(treningDTO);
+		}
+		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
+	}
+    
+    /*Sortiranje treninga po opisu
+     * 
+     */
+    @GetMapping(
+			value="/sortOpis",
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TreningDTO>> sortOpis(){
+		List<Trening> treninzi=this.treningService.orderOpis();
+	
+		
+		List<TreningDTO> treninziDTO=new ArrayList<>();
+		
+		for(Trening trening:treninzi) {
+			TreningDTO treningDTO=new TreningDTO(trening.getId(),trening.getNaziv(),trening.getOpis(),trening.getTipTreninga(),trening.getTrajanje(),trening.getSrednja_ocena());
+			treninziDTO.add(treningDTO);
+		}
+		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
+	}
+    
+    
+    /*Sortiranje treninga po ceni
+     * 
+     */
+   /* @GetMapping(
+			value="/sortCena",
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TreningDTO>> sortCena(){
+		List<Trening> treninzi=this.treningService.orderCena();
+	
+		
+		List<TreningDTO> treninziDTO=new ArrayList<>();
+		
+		for(Trening trening:treninzi) {
+			TreningDTO treningDTO=new TreningDTO(trening.getId(),trening.getNaziv(),trening.getOpis(),trening.getTipTreninga(),trening.getTrajanje(),trening.getSrednja_ocena());
+			treninziDTO.add(treningDTO);
+		}
+		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
+	}*/
+    
+    /*Sortiranje treninga po vremenu termina
+     * 
+     */
+  /*  @GetMapping(
+			value="/sortVreme",
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TreningDTO>> sortVreme(){
+		List<Trening> treninzi=this.treningService.orderVreme();
+	
+		
+		List<TreningDTO> treninziDTO=new ArrayList<>();
+		
+		for(Trening trening:treninzi) {
+			TreningDTO treningDTO=new TreningDTO(trening.getId(),trening.getNaziv(),trening.getOpis(),trening.getTipTreninga(),trening.getTrajanje(),trening.getSrednja_ocena());
+			treninziDTO.add(treningDTO);
+		}
+		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
+	}
+    
+    */
+    
+    /*Pretraga treninga po kriterijumima*/
+     
     @PostMapping(
 			value="/pretragaTreninga",
 			consumes=MediaType.APPLICATION_JSON_VALUE,
 			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Trening>> pretraga(@RequestBody Trening t1)throws Exception{
+	public ResponseEntity<List<Trening>> pretraga(Trening t)throws Exception{
     	
 			List <Termin> termini = this.terminService.findAll();
-			List<Trening> traninzi = new ArrayList<>();
+			List<Trening> treninzi = new ArrayList<>();
 			//boolean puno = false; //ukoliko ostane na false znaci da nijedno polje nije popunjeno
 			
-			for(Termin t:termini)
+			for(Termin a:termini)
 			{
-				if(f.getNaziv()!="")
-					if(t.getTrening().getNaziv().equalsIgnoreCase(t1.getNaziv()))
+				if(t.getNaziv()!="")
+					if(a.getTrening().getNaziv().equalsIgnoreCase(t.getNaziv()))
 					{
-						treninzi.add(t.getTrening());
+						treninzi.add(a.getTrening());
 						
 						continue;
 					}
-				if(t1.getOpis()!="")
-					if(t.getTrening().getOpis().equalsIgnoreCase(t1.getOpis()))
+				if(t.getTipTreninga()!="")
+					if(a.getTrening().getTipTreninga().equalsIgnoreCase(t.getTipTreninga()))
 					{
-						treninzi.add(t.getTrening());
+						treninzi.add(a.getTrening());
 						continue;
 					}
-				if(f.getTip()!="")
-					if(t.getTrening().getTip().equalsIgnoreCase(t1.getTip()))
+				if(t.getOpis()!="")
+					if(a.getTrening().getOpis().equalsIgnoreCase(t.getOpis()))
 					{
-						treninzi.add(t.getTrening());
+						treninzi.add(a.getTrening());
 						continue;
 					}
-				if(f.getOcena()!=0)
-					if(p.getFilm().getOcena()==(f.getOcena()))
-					{
-						filmovi.add(p.getFilm());
-						continue;
-					}
+			
+    
+				
 				
 			/*	if(f.getCena()!=0)
-					if(p.getFilm().getCena()==(f.getCena()))
+					if(p.getTrening().getCena()==(f.getCena()))
 					{
-						filmovi.add(p.getFilm());
-						return new ResponseEntity<>(filmovi,HttpStatus.OK);
-					
-				if(f.getZanr()!="")
-					if(p.getFilm().getZanr().equalsIgnoreCase(f.getZanr()))
-					{
-						filmovi.add(p.getFilm());
-						return new ResponseEntity<>(filmovi,HttpStatus.OK);
-					}*/
+						treninzi.add(p.getTrening());
+						return new ResponseEntity<>(treninzi,HttpStatus.OK);
 				
 				
-		/*		
-			}
-			if(filmovi.isEmpty())
+				
+			}*/
+			if(treninzi.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			
-			return new ResponseEntity<>(filmovi,HttpStatus.OK);
+			return new ResponseEntity<>(treninzi,HttpStatus.OK);
 		}
 		
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
-	}*/
+	}
 }

@@ -5,20 +5,22 @@ public class TreningDTO {
 	private Long id;
 	private String naziv;
 	private String opis;
-	private String tip_treniniga;
+	private String tipTreninga;
 	private String trajanje;
+	private Double srednjaOcjena;
 	
 	public TreningDTO() {
 		
 	}
 
-	public TreningDTO(Long id, String naziv, String opis, String tip_treniniga, String trajanje) {
+	public TreningDTO(Long id, String naziv, String opis, String tipTreninga, String trajanje,Double srednjaOcjena) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
 		this.opis = opis;
-		this.tip_treniniga = tip_treniniga;
+		this.tipTreninga = tipTreninga;
 		this.trajanje = trajanje;
+		this.srednjaOcjena = srednjaOcjena;
 	}
 
 	public Long getId() {
@@ -45,12 +47,12 @@ public class TreningDTO {
 		this.opis = opis;
 	}
 
-	public String getTip_treniniga() {
-		return tip_treniniga;
+	public String getTipTreninga() {
+		return tipTreninga;
 	}
 
-	public void setTip_treniniga(String tip_treniniga) {
-		this.tip_treniniga = tip_treniniga;
+	public void setTipTreninga(String tipTreninga) {
+		this.tipTreninga = tipTreninga;
 	}
 
 	public String getTrajanje() {
@@ -61,7 +63,12 @@ public class TreningDTO {
 		this.trajanje = trajanje;
 	}
 	
-	
+	public Double getSrednjaOcjena() {
+		return srednjaOcjena;
+	}
+	public void setSrednjaOcjena(Double srednjaOcjena) {
+		this.srednjaOcjena = srednjaOcjena;
+	}
 
 
 }

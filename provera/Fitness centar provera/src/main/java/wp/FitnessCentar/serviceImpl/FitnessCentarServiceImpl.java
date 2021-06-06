@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.FitnessCentar;
 import wp.FitnessCentar.repository.FitnessCentarRepository;
 import wp.FitnessCentar.service.FitnessCentarService;
@@ -37,4 +38,29 @@ public class FitnessCentarServiceImpl implements FitnessCentarService {
 	}
 
 		
+	  /*
+    Dobavljanje FC po ID-iju.
+    Metoda vraća pronađenog FC, ako postoji.
+*/
+@Override
+public FitnessCentar findOne(Long id) {
+    FitnessCentar fitnessCentar = this.fitnessCentarRepository.getOne(id);
+    return fitnessCentar;
+}
+/*
+Prikaz svih FC */
+
+@Override
+public List<FitnessCentar> findAll() {
+List<FitnessCentar> fitnessCentar = this.fitnessCentarRepository.findAll();
+return fitnessCentar;
+}
+
+/*
+Brisanje FC.
+*/
+@Override
+public void delete(Long id) {
+this.fitnessCentarRepository.deleteById(id);
+}
 	}
