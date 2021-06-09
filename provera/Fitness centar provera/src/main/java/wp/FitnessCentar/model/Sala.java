@@ -24,7 +24,7 @@ public class Sala implements Serializable{
 	private FitnessCentar fitness_centar;
 
 	@OneToMany(mappedBy="sala_treninga", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Termin> termini;
+	private Set<Termin> termini=new HashSet<>();
 	
 	
 	

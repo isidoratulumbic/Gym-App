@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import wp.FitnessCentar.model.Trener;
 import wp.FitnessCentar.model.Trener;
 import wp.FitnessCentar.model.dto.TrenerDTOReg;
 import wp.FitnessCentar.model.dto.TrenerDTO;
+import wp.FitnessCentar.model.dto.TrenerDTOPrijava;
 import wp.FitnessCentar.service.TrenerService;
 
 @RestController
@@ -99,10 +102,19 @@ TrenerDTOReg newTrenerDTOReg = new TrenerDTOReg(newTrener.getId(), newTrener.get
 
 return new ResponseEntity<>(newTrenerDTOReg, HttpStatus.CREATED);
 }
-    
-/*
-    Metoda za brisanje postojećeg trenera
- */
+
+
+//za registraciju trenera od strane admina
+@PostMapping(
+		value="/sacuvajTrenera",
+		consumes=MediaType.APPLICATION_JSON_VALUE,
+		produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Trener> registrujtrenera(@RequestBody Trener t) throws Exception{
+		Trener trener=new Trener(t.getId(),t.getKorisnickoIme(),t.getLozinka(),t.getIme(),t.getPrezime(),t.getKontakt_telefon(),t.getEmail(),t.getDatum_rodjenja(),t.getUloga());
+		Trener noviTrener=trenerService.registracija(trener);
+		return new ResponseEntity<>(noviTrener,HttpStatus.OK);
+	}
+
 @DeleteMapping(value = "/{id}")
 public ResponseEntity<Void> deleteTrener(@PathVariable Long id) {
     
@@ -127,6 +139,28 @@ public ResponseEntity<Void> deleteTrener(@PathVariable Long id) {
 		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	@PostMapping("/login")
+	public ResponseEntity<?> prijava(@RequestBody TrenerDTOPrijava trenerDTOPrijava) {
+		Trener trener;
+		try {
+			trener=this.trenerService.checkKorisnickoIme(trenerDTOPrijava);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+		}
+		if(trener==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		if(!(this.trenerService.prijava(trenerDTOPrijava, trener))) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Trener>(trener, HttpStatus.OK);
+	}
+	@GetMapping("/profilTrenera/{id}")
+	public String account(@PathVariable(name = "id") Long id,Model model) {
+		Trener trener=this.trenerService.findOne(id);
+		model.addAttribute("trener", trener);
+		return "trenerNaslovna.html";
 	}
 
 }

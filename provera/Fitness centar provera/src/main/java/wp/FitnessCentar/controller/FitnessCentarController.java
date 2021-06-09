@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import wp.FitnessCentar.model.Administrator;
+import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.FitnessCentar;
+import wp.FitnessCentar.model.dto.ClanDTOReg;
 import wp.FitnessCentar.model.dto.FitnessCentarDTO;
-import wp.FitnessCentar.model.dto.FitnessCentarDTOAdd;
+
 import wp.FitnessCentar.service.AdministratorService;
 import wp.FitnessCentar.service.FitnessCentarService;
 
@@ -36,32 +40,29 @@ public class FitnessCentarController {
     public FitnessCentarController(FitnessCentarService fitnessCentarService) {
         this.fitnessCentarService = fitnessCentarService;
     }
-    @Autowired
-	private AdministratorService administratorService;
     
-    /*Dodavanje Fitness Centra od strane administratora
-     * 
-     */
-    @PostMapping(
-    		consumes=MediaType.APPLICATION_JSON_VALUE,
-    		produces=MediaType.APPLICATION_JSON_VALUE)
-    	public ResponseEntity<FitnessCentarDTOAdd> dodaj(@RequestBody FitnessCentarDTOAdd f) throws Exception	{
-    	FitnessCentar fitnessCentar=new FitnessCentar(f.getNaziv(), f.getAdresa(), f.getBroj_telefona_centrale(), f.getEmail());
-    		String a=f.getAdministrator();
-    		Administrator administrator=this.administratorService.findByKorisnickoIme(a);
-    	
-    		if(administrator==null) {
-    			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    		}
-    		else {
-    			fitnessCentar.setAdministrator(administrator);
-    			this.fitnessCentarService.save(fitnessCentar);
-    			
-    			FitnessCentarDTOAdd fitnessCentarDTO=new FitnessCentarDTOAdd(fitnessCentar.getId(),fitnessCentar.getNaziv(),fitnessCentar.getAdresa(),fitnessCentar.getBroj_telefona_centrale(),fitnessCentar.getEmail());
-    			return new ResponseEntity<>(fitnessCentarDTO,HttpStatus.OK);
-    		}
-    		
+    
+   /*Dodavanje FC*/
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FitnessCentarDTO> createFitnessCentar(@RequestBody FitnessCentarDTO fitnessCentarDTO) throws Exception {
+        // Kreiramo objekat klase Employee, tako što za vrednosti atributa uzimamo
+        // vrednosti iz primljenog DTO objekta
+    	FitnessCentar fitnessCentar = new FitnessCentar(fitnessCentarDTO.getNaziv(), fitnessCentarDTO.getAdresa(),
+    			fitnessCentarDTO.getBroj_telefona_centrale(),fitnessCentarDTO.getEmail());
+
+        // Pozivanjem metode servisa kreiramo novog zaposlenog
+    	FitnessCentar newFitnessCentar = fitnessCentarService.create(fitnessCentar);
+
+        // Mapiramo novog zaposlenog na DTO objekat koji vraćamo kroz body odgovora
+    	FitnessCentarDTO newFitnessCentarDTO = new FitnessCentarDTO(newFitnessCentar.getId(), newFitnessCentar.getNaziv(),
+                newFitnessCentar.getAdresa(), newFitnessCentar.getBroj_telefona_centrale(),newFitnessCentar.getEmail());
+
+        // Vraćamo odgovor 201 CREATED, a kroz body odgovora šaljemo podatke o novokreiranom
+        // zaposlenom, uključujući i ID koji mu je dodeljen
+        return new ResponseEntity<>(newFitnessCentarDTO, HttpStatus.CREATED);
     }
+    
    /*dobavljanje 1 FC
     	     -----------------*/
     

@@ -4,6 +4,8 @@ import java.util.List;
 
 import wp.FitnessCentar.model.Administrator;
 import wp.FitnessCentar.model.Clan;
+import wp.FitnessCentar.model.dto.AdministratorDTOPrijava;
+import wp.FitnessCentar.model.dto.ClanDTOPrijava;
 
 
 public interface AdministratorService {
@@ -18,6 +20,11 @@ public interface AdministratorService {
 	 Administrator Find(String korisnickoIme, String lozinka);
 	  
 	 Administrator findByKorisnickoIme(String a);
+	 
+	 boolean prijava(AdministratorDTOPrijava administratorDTOPrijava, Administrator administrator);
+		
+	Administrator checkKorisnickoIme(AdministratorDTOPrijava administratorDTOPrijava);
+
 	
 
 }

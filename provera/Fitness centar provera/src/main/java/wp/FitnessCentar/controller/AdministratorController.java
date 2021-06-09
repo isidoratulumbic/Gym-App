@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,9 @@ import wp.FitnessCentar.model.Administrator;
 import wp.FitnessCentar.model.Administrator;
 import wp.FitnessCentar.model.Administrator;
 import wp.FitnessCentar.model.dto.AdministratorDTO;
+import wp.FitnessCentar.model.dto.AdministratorDTOPrijava;
 import wp.FitnessCentar.model.dto.AdministratorDTOReg;
+import wp.FitnessCentar.model.dto.ClanDTOPrijava;
 import wp.FitnessCentar.service.AdministratorService;
 
 @RestController
@@ -117,20 +120,27 @@ public ResponseEntity<Void> deleteAdministrator(@PathVariable Long id) {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 }
 
-/* Logovanje tj pronalazenje administratora u bazi
- */
-	@PostMapping(
-		value="/loginAdministratora",
-		consumes = MediaType.APPLICATION_JSON_VALUE,     
-       produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Administrator> login(@RequestBody Administrator administrator) throws Exception{
-		Administrator a=this.administratorService.Find(administrator.getKorisnickoIme(),administrator.getLozinka());
-		if(a!=null) {
-			Administrator povratna=new Administrator(a.getId(),a.getKorisnickoIme(),a.getLozinka(),a.getIme(),a.getPrezime(),a.getKontakt_telefon(),a.getEmail(),a.getDatum_rodjenja(),a.getUloga());
-			System.out.println(povratna.getEmail());
-			return new ResponseEntity<>(povratna,HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+
+@PostMapping("/login")
+public ResponseEntity<?> prijava(@RequestBody AdministratorDTOPrijava administratorDTOPrijava) {
+	Administrator administrator;
+	try {
+		administrator=this.administratorService.checkKorisnickoIme(administratorDTOPrijava);
+	} catch (Exception e) {
+		return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
 	}
+	if(administrator==null) {
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	if(!(this.administratorService.prijava(administratorDTOPrijava, administrator))) {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	return new ResponseEntity<Administrator>(administrator, HttpStatus.OK);
+}
+@GetMapping("/profilAdministratora/{id}")
+public String account(@PathVariable(name = "id") Long id,Model model) {
+	Administrator administrator=this.administratorService.findOne(id);
+	model.addAttribute("administrator", administrator);
+	return "administratorNaslovna.html";
+}
 }

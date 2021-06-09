@@ -7,6 +7,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Trener implements Serializable{
@@ -46,19 +48,28 @@ public class Trener implements Serializable{
 	private double srednja_ocena;*/
 	
 	
-	
+	@JsonIgnore
 	 @ManyToMany
 	    @JoinTable(name = "trener_trening",
 	    joinColumns = @JoinColumn(name = "trener_id", referencedColumnName = "id"),
 	    inverseJoinColumns = @JoinColumn(name = "trening_id", referencedColumnName = "id"))
 		private Set<Trening> treninzi;
 
-		@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+		@JsonIgnore
+		@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 		private FitnessCentar fitness_centar;
 
 		public Trener() {
 	    }
 		
+		
+		public Trener(Set<Trening> treninzi, FitnessCentar fitness_centar) {
+			super();
+			this.treninzi = treninzi;
+			this.fitness_centar = fitness_centar;
+		}
+
+
 		public Trener(Long id,String korisnickoIme, String lozinka, String ime, String prezime, String kontakt_telefon,
 				String email, String datum_rodjenja, String uloga) {
 			super();

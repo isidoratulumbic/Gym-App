@@ -103,7 +103,7 @@ section hr{
 
 }
 
-<!--Za bioskope-->
+
 .row{
 	margin-bottom:10px;
 }
@@ -118,7 +118,7 @@ section hr{
 }
 
 #kartica{
-	background-image: url("bioskop1.jpg");
+	background-image: url("2.jpg");
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
@@ -200,7 +200,7 @@ color:#dc3545;
 	padding:30px 30px;
 }
 
-#filmPrikaz{
+#Prikaz{
 	color:white;
 	padding:0px;
 }

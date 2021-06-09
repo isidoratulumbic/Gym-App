@@ -8,4 +8,6 @@ public interface TerminService {
 	
 	List<Termin> findAll();
 
+	List<Termin> orderCena();
+
 }

@@ -1,20 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>pocetna</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
-  <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">	
-  <link rel="stylesheet"  href="/css/naslovna.css"/>
+	<title>Pretraga</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+  	<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
+  	<link rel="stylesheet"  href="/css/drop.css"/>	
+  	
+  		<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-  		
-	</head>
-	<body>
-	<div style="background-image: url('1.jpg');">
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="/css/dodavanjeFC.css"/>	
+	 <script src="/js/jquery.min.js"></script>
+	   <script type="text/javascript" src="/js/pretraga.js"></script>	
+</head>
+	
+<body>
+<div style="background-image: url('1.jpg');">
 <!-- navigacijski meni-->
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 			<a href="#" class="navbar-brand">
@@ -33,59 +46,189 @@
 					
 				</div>
 				<div class="navbar-nav ml-auto">
-					<a  href="prijava.html" class="nav-item nav-link">Prijava</a>
-					<a href="registracija.html" class="nav-item nav-link">Registracija člana</a>
-					<a href="registracijaTrenera.html" class="nav-item nav-link">Registracija trenera</a>
-					<a href="registracijaAdministratora.html" class="nav-item nav-link">Registracija administratora</a>
+					<div class="dropdown">
+                    <button class="dropbtn">Prijava</button>
+                    <div class="dropdown-content">
+                    <a href="prijava.html">Prijava člana</a>
+                    <a href="prijavaAdm.html">Prijava administratora</a>
+                    <a href="prijavaTrenera.html">Prijava trenera</a>
+                    </div>
+                     </div>
+                     <div class="dropdown">
+                    <button class="dropbtn">Registracija</button>
+                    <div class="dropdown-content">
+                    <a href="registracija.html">Registracija člana</a>
+                    <a href="registracijaAdministratora.html">Registracija administratora</a>
+                    <a href="registracijaTrenera.html">Registracija trenera</a>
+                    </div>
+                     </div>
+                    
+					 
 					
 				</div>
 				
 			</div>
 		</nav>
-	
-	<form action="prijava.html">
-  <div class="container">
-    <h1>Pretraga po jednom ili vise kriterijuma</h1>
-    <p>Odaberite kriterijum(e).</p>
-    <hr>	
-    <label for="naziv"><b>Naziv</b></label>
-    <input type="text"  id="naziv" >
-    
-    <label for="tipTreninga"><b>Tip treninga</b></label>
-    <input type="text"   id="tipTreninga" >
-    
-    <label for="opis"><b>Opis</b></label>
-    <input type="text"   id="opis" >	
+ 
+		
+			
+	<div class="container">
+			<div class="d-flex justify-content-center h-100">
+				<div class="card" style="height:450px">
+					<div class="card-header">
+						<h3>Odaberite kriterijum:</h3>
+					</div>
+					<div class="card-body">
+						<form id="pretragaForm">
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-id-badge"></i></span>
+								</div>
+								<input type="text" id="naziv" class="form-control" placeholder="Naziv" required>
+								
+							</div>
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-circle"></i></span>
+								</div>
+								<input type="text" id="tipTreninga" class="form-control" placeholder="Tip treninga" required>
+							</div>
+							
+							<div class="form-group input-group">
+						    	<div class="input-group-prepend">
+								    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+								</div>
+								
+					    		<input name=""  id="opis" class="form-control" placeholder="Opis" type="text">
+					   		 </div>
+					   		
+					   		 <div class="form-group input-group">
+						    	<div class="input-group-prepend">
+								    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+								 </div>
+						         <input name="" id="cena" class="form-control" placeholder="Cena" type="text">
+						    </div>
+	     
+						   
+						    
+							
+							<div class="form-group">
+								<input type="submit" value="Pretraži" class="btn float-right login_btn">
+							</div>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+		</div>
 
-    <label for="cena"><b>Cena</b></label>
-    <input type="text"   id="cena" >
-    
-    <label for="dan"><b>Vreme projekcije</b></label>
-    <input type="text"   id="dan" >
-    <hr>
-    
+		
+		
+		
+		
+		
+		 <!-- Footer -->
+<footer class="footer bg-dark text-white">
 
-    <button type="submit" class="registerbtn">Pretrazi</button>
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-6 mt-md-0 mt-3">
+
+        <!-- Content -->
+        <h5 class="text-uppercase">Dođi na trening!</h5>
+         <hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 100px;">
+        <p>Okupili smo najbolje trenere, obezbedili najbolju opremu i prilagodili različite programe treninga!<br>
+		Zakaži probni trening, trajno promeni sebe i svoje telo!</br></p>
+		
+		
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+
+      <!-- Grid column -->
+      <!-- mb-md-0 znaci da ce margina dolje u mediumu biti 0 -->
+      <div class="col-md-3 mb-md-0  mb-3">
+
+        <!-- Links -->
+        <h5 class="text-uppercase">RADNO VREME</h5>
+		<hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 100px;">
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!">Ponedeljak: 07:00-23:00h</a>
+          </li>
+          <li>
+            <a href="#!">Utorak: 07:00-23:00h</a>
+          </li>
+		  
+		   <li>
+            <a href="#!">Četrvrtak: 07:00-23:00h</a>
+          </li>
+           <li>
+           <li>
+            <a href="#!">Petak: 07:00-23:00h</a>
+          </li>
+           <li>
+           <li>
+            <a href="#!">Subota: 09:00-20:00h</a>
+          </li>
+           <li>
+           <li>
+            <a href="#!">Nedelja: 09:00-20:00h</a>
+          </li>
+           <li>
+        
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <!-- Content -->
+        <h5 class="text-uppercase">Instagram nalog</h5>
+         <hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 100px;">
+        <p>       izygym.ns</p>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
   </div>
-  <table class="table table-dark table-striped" id="pretrazeno">
+  <!-- Footer Links -->
 
-	<thead>
-      <tr>
-      
-        <th scope="col">Naziv</th>
-        <th scope="col">Tip treninga</th>
-        <th scope="col">Opis</th>
-        <th scope="col">Cena</th>
-        <th scope="col">Vreme projekcije</th>
-      </tr>
-     </thead>
-   
-   
-      
-
-  </table>
   
+</footer>
+<!-- Footer -->
 
-</form>
-	</body>
+
+
+<!-- Copyright -->
+  <div class="footer-copyright text-center py-3 ">© 2020 Copyright:
+    <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+		
+				
+			
+				
+		
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+	
+</body>
+	
 </html>
+

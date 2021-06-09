@@ -7,6 +7,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Clan implements Serializable{
 	
@@ -41,24 +43,33 @@ public class Clan implements Serializable{
 	@Column
 	private boolean aktivan;
 	
+	@JsonIgnore
 	 @ManyToMany
 	    @JoinTable(name = "clan_trening",
 	    joinColumns = @JoinColumn(name = "clan_id", referencedColumnName = "id"),
 	    inverseJoinColumns = @JoinColumn(name = "trening_id", referencedColumnName = "id"))
 		private Set<Trening> odradjeni_treninzi;
-	 
+	@JsonIgnore
 	 @ManyToMany
 	    @JoinTable(name = "clan_rez_trening",
 	    joinColumns = @JoinColumn(name = "clan_id", referencedColumnName = "id"),
 	    inverseJoinColumns = @JoinColumn(name = "trening_id", referencedColumnName = "id"))
 		private Set<Trening> rezervisani_treninzi ;
-	 
+	@JsonIgnore
 	 @OneToMany (mappedBy="clan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 	private Set<Ocena> ocene;
 
 
 	 public Clan() {
 	    }
+
+	 
+	public Clan(Set<Trening> odradjeni_treninzi, Set<Trening> rezervisani_treninzi, Set<Ocena> ocene) {
+		super();
+		this.odradjeni_treninzi = odradjeni_treninzi;
+		this.rezervisani_treninzi = rezervisani_treninzi;
+		this.ocene = ocene;
+	}
 
 
 	public Clan(String korisnickoIme, String lozinka, String ime, String prezime, String kontakt_telefon,

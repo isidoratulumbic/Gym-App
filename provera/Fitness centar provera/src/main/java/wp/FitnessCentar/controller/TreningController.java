@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import wp.FitnessCentar.model.Termin;
 import wp.FitnessCentar.model.Trening;
 import wp.FitnessCentar.model.dto.TreningDTO;
+import wp.FitnessCentar.model.dto.TreninziDTO;
 import wp.FitnessCentar.service.ClanService;
 import wp.FitnessCentar.service.TerminService;
 import wp.FitnessCentar.service.TreningService;
@@ -80,64 +83,7 @@ public class TreningController {
 		
 		return new ResponseEntity<>(trening,HttpStatus.OK);
 	}
-    
-    /*Sortiranje treninga po nazivu
-     * 
-     */
-    @GetMapping(
-			value="/sortNaziv",
-			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<TreningDTO>> sortNaziv(){
-		List<Trening> treninzi=this.treningService.orderNaziv();
-	
-		
-		List<TreningDTO> treninziDTO=new ArrayList<>();
-		
-		for(Trening trening:treninzi) {
-			TreningDTO treningDTO=new TreningDTO(trening.getId(),trening.getNaziv(),trening.getOpis(),trening.getTipTreninga(),trening.getTrajanje(),trening.getSrednja_ocena());
-			treninziDTO.add(treningDTO);
-		}
-		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
-	}
-    
-    /*Sortiranje treninga po tipu
-     * 
-     */
-    @GetMapping(
-			value="/sortTip",
-			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<TreningDTO>> sortTip(){
-		List<Trening> treninzi=this.treningService.orderTip();
-	
-		
-		List<TreningDTO> treninziDTO=new ArrayList<>();
-		
-		for(Trening trening:treninzi) {
-			TreningDTO treningDTO=new TreningDTO(trening.getId(),trening.getNaziv(),trening.getOpis(),trening.getTipTreninga(),trening.getTrajanje(),trening.getSrednja_ocena());
-			treninziDTO.add(treningDTO);
-		}
-		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
-	}
-    
-    /*Sortiranje treninga po opisu
-     * 
-     */
-    @GetMapping(
-			value="/sortOpis",
-			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<TreningDTO>> sortOpis(){
-		List<Trening> treninzi=this.treningService.orderOpis();
-	
-		
-		List<TreningDTO> treninziDTO=new ArrayList<>();
-		
-		for(Trening trening:treninzi) {
-			TreningDTO treningDTO=new TreningDTO(trening.getId(),trening.getNaziv(),trening.getOpis(),trening.getTipTreninga(),trening.getTrajanje(),trening.getSrednja_ocena());
-			treninziDTO.add(treningDTO);
-		}
-		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
-	}
-    
+
     
     /*Sortiranje treninga po ceni
      * 
@@ -158,29 +104,8 @@ public class TreningController {
 		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
 	}*/
     
-    /*Sortiranje treninga po vremenu termina
-     * 
-     */
-  /*  @GetMapping(
-			value="/sortVreme",
-			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<TreningDTO>> sortVreme(){
-		List<Trening> treninzi=this.treningService.orderVreme();
-	
-		
-		List<TreningDTO> treninziDTO=new ArrayList<>();
-		
-		for(Trening trening:treninzi) {
-			TreningDTO treningDTO=new TreningDTO(trening.getId(),trening.getNaziv(),trening.getOpis(),trening.getTipTreninga(),trening.getTrajanje(),trening.getSrednja_ocena());
-			treninziDTO.add(treningDTO);
-		}
-		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
-	}
-    
-    */
-    
     /*Pretraga treninga po kriterijumima*/
-     
+  /*   
     @PostMapping(
 			value="/pretragaTreninga",
 			consumes=MediaType.APPLICATION_JSON_VALUE,
@@ -213,9 +138,7 @@ public class TreningController {
 						continue;
 					}
 			
-    
-				
-				
+    		
 			/*	if(f.getCena()!=0)
 					if(p.getTrening().getCena()==(f.getCena()))
 					{
@@ -224,7 +147,7 @@ public class TreningController {
 				
 				
 				
-			}*/
+			}
 			if(treninzi.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			
@@ -233,5 +156,19 @@ public class TreningController {
 		
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
+	}*/
+    
+    @GetMapping("/treninzi")
+	public String treninzi(Model model) {
+		TreninziDTO treninziDTO=this.treningService.getData();
+		model.addAttribute("treninziDTO", treninziDTO);
+		return "treninzi.html";
+	}
+	
+	@GetMapping("/trening/{id}")
+	public String getTrening(@PathVariable(name = "id") Long id,Model model){
+		Trening trening=this.treningService.findOne(id);
+		model.addAttribute("trening", trening);
+		return "trening.html";
 	}
 }

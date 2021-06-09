@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import wp.FitnessCentar.model.Administrator;
+import wp.FitnessCentar.model.Clan;
+import wp.FitnessCentar.model.dto.AdministratorDTOPrijava;
+import wp.FitnessCentar.model.dto.ClanDTOPrijava;
 import wp.FitnessCentar.model.Administrator;
 import wp.FitnessCentar.repository.AdministratorRepository;
 import wp.FitnessCentar.service.AdministratorService;
@@ -58,31 +61,30 @@ Brisanje administator.
 public void delete(Long id) {
 this.administratorRepository.deleteById(id);
 }
-
-/*Prijava na sistem
-putem korisnickog imena 
-*/
-	public Administrator prijava(String korisnickoIme) {
-		//vracam administratora sa tim korisnickoim imenom
-		Administrator a=this.administratorRepository.findBykorisnickoIme(korisnickoIme);
-		if(a==null) {
-		
-			return null;
-		}
-		else {
-			return a;
-		}
-	}
-	
-	public Administrator Find(String korisnickoIme,String lozinka) {
-		Administrator a=this.administratorRepository.findBykorisnickoImeAndLozinka(korisnickoIme, lozinka);
-		return a;
-	}
-
 //za dodavanje fc
 public Administrator findByKorisnickoIme(String korisnickoIme) {
 	Administrator a=this.administratorRepository.findByKorisnickoIme(korisnickoIme);
 	return  a;
 }
+@Override
+public Administrator Find(String korisnickoIme,String lozinka) {
+	Administrator c=this.administratorRepository.findBykorisnickoImeAndLozinka(korisnickoIme, lozinka);
+	return c;
+}
+
+public boolean prijava(AdministratorDTOPrijava administratorDTOPrijava, Administrator administrator) {
+if (administrator.getLozinka().equals(administratorDTOPrijava.getLozinka())) {
+	return true;
+}
+return false;
+}
+
+public Administrator checkKorisnickoIme(AdministratorDTOPrijava administratorDTOPrijava) {
+Administrator administrator = this.administratorRepository.findByKorisnickoIme(administratorDTOPrijava.getKorisnickoIme());
+if (administrator == null)
+	return null;
+return administrator;
+}
+
 
 }

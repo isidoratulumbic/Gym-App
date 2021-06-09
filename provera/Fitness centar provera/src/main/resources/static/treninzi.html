@@ -11,6 +11,7 @@
 	<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
   	<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">	
   	<link rel="stylesheet" href="/css/treninzi.css"/>	
+  	<link rel="stylesheet"  href="/css/drop.css"/>	
   	 <script src="/js/jquery.min.js"></script>
      <script type="text/javascript" src="/js/treninzi.js"></script>
 </head>
@@ -36,35 +37,57 @@
 					
 				</div>
 				<div class="navbar-nav ml-auto">
-					<a  href="prijava.html" class="nav-item nav-link">Prijava</a>
-					<a href="registracija.html" class="nav-item nav-link">Registracija člana</a>
-					<a href="registracijaTrenera.html" class="nav-item nav-link">Registracija trenera</a>
-					<a href="registracijaAdministratora.html" class="nav-item nav-link">Registracija administratora</a>
+					<div class="dropdown">
+                    <button class="dropbtn">Prijava</button>
+                    <div class="dropdown-content">
+                    <a href="prijava.html">Prijava člana</a>
+                    <a href="prijavaAdm.html">Prijava administratora</a>
+                    <a href="prijavaTrenera.html">Prijava trenera</a>
+                    </div>
+                     </div>
+                     <div class="dropdown">
+                    <button class="dropbtn">Registracija</button>
+                    <div class="dropdown-content">
+                    <a href="registracija.html">Registracija člana</a>
+                    <a href="registracijaAdministratora.html">Registracija administratora</a>
+                    <a href="registracijaTrenera.html">Registracija trenera</a>
+                    </div>
+                     </div>
+                    
+					 
+					
 				</div>
 				
 			</div>
 		</nav>
  
- 
+ <br>
+ <br>
+ <br>
+ <br>
+		
+	</div>
+	 <div id="sviTermini"> <!--Div-tabela sa treninzima, u njemu se nalazi naslov emp.,dugme add new.. i nalazi se kontenjer za tabelu,znaci tabela u kojoj treba prikazati sve treninge-->
+        <h1>DOSTUPNI TRENINZI</h1>
+        <button onclick="location.href = 'sortCena.html'">Sortiraj po ceni</button>
+         <button onclick="location.href = 'pretraga.html'">Pretraga po kriterijumu</button>
+        <br><br>
+        <div class="container">
+            <table id="termini">
+                <tr>
+                    <th>Dan</th>
+                    <th>Vreme</th>
+                    <th>Cena</th>
+                    <th>Broj rezervacija</th>
+                    <th>Rezerviši</th>
+                    
+                    <th></th>
+                </tr>                
+            </table>
+        </div>
+    </div>
 
-<!-- Lista treninga kao kartice -->
-		<section class="top">	
-			<h2>DOSTUPNI TRENINZI:</h2>
-			<hr class=" accent-2  d-inline-block" >
-			<h2>
-			<div class="dropdown">
-			  <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			   Sortiraj po:
-			  </button>
-			  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			    <a class="dropdown-item" id="sortNaziv">Nazivu</a>
-			    <button class="sortNaziv dropdown-item">Nazivu</button>
-			    <button class="sortOcena dropdown-item">Oceni</button>
-			   <button class="sortTrajanje dropdown-item">Trajanju</button>
-			  </div>
-			  <a href="pretraga.html" class="btn btn-danger" role="button" aria-pressed="true">Pretraga po kriterijumu</a>
-			 </div>
-			
-			</h2>			
-			<!--First slide-->
-			<div class="row "id="table">
+
+</body>
+
+</html>

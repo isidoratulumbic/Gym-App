@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import wp.FitnessCentar.model.Trening;
+import wp.FitnessCentar.model.dto.TreninziDTO;
 
 
 public interface TreningService {
@@ -13,16 +14,18 @@ public interface TreningService {
 	 
 	 Trening create(Trening trening) throws Exception;
 	 
-	 Trening save(Trening t);
+	/* Trening save(Trening t);*/
 	 
-	 List<Trening> orderNaziv();
+	 Trening findOne(Long id);
 	 
-	 List<Trening> orderTip();
-	 
-	 List<Trening> orderOpis();
+	 Trening save(Trening trening);
 	 
 	/* List<Trening> orderCena();
 	 
 	 List<Trening> orderVreme();*/
+	 
+	 TreninziDTO getData();
+	 
+	 void setRating(Long id,double ocenjivanje);
 	
 }

@@ -3,6 +3,7 @@ package wp.FitnessCentar.service;
 import java.util.List;
 
 import wp.FitnessCentar.model.Clan;
+import wp.FitnessCentar.model.dto.ClanDTOPrijava;
 
 public interface ClanService {
 	 Clan findOne(Long id);
@@ -15,5 +16,8 @@ public interface ClanService {
 
 	Clan Find(String korisnickoIme, String lozinka);
 	
+	boolean prijava(ClanDTOPrijava clanDTOPrijava, Clan clan);
+	
+	Clan checkKorisnickoIme(ClanDTOPrijava clanDTOPrijava);
 
 }

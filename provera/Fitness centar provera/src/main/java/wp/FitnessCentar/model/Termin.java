@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+
+
 @Entity
 public class Termin  implements Serializable{
 
@@ -30,9 +32,7 @@ public class Termin  implements Serializable{
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Sala sala_treninga;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private FitnessCentar fitness_centar;
+
 
 	public Long getId() {
 		return id;
@@ -96,14 +96,6 @@ public class Termin  implements Serializable{
 
 	public void setSala_treninga(Sala sala_treninga) {
 		this.sala_treninga = sala_treninga;
-	}
-
-	public FitnessCentar getFitness_centar() {
-		return fitness_centar;
-	}
-
-	public void setFitness_centar(FitnessCentar fitness_centar) {
-		this.fitness_centar = fitness_centar;
 	}
 
 

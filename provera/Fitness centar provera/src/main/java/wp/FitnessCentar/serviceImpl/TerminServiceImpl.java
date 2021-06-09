@@ -28,4 +28,9 @@ public class TerminServiceImpl implements TerminService {
 		return termini;
 	}
     
+    @Override
+    public List<Termin> orderCena(){
+    	return this.terminRepository.findAllByOrderByCena();
+    }
+    
 }

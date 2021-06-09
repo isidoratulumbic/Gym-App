@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$.ajax({
 		type:"GET",
-		url:"http://localhost:8080/api/treneri",
+		url:"http://localhost:8080/api/trener",
 		dataType:"json",
 		success:function(data){
 			console.log("SUCCESS:",data);
@@ -11,15 +11,20 @@ $(document).ready(function(){
 				row+="<td>"+data[i]['korisnickoIme']+"</td>";
 				row+="<td>"+data[i]['ime']+"</td>";
 				row+="<td>"+data[i]['prezime']+"</td>";
-			
+				row+="<td>"+data[i]['kontakt_telefon']+"</td>";
+				row+="<td>"+data[i]['email']+"</td>";
+				row+="<td>"+data[i]['datum_rodjenja']+"</td>";
+				row+="<td>"+data[i]['uloga']+"</td>";
 				
-				 var btn = "<button class='btnUkloni btn btn-danger' id = " + data[i]['id'] + ">Ukloni</button>";
+				
+				 var btn = "<button class='btnPrihvati btn btn-danger' id = " + data[i]['id'] + ">Prihvati</button>";
+	              row += "<td>" + btn + "</td>"; 
+	             var btn = "<button class='btnOdbij btn btn-danger' id = " + data[i]['id'] + ">Odbij</button>";
 	              row += "<td>" + btn + "</td>"; 
 	              row+="</tr>";
 	             row+="<br>";
 	             
 	             $('#tabela').append(row);
-	             $("#treneri").removeClass("d-none").show();
 
 			}
 		},
@@ -27,25 +32,4 @@ $(document).ready(function(){
 			console.log("ERROR:",data);
 		}
 	});
-});
-
-$(document).on('click', '.btnUkloni', function () {            // kada je button (čija je class = btnSeeMore) kliknut
-                                         
-
-    // nakon što korisnik klikne button See more možemo i samo da se prebacimo na employee.html
-    // tada ajax poziv za dobavljanje jednog zaposlenog moze da bude u fajlu employee.js
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:3050/api/treneru-ukloni/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
-        dataType: "json",
-        success: function () {
-        	alert("Uspesno uklonjen");
-             window.location.href="treneri.html";                           
-           
-        },
-        error: function (data) {
-        	alert("Fitness centar ne sme ostati bez trenera, pokusajte opet");
-            console.log("ERROR : ", data);
-        }
-    });
 });

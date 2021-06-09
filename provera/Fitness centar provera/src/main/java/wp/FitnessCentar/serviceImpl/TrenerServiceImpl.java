@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import wp.FitnessCentar.model.Trener;
+import wp.FitnessCentar.model.dto.TrenerDTOPrijava;
 import wp.FitnessCentar.model.Trener;
 import wp.FitnessCentar.repository.TrenerRepository;
 import wp.FitnessCentar.service.TrenerService;
@@ -74,4 +75,27 @@ putem korisnickog imena
 		Trener t=this.trenerRepository.findBykorisnickoImeAndLozinka(korisnickoIme, lozinka);
 		return t;
 	}
+	@Override
+	public Trener registracija(Trener trener) throws Exception {
+	    if (trener.getId() != null) {
+	        throw new Exception("ID must be null!");
+	    }
+	    Trener newTrener = this.trenerRepository.save(trener);
+	    return newTrener;
+	}
+	
+
+public boolean prijava(TrenerDTOPrijava trenerDTOPrijava, Trener trener) {
+	if (trener.getLozinka().equals(trenerDTOPrijava.getLozinka())) {
+		return true;
+	}
+	return false;
+}
+
+public Trener checkKorisnickoIme(TrenerDTOPrijava trenerDTOPrijava) {
+	Trener trener = this.trenerRepository.findByKorisnickoIme(trenerDTOPrijava.getKorisnickoIme());
+	if (trener == null)
+		return null;
+	return trener;
+}
 }

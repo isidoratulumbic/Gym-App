@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Profil člana</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+  <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">	
+  <link rel="stylesheet"  href="/css/profilClan.css"/>	
+  <link rel="stylesheet"  href="/css/drop.css"/>	
+    <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/prijavaTrenera.js"></script>
+
+</head>
+<body>
+
+<div style="background-image: url('1.jpg');">
+<!-- navigacijski meni-->
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+			<a href="#" class="navbar-brand">
+				<img src="/images/logo.jpg" height="28" alt="CoolBrand">
+			</a>
+			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<div class="navbar-nav ml" >
+					<a href="pocetna.html" class="nav-item nav-link active">Početna</a>
+					<a href="pretraga.html" class="nav-item nav-link ">Pretraga</a>
+					<a href="fitnessCentri.html" class="nav-item nav-link ">Fitness Centri</a>
+					<a href="treninzi.html" class="nav-item nav-link">Treninzi</a>
+					
+				</div>
+				<div class="navbar-nav ml-auto">
+					<div class="dropdown">
+                    <button class="dropbtn">Prijava</button>
+                    <div class="dropdown-content">
+                    <a href="prijava.html">Prijava člana</a>
+                    <a href="prijavaAdm.html">Prijava administratora</a>
+                    <a href="prijavaTrenera.html">Prijava trenera</a>
+                    </div>
+                     </div>
+                     <div class="dropdown">
+                    <button class="dropbtn">Registracija</button>
+                    <div class="dropdown-content">
+                    <a href="registracija.html">Registracija člana</a>
+                    <a href="registracijaAdministratora.html">Registracija administratora</a>
+                    <a href="registracijaTrenera.html">Registracija trenera</a>
+                    </div>
+                     </div>
+                    
+					 
+					
+				</div>
+				
+			</div>
+		</nav>
+		
+		
+<div class="container my-5 py-5 z-depth-1">
+	
+	
+	  <!--Section: Content-->
+	  <section class="text-center">
+	
+	    <!-- Section heading -->
+	    <h3 class="font-weight-bold ">MOJ PROFIL(ČLAN)</h3>
+		<hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 200px;">
+	
+	    <div class="row">
+	      <div class="col-lg-6">
+	
+	        <img src="/images/profil1.png" style="width:50%"/>
+		
+			<button type="button" class="btn btn-outline-danger btn-lg btn-block">Pregled rezervisanih treninga</button>
+			<button type="button" class="btn btn-outline-danger btn-lg btn-block">Pregled odrađenih treninga</button>
+			<button type="button" class="btn btn-outline-danger btn-lg btn-block">Pregled neocenjenih treninga</button>
+	        
+			
+		  
+	      </div>
+	
+	      <div class="col-lg-5 text-center text-md-left">
+	
+	        <h2 th:text="${clan.ime}" class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-5 ml-4"></h2>
+	        
+	       
+	        <div class="font-weight-normal">
+	          
+	          
+	          <div class="ml-xl-5 ml-4">
+	            <p><strong>Korisnicko ime: </strong><span th:text="${clan.korisnickoIme}"></span></p>
+	          </div>
+	         <div class="ml-xl-5 ml-4">
+	            <p><strong>Lozinka: </strong><span th:text="${clan.lozinka}"></span></p>
+	          </div>
+	          <div class="ml-xl-5 ml-4">
+	            <p><strong>Ime: </strong><span th:text="${clan.ime}"></span></p>
+	          </div>
+	         <div class="ml-xl-5 ml-4">
+	            <p><strong>Prezime: </strong><span th:text="${clan.prezime}"></span></p>
+	          </div>
+			<div class="ml-xl-5 ml-4">
+	            <p><strong>Kontakt telefon: </strong><span th:text="${clan.kontakt_telefon}"></span></p>
+	          </div>
+			   <div class="ml-xl-5 ml-4">
+	            <p><strong>E adresa: </strong><span th:text="${clan.email}"></span></p>
+	          </div>
+			 <div class="ml-xl-5 ml-4">
+	            <p><strong>Datum rođenja: </strong><span th:text="${clan.datum_rodjenja}"></span></p>
+	          </div>
+			<div class="ml-xl-5 ml-4">
+	            <p><strong>Uloga: </strong><span th:text="${clan.uloga}"></span></p>
+	          </div>
+	          
+	          
+	
+	        </div>
+	
+	      </div>
+	    </div>
+	
+	  </section>
+	  <!--Section: Content-->
+	
+	
+	</div>
+ 
+
+</body>
+</html>

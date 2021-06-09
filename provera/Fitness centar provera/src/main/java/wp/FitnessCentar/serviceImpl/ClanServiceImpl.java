@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+
 import wp.FitnessCentar.model.Clan;
+import wp.FitnessCentar.model.dto.ClanDTOPrijava;
 import wp.FitnessCentar.repository.ClanRepository;
 import wp.FitnessCentar.service.ClanService;
 
@@ -21,6 +23,8 @@ public class ClanServiceImpl implements ClanService {
     public ClanServiceImpl(ClanRepository clanRepository) {
         this.clanRepository = clanRepository;
     }
+    
+  
     /*
     Dobavljanje clana po ID-iju.
     Metoda vraća pronađenog clana, ako postoji.
@@ -57,24 +61,26 @@ public void delete(Long id) {
 this.clanRepository.deleteById(id);
 }
 
-
-/*Prijava na sistem
-putem korisnickog imena 
-*/
-	public Clan prijava(String korisnickoIme) {
-		//vracam clana sa tim korisnickoim imenom
-		Clan c=this.clanRepository.findBykorisnickoIme(korisnickoIme);
-		if(c==null) {
-		
-			return null;
-		}
-		else {
-			return c;
-		}
-	}
-	
+@Override
 	public Clan Find(String korisnickoIme,String lozinka) {
 		Clan c=this.clanRepository.findBykorisnickoImeAndLozinka(korisnickoIme, lozinka);
 		return c;
 	}
+
+public boolean prijava(ClanDTOPrijava clanDTOPrijava, Clan clan) {
+	if (clan.getLozinka().equals(clanDTOPrijava.getLozinka())) {
+		return true;
+	}
+	return false;
+}
+
+public Clan checkKorisnickoIme(ClanDTOPrijava clanDTOPrijava) {
+	Clan clan = this.clanRepository.findByKorisnickoIme(clanDTOPrijava.getKorisnickoIme());
+	if (clan == null)
+		return null;
+	return clan;
+}
+
+
+
 }

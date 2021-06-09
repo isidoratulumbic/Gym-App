@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Register</title>
+	<title>DodavanjeFC</title>
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	 
@@ -21,8 +21,9 @@
 
 	<!--Custom styles-->
 	<link rel="stylesheet" type="text/css" href="/css/dodavanjeFC.css"/>	
+	<link rel="stylesheet"  href="/css/drop.css"/>	
 	 <script src="/js/jquery.min.js"></script>
-	   <script type="text/javascript" src="/js/dodavanjeFC.js"></script>	
+	   <script type="text/javascript" src="/js/FitnessCentri.js"></script>	
 </head>
 	
 <body>
@@ -45,30 +46,44 @@
 					
 				</div>
 				<div class="navbar-nav ml-auto">
-					<a  href="prijava.html" class="nav-item nav-link">Prijava</a>
-					<a href="registracija.html" class="nav-item nav-link">Registracija člana</a>
-					<a href="registracijaTrenera.html" class="nav-item nav-link">Registracija trenera</a>
-					<a href="registracijaAdministratora.html" class="nav-item nav-link">Registracija administratora</a>
+					<div class="dropdown">
+                    <button class="dropbtn">Prijava</button>
+                    <div class="dropdown-content">
+                    <a href="prijava.html">Prijava člana</a>
+                    <a href="prijavaAdm.html">Prijava administratora</a>
+                    <a href="prijavaTrenera.html">Prijava trenera</a>
+                    </div>
+                     </div>
+                     <div class="dropdown">
+                    <button class="dropbtn">Registracija</button>
+                    <div class="dropdown-content">
+                    <a href="registracija.html">Registracija člana</a>
+                    <a href="registracijaAdministratora.html">Registracija administratora</a>
+                    <a href="registracijaTrenera.html">Registracija trenera</a>
+                    </div>
+                     </div>
+                    
+					 
+					
 				</div>
 				
 			</div>
 		</nav>
- 
 		
-		<!-- kartica sa loginom -->
-		<div class="container">
+			
+	<div class="container">
 			<div class="d-flex justify-content-center h-100">
 				<div class="card" style="height:450px">
 					<div class="card-header">
-						<h3>Dodavanje Fitness Centra:</h3>
+						<h3>Dodavanje fitness centra:</h3>
 					</div>
 					<div class="card-body">
-						<form id="formFitnessCentar">
+						<form id="fitnessCentarForm">
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fa fa-angle-right"></i></span>
+									<span class="input-group-text"><i class="fa fa-id-badge"></i></span>
 								</div>
-								<input type="text" id="naziv" class="form-control" placeholder="Naziv Fitness Centra" required>
+								<input type="text" id="naziv" class="form-control" placeholder="Naziv" required>
 								
 							</div>
 							<div class="input-group form-group">
@@ -92,14 +107,7 @@
 								 </div>
 						         <input name="" id="email" class="form-control" placeholder="Email adresa" type="email">
 						    </div>
-						    
-						    <div class="form-group input-group">
-						    	<div class="input-group-prepend">
-								    <span class="input-group-text"> <i class="fa fa-male"></i> </span>
-								 </div>
-						         <input name="" id="treneri" class="form-control" placeholder="Treneri" type="text">
-						    </div>
-						     
+	     
 						   
 						    
 							

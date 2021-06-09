@@ -29,14 +29,14 @@ public class FitnessCentar implements Serializable{
 	private String email;
 	
 	@OneToMany(mappedBy="fitness_centar",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Trener> treneri ;
+	private Set<Trener> treneri=new HashSet<>() ;
 	
 	@OneToMany(mappedBy = "fitness_centar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Sala> sale;
+	private Set<Sala> sale=new HashSet<>();
 
 	
 
-	private Administrator administrator;
+	
 
 	public FitnessCentar() {
 	}
@@ -155,10 +155,7 @@ public class FitnessCentar implements Serializable{
 
 
 
-	public void setAdministrator(Administrator administrator) {
-		this.administrator=administrator;
-		
-	}
+	
 
 		
 	}

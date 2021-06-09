@@ -6,6 +6,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 
 @Entity
@@ -33,20 +36,24 @@ public class Trening implements Serializable{
 	@Column
 	private Double srednjaOcena;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "odradjeni_treninzi")
 	private Set<Clan> clanovi;
 	
 	@ManyToMany(mappedBy = "rezervisani_treninzi")
 	private Set<Clan> clan_rez;
+	
+
+	@ManyToMany(mappedBy = "treninzi")
+	private Set<Trener> treneri;
 
 	@OneToMany(mappedBy= "trening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Ocena> ocene;
+	private Set<Ocena> ocene=new HashSet<>();
 	
 	@OneToMany(mappedBy= "trening", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Termin> termini;
+	private Set<Termin> termini=new HashSet<>();
 
-
-
+	
 	public Trening() {
     }
 

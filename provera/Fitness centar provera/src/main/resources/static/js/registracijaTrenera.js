@@ -25,7 +25,7 @@ $(document).on("submit","form",function(event){		 // kada je submit-ovana forma 
 		data:newTrenerDTORegJSON,
 		success:function(){
 			alert(ime+" "+prezime+" je uspešno registrovan kao trener!");
-			window.location.href="prijava.html";
+			window.location.href="prijavaTrenera.html";
 		},
 		error:function(data){
 			alert("Greska! Pokušajte ponovo.");

@@ -10,6 +10,7 @@ import wp.FitnessCentar.model.Trener;
 public interface TrenerRepository extends JpaRepository<Trener, Long> {
 	
 	Trener findBykorisnickoIme(String korisnickoIme);
+	Trener findByKorisnickoIme(String korisnickoIme);
 	
 	Trener findBykorisnickoImeAndLozinka(String korisnickoIme,String lozinka);
 	

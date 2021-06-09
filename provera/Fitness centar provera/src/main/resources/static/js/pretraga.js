@@ -6,6 +6,8 @@ $(document).ready(function(){
 $(document).on("submit","form",function(event){
 	event.preventDefault();
 	$(".container").hide();
+	
+	
 	var naziv=$("#naziv").val();
 	var tipTreninga=$("#tipTreninga").val();
 	var opis=$("#opis").val();

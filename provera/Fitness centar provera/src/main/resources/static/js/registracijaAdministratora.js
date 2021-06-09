@@ -25,7 +25,7 @@ $(document).on("submit","form",function(event){		 // kada je submit-ovana forma 
 		data:newAdministratorDTORegJSON,
 		success:function(){
 			alert(ime+" "+prezime+" je uspešno registrovan kao administrator!");
-			window.location.href="prijava.html";
+			window.location.href="prijavaAdm.html";
 		},
 		error:function(data){
 			alert("Greska! Pokušajte ponovo.");

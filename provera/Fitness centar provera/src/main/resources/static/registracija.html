@@ -23,6 +23,7 @@
 
 	<!--Custom styles-->
 	<link rel="stylesheet" type="text/css" href="/css/register.css"/>	
+	<link rel="stylesheet"  href="/css/drop.css"/>	
 	
 </head>
 	
@@ -30,7 +31,6 @@
 
 	<div style="background-image: url('1.jpg');">
 <!-- navigacijski meni-->
-		<!-- navigacijski meni-->
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 			<a href="#" class="navbar-brand">
 				<img src="/images/logo.jpg" height="28" alt="CoolBrand">
@@ -48,10 +48,25 @@
 					
 				</div>
 				<div class="navbar-nav ml-auto">
-					<a  href="prijava.html" class="nav-item nav-link">Prijava</a>
-					<a href="registracija.html" class="nav-item nav-link">Registracija člana</a>
-					<a href="registracijaTrenera.html" class="nav-item nav-link">Registracija trenera</a>
-					<a href="registracijaAdministratora.html" class="nav-item nav-link">Registracija administratora</a>
+					<div class="dropdown">
+                    <button class="dropbtn">Prijava</button>
+                    <div class="dropdown-content">
+                    <a href="prijava.html">Prijava člana</a>
+                    <a href="prijavaAdm.html">Prijava administratora</a>
+                    <a href="prijavaTrenera.html">Prijava trenera</a>
+                    </div>
+                     </div>
+                     <div class="dropdown">
+                    <button class="dropbtn">Registracija</button>
+                    <div class="dropdown-content">
+                    <a href="registracija.html">Registracija člana</a>
+                    <a href="registracijaAdministratora.html">Registracija administratora</a>
+                    <a href="registracijaTrenera.html">Registracija trenera</a>
+                    </div>
+                     </div>
+                    
+					 
+					
 				</div>
 				
 			</div>

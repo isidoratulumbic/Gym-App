@@ -1,5 +1,13 @@
 package wp.FitnessCentar.model.dto;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
+import wp.FitnessCentar.model.Termin;
+
 public class TreningDTO {
 	
 	private Long id;
@@ -13,7 +21,10 @@ public class TreningDTO {
 		
 	}
 
-	public TreningDTO(Long id, String naziv, String opis, String tipTreninga, String trajanje,Double srednjaOcjena) {
+
+	
+
+	public TreningDTO(Long id, String naziv, String opis, String tipTreninga, String trajanje, Double srednjaOcjena) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -21,7 +32,10 @@ public class TreningDTO {
 		this.tipTreninga = tipTreninga;
 		this.trajanje = trajanje;
 		this.srednjaOcjena = srednjaOcjena;
+		
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -71,4 +85,7 @@ public class TreningDTO {
 	}
 
 
+	
+
+	
 }

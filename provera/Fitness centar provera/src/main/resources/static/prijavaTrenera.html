@@ -1,21 +1,31 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Bioskopi-Admin</title>
-	<meta charset="utf-8"/>
-	<link rel="stylesheet" href="/css/naslovna.css"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Prijava</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
-  	<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">	
-  	 <link rel="stylesheet" href="/css/profilClan.css"/>
-  	 <script src="/js/jquery.min.js"></script>
-     <script type="text/javascript" src="/js/uklanjanjeFC.js"></script>	
+  	<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
+  	
+  		<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles
+	 <link rel="stylesheet" type="text/css" href="/css/login.css"/>	-->
+	<link rel="stylesheet" type="text/css" href="/css/profilClan.css"/>
+	<link rel="stylesheet"  href="/css/drop.css"/>	
+    <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/prijavaTrenera.js"></script>
+    <script th:inline="javascript">
+	    var clan = /*[[${clan}]]*/;
+	    </script>
 </head>
-	
 <body>
+
 
 	<div style="background-image: url('1.jpg');">
 <!-- navigacijski meni-->
@@ -36,82 +46,75 @@
 					
 				</div>
 				<div class="navbar-nav ml-auto">
-					<a  href="prijava.html" class="nav-item nav-link">Prijava</a>
-					<a href="registracija.html" class="nav-item nav-link">Registracija člana</a>
-					<a href="registracijaTrenera.html" class="nav-item nav-link">Registracija trenera</a>
-					<a href="registracijaAdministratora.html" class="nav-item nav-link">Registracija administratora</a>
+					<div class="dropdown">
+                    <button class="dropbtn">Prijava</button>
+                    <div class="dropdown-content">
+                    <a href="prijava.html">Prijava člana</a>
+                    <a href="prijavaAdm.html">Prijava administratora</a>
+                    <a href="prijavaTrenera.html">Prijava trenera</a>
+                    </div>
+                     </div>
+                     <div class="dropdown">
+                    <button class="dropbtn">Registracija</button>
+                    <div class="dropdown-content">
+                    <a href="registracija.html">Registracija člana</a>
+                    <a href="registracijaAdministratora.html">Registracija administratora</a>
+                    <a href="registracijaTrenera.html">Registracija trenera</a>
+                    </div>
+                     </div>
+                    
+					 
+					
 				</div>
 				
 			</div>
 		</nav>
-				
-			</div>
-		</nav>
-		
-		
-		
-		<div class=" z-depth-1" id="fitnessCentri">
-		
-		<section class="text-center" id="prikaz" style="margin-top:5%;">
 	
-	    <!-- Section heading -->
-	    <h3 class="font-weight-bold ">LISTA FITNESS CENTARA:</h3>
-		<hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;">
-	
-	    <div class="row">
-		
-	<table class="table table-hover table-striped table-dark" id="tabela">
-				  
-				   <tr>
-				      
-				      <th scope="col">Naziv</th>
-				      <th scope="col">Adresa</th>
-				      <th scope="col">Broj centrale</th>
-				      <th scope="col">Email</th>
-				      <th scope="col">Opcija</th>
-				      <th scope="col">Opcija</th>
-				    </tr>
-				  
-				  
-				</table>
-				
-			</div>
-		</section>
-	</div>
-	
-	<!-- Obrazac za izmeenu FC-->
-		<div class="d-none" id="Izmena Fitness Centra">
+<!-- kartica sa loginom -->
+		<div class="container" id="kartica">
 			<div class="d-flex justify-content-center h-100">
-				<div class="card" id="logcard" style="height:550px">
+				<div class="card">
 					<div class="card-header">
-						<h3>Novi podaci za izabrani fitness centar:</h3>
+						<h3>Prijava</h3>
 						
 					</div>
-					<div class="card-body" style="background-color: rgba(0,0,0,0.5)">
-						<form >
-							<div id="izmjenaFitnessCentar">
+					<div class="card-body">
+						<form id="loginForm">
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								</div>
+								<input type="text" class="form-control" id="korisnickoIme" placeholder="Korisničko ime" required>
+								
 							</div>
-							
-							
-							
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-key"></i></span>
+								</div>
+								<input type="password" class="form-control" id="lozinka" placeholder="Lozinka" required>
+							</div>
+							<div class="row align-items-center remember">
+								<input type="checkbox">Zapamti me
+							</div>
 							<div class="form-group">
-								<input id="izmeni" value="Izmeni" class="btn float-right login_btn" >
+								 <button type="button" onclick="prijava()" class="btn btn-primary">Prijavi se</button>
 							</div>
 						</form>
 					</div>
-					
-					
+					<div class="card-footer">
+						<div class="d-flex justify-content-center links">
+							Niste prijavljeni?
+						</div>
+						<div class="d-flex justify-content-center">
+							<a href="registracijaTrenera.html">Registrujte se</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	
-
-
 		
-		
-		
-		
-		 	 <!-- Footer -->
+			
+		 <!-- Footer -->
 <footer class="footer bg-dark text-white">
 
   <!-- Footer Links -->
@@ -211,7 +214,8 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-	
+
+       
 </body>
 	
 </html>

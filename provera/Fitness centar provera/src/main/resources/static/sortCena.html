@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Dostupni treninzi</title>
+	<title>Sortirani treninzi</title>
 	<meta charset="utf-8"/>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,11 +11,13 @@
 	<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
   	<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">	
   	<link rel="stylesheet" href="/css/treninzi.css"/>	
+  	<link rel="stylesheet"  href="/css/drop.css"/>	
   	 <script src="/js/jquery.min.js"></script>
-     <script type="text/javascript" src="/js/sortiraniTreninzi.js"></script>
+     <script type="text/javascript" src="/js/treninzi.js"></script>
 </head>
 	
 <body>
+
 <div style="background-image: url('1.jpg');">
 <!-- navigacijski meni-->
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -35,21 +37,57 @@
 					
 				</div>
 				<div class="navbar-nav ml-auto">
-					<a  href="prijava.html" class="nav-item nav-link">Prijava</a>
-					<a href="registracija.html" class="nav-item nav-link">Registracija člana</a>
-					<a href="registracijaTrenera.html" class="nav-item nav-link">Registracija trenera</a>
-					<a href="registracijaAdministratora.html" class="nav-item nav-link">Registracija administratora</a>
+					<div class="dropdown">
+                    <button class="dropbtn">Prijava</button>
+                    <div class="dropdown-content">
+                    <a href="prijava.html">Prijava člana</a>
+                    <a href="prijavaAdm.html">Prijava administratora</a>
+                    <a href="prijavaTrenera.html">Prijava trenera</a>
+                    </div>
+                     </div>
+                     <div class="dropdown">
+                    <button class="dropbtn">Registracija</button>
+                    <div class="dropdown-content">
+                    <a href="registracija.html">Registracija člana</a>
+                    <a href="registracijaAdministratora.html">Registracija administratora</a>
+                    <a href="registracijaTrenera.html">Registracija trenera</a>
+                    </div>
+                     </div>
+                    
+					 
+					
 				</div>
 				
 			</div>
 		</nav>
-		
-!-- Lista treninga kao kartice -->
-		<section class="top">	
-			<h2>DOSTUPNI TRENINZI:</h2>
-			<hr class=" accent-2  d-inline-block" >
-			
-	<!--First slide-->
-			<div class="row "id="table">
- </body>
  
+  <br>
+ <br>
+ <br>
+ <br>
+ 
+		
+	</div>
+	 <div id="sortTermini"> <!--Div-tabela sa treninzima, u njemu se nalazi naslov emp.,dugme add new.. i nalazi se kontenjer za tabelu,znaci tabela u kojoj treba prikazati sve treninge-->
+        <h1>SORTIRANI TRENINZI</h1>
+        
+        <br><br>
+        <div class="container">
+            <table id="sorttermini">
+                <tr>
+                    <th>Dan</th>
+                    <th>Vreme</th>
+                    <th>Cena</th>
+                    <th>Broj rezervacija</th>
+                    <th>Rezerviši</th>
+                    
+                    <th></th>
+                </tr>                
+            </table>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
