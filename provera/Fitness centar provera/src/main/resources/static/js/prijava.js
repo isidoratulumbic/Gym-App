@@ -58,9 +58,8 @@ $(document).ready(function(){
 				row+="<td>"+data[i]['kontakt_telefon']+"</td>";
 				row+="<td>"+data[i]['email']+"</td>";
 				row+="<td>"+data[i]['datum_rodjenja']+"</td>";
-				
-				 var btn = "<button class='btnTermini btn btn-danger' id = " + data[i]['id'] + ">Termini</button>";
-	              row += "<td>" + btn + "</td>"; 
+				row+="<td>"+data[i]['uloga']+"</td>";
+
 	              row+="</tr>";
 	             row+="<br>";
 	             

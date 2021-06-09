@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+
 import wp.FitnessCentar.model.Termin;
 import wp.FitnessCentar.model.Trening;
 import wp.FitnessCentar.model.dto.TreningDTO;
@@ -157,6 +158,7 @@ public class TreningController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
 	}*/
+
     
     @GetMapping("/treninzi")
 	public String treninzi(Model model) {
