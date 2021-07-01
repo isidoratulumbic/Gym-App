@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.dto.ClanDTO;
 import wp.FitnessCentar.model.dto.ClanDTOPrijava;
@@ -129,10 +131,22 @@ public ResponseEntity<?> prijava(@RequestBody ClanDTOPrijava clanDTOPrijava) {
 	}
 	return new ResponseEntity<Clan>(clan, HttpStatus.OK);
 }
+/*Profil člana
+ 
+ */
 @GetMapping("/profilClana/{id}")
 public String account(@PathVariable(name = "id") Long id,Model model) {
 	Clan clan=this.clanService.findOne(id);
 	model.addAttribute("clan", clan);
 	return "clanNaslovna.html";
 }
+
+/*Odrađeni treninzi*/
+/*
+@GetMapping("/account/{id}/odradjeni_treninzi")
+	public String odradjeni_treninzi(@PathVariable(name = "id") Long id,Model model) {
+		Clan clan=this.clanService.findOne(id);
+		model.addAttribute("clan", clan);
+		return "odradjeni_treninzi.html";
+	}*/
 }

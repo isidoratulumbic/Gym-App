@@ -13,11 +13,12 @@ $(document).ready(function(){
 				row+="<td>"+data[i]['broj_telefona_centrale']+"</td>";
 				row+="<td>"+data[i]['email']+"</td>";
 				
-				 var btn = "<button class='btnTermini btn btn-danger' id = " + data[i]['id'] + ">Termini</button>";
+				 var btn = "<button class='obrisiFC' id = " + data[i]['id'] + ">Obriši</button>";
 	              row += "<td>" + btn + "</td>"; 
+	              var izmena = "<button class='izmeniFC' id = " + data[i]['id'] + ">Izmeni</button>";
+	              row += "<td>" + izmena + "</td>"; 
 	              row+="</tr>";
 	             row+="<br>";
-	             
 	             $('#tabela').append(row);
 
 			}
@@ -64,3 +65,28 @@ $(document).on("submit", "#fitnessCentarForm", function (event) {     // kada je
         }
     });
 });
+
+//Brisanje FC
+$(document).on('click', '.obrisiFC', function () {       
+    
+
+ 
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/fitnessCentar/fitnessCentri/obrisi/" + this.id,  
+        dataType: "json",
+        success: function (data) {
+        	console.log("SUCCESS : ", data);
+        	alert("Fitness centar je uspešno obrisan!");
+        	location.reload(true); //osvezavanje tabele odmah nakon brisanja
+                           
+           
+        },
+        error: function (data) {
+        	alert("Došlo je do greške!");
+            console.log("ERROR : ", data);
+        }
+    });
+});
+
+

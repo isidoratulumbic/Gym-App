@@ -111,16 +111,67 @@ public class FitnessCentarController {
     /*
     Metoda za brisanje postojećeg FC
  */
-@DeleteMapping(value = "/{id}")
-public ResponseEntity<Void> deleteFitnessCentar(@PathVariable Long id) {
-    
-    this.fitnessCentarService.delete(id);
+@GetMapping(
+		value="fitnessCentri/obrisi/{id}",
+		produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<FitnessCentarDTO> obrisi(@PathVariable(name="id") Long id){
+			FitnessCentar fitnessCentar=this.fitnessCentarService.findOne(id);
+			
+			FitnessCentarDTO fc=new FitnessCentarDTO(fitnessCentar.getId(),fitnessCentar.getNaziv(),fitnessCentar.getAdresa(),fitnessCentar.getBroj_telefona_centrale(),fitnessCentar.getEmail());
+			this.fitnessCentarService.delete(id);
+			
+			return new ResponseEntity<>(fc,HttpStatus.OK);
+		}
+/*
+ * Izmena FC
+ * 
+ */
 
- 
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+@GetMapping(
+		value="/izmeniFC/{id}",
+		produces=MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<FitnessCentarDTO> fitnessCentar(@PathVariable(name="id") Long id){
+	FitnessCentar b=this.fitnessCentarService.findOne(id);
+	FitnessCentarDTO b1=new FitnessCentarDTO();
+		b1.setId(b.getId());
+		b1.setNaziv(b.getNaziv());
+		b1.setAdresa(b.getAdresa());
+		b1.setBroj_telefona_centrale(b.getBroj_telefona_centrale());
+		b1.setEmail(b.getEmail());
+		
+		return new ResponseEntity<>(b1,HttpStatus.OK);
+	
+	
 }
-    
+
+@PostMapping(
+		value="izmenjivanjeFC",
+		consumes=MediaType.APPLICATION_JSON_VALUE,
+		produces=MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<FitnessCentarDTO> izmenaFC(@RequestBody FitnessCentarDTO b)throws Exception{
+	FitnessCentar fitnessCentar=this.fitnessCentarService.findOne(b.getId());
+	if(fitnessCentar==null) {
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	FitnessCentar b1=new FitnessCentar();
+	FitnessCentar b3=new FitnessCentar();
+	b1.setId(fitnessCentar.getId());
+	b1.setAdresa(b.getAdresa());
+	if(b.getAdresa()==null) {
+		 return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+	}
+	b1.setBroj_telefona_centrale(b.getBroj_telefona_centrale());
+	b1.setNaziv(b.getNaziv());
+	b1.setEmail(b.getEmail());
+	this.fitnessCentarService.save(b1);
+	FitnessCentarDTO b2=new FitnessCentarDTO();
+	b2.setId(fitnessCentar.getId());
+	return new ResponseEntity<>(b2,HttpStatus.OK);
+	
+	
 }
+}
+
 
 
 

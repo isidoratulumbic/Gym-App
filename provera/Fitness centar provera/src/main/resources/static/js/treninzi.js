@@ -9,11 +9,16 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
             console.log("SUCCESS:\n", response);                    // ispisujemo u konzoli povratnu vrednost radi provere
 
             for (let termin of response) {                        // prolazimo kroz listu svih zaposlenih
-                let row = "<tr>";                                   // kreiramo red za tabelu
+                let row = "<tr>";               
+                row += "<td>" + termin.naziv + "</td>";
+                row += "<td>" + termin.opis + "</td>";
+                row += "<td>" + termin.tipTreninga + "</td>";      
+                row += "<td>" + termin.trajanje + "</td>";                // kreiramo red za tabelu
                 row += "<td>" + termin.dan + "</td>";   
                 row += "<td>" + termin.vreme + "</td>";    // ubacujemo podatke jednog treninga u polja
                 row += "<td>" + termin.cena + "</td>";
                 row += "<td>" + termin.brojRezervacija + "</td>";
+               
                 // kreiramo button i definisemo custom data atribut id = id treninga
                 let btn = "<button class='btnRezerviši' data-id=" + termin.id + ">Rezerviši</button>";
                 row += "<td>" + btn + "</td>";                      // ubacujemo button u poslednju ćeliju reda
@@ -28,6 +33,8 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
     });
 });
 
+
+
 // Sortiranje termina po ceni
 $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Object Model) učitan da bi JS mogao sa njim da manipuliše.
     // ajax poziv za dobavljanje svih treninga sa backend-a i prikaz u tabeli
@@ -39,7 +46,7 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
             console.log("SUCCESS:\n", response);                    // ispisujemo u konzoli povratnu vrednost radi provere
 
             for (let termin of response) {                        // prolazimo kroz listu svih zaposlenih
-                let row = "<tr>";                                   // kreiramo red za tabelu
+                let row = "<tr>";                                                // kreiramo red za tabelu
                 row += "<td>" + termin.dan + "</td>";   
                 row += "<td>" + termin.vreme + "</td>";    // ubacujemo podatke jednog treninga u polja
                 row += "<td>" + termin.cena + "</td>";

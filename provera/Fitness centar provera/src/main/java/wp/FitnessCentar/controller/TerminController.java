@@ -49,7 +49,7 @@ public class TerminController {
 
         for (Termin termin : terminList) {
             
-            TerminDTO terminDTO = new TerminDTO(termin.getId(), termin.getDan(),
+            TerminDTO terminDTO = new TerminDTO(termin.getTrening().getNaziv(),termin.getTrening().getOpis(),termin.getTrening().getTipTreninga(),termin.getTrening().getTrajanje(), termin.getDan(),
                     termin.getVreme(), termin.getCena(), termin.getBrojRezervacija());
             terminDTOS.add(terminDTO);
         }
@@ -70,8 +70,8 @@ public class TerminController {
 		List<TerminDTO> terminiDTO=new ArrayList<>();
 		
 		for(Termin termin:termini) {
-			TerminDTO terminDTO=new TerminDTO(termin.getId(),termin.getDan(),termin.getVreme(),termin.getCena(),termin.getBrojRezervacija());
-			terminiDTO.add(terminDTO);
+			 TerminDTO terminDTO = new TerminDTO(termin.getTrening().getNaziv(),termin.getTrening().getOpis(),termin.getTrening().getTipTreninga(),termin.getTrening().getTrajanje(), termin.getDan(),
+	                    termin.getVreme(), termin.getCena(), termin.getBrojRezervacija());
 		}
 		return new ResponseEntity<>(terminiDTO,HttpStatus.OK);
 	}

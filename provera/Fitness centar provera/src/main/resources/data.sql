@@ -24,12 +24,19 @@ VALUES (15,'S3',1);
 INSERT INTO SALA (kapacitet,oznaka,fitness_centar_id) 
 VALUES (15,'S4',1);
 
-INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id) 
-VALUES (25,450,'Ponedeljak',true,'14-16h',1);
-INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id) 
-VALUES (15,350,'Utorak',true,'14-16h',1);
-INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id) 
-VALUES (20,400,'Petak',true,'14-16h',1);
+INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje) 
+VALUES ('Kondicija', 'Rad na kondiciji','Cardio','90min');
+INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje) 
+VALUES ('Pilates', 'Disanje kroz vezbu','Pilates','60min');
+INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje) 
+VALUES ('Aerobik', 'Treninzi bez dodatnog opterecenja','Aerobik','90min');
+
+INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id,trening_id) 
+VALUES (25,450,'Ponedeljak',true,'14-16h',1,1);
+INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id,trening_id) 
+VALUES (15,350,'Utorak',true,'14-16h',1,2);
+INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id,trening_id) 
+VALUES (20,400,'Petak',true,'14-16h',1,3);
 
 
 INSERT INTO TRENER (korisnicko_ime,lozinka,ime,prezime,kontakt_telefon,email,datum_rodjenja,uloga,aktivan) 
@@ -40,12 +47,7 @@ INSERT INTO TRENER (korisnicko_ime,lozinka,ime,prezime,kontakt_telefon,email,dat
 VALUES ('marko','marko123','Marko','Vasic','069874562','marko@gmail.com','18/02/1995','trener',true);
 
 
-INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje) 
-VALUES ('Kondicija', 'Rad na kondiciji','Cardio','90min');
-INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje) 
-VALUES ('Pilates', 'Disanje kroz vezbu','Pilates','60min');
-INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje) 
-VALUES ('Aerobik', 'Treninzi bez dodatnog opterecenja','Aerobik','90min');
+
 
 
 INSERT INTO CLAN_REZ_TRENING (clan_id,trening_id) 

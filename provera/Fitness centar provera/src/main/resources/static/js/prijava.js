@@ -20,7 +20,7 @@ function prijava() {
             sessionStorage.setItem("id", data["id"]);
             
 
-            window.location.replace("/clanNaslovna.html");
+            window.location.replace("/clanNaslovna.html"+data["id"]);
         },
         error: function( jqXhr, textStatus, errorThrown ){
             if (jqXhr.status == 404) {
@@ -41,34 +41,3 @@ function prijava() {
  
 
 
-$(document).ready(function(){
-	$.ajax({
-		type:"GET",
-		url:"http://localhost:8080/api/clan",
-		dataType:"json",
-		success:function(data){
-			console.log("SUCCESS:",data);
-			for(i=0;i<data.length;i++){
-				var row="<tr>";
-			
-				row+="<td>"+data[i]['korisnickoIme']+"</td>";
-				row+="<td>"+data[i]['lozinka']+"</td>";
-				row+="<td>"+data[i]['ime']+"</td>";
-				row+="<td>"+data[i]['prezime']+"</td>";
-				row+="<td>"+data[i]['kontakt_telefon']+"</td>";
-				row+="<td>"+data[i]['email']+"</td>";
-				row+="<td>"+data[i]['datum_rodjenja']+"</td>";
-				row+="<td>"+data[i]['uloga']+"</td>";
-
-	              row+="</tr>";
-	             row+="<br>";
-	             
-	             $('#tabela').append(row);
-
-			}
-		},
-		error:function(data){
-			console.log("ERROR:",data);
-		}
-	});
-});

@@ -63,4 +63,5 @@ Brisanje FC.
 public void delete(Long id) {
 this.fitnessCentarRepository.deleteById(id);
 }
+
 	}
