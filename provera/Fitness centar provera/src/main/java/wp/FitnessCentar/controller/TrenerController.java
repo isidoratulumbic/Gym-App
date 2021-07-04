@@ -1,4 +1,4 @@
-	package wp.FitnessCentar.controller;
+package wp.FitnessCentar.controller;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import wp.FitnessCentar.model.FitnessCentar;
 import wp.FitnessCentar.model.Trener;
 import wp.FitnessCentar.model.Trener;
 import wp.FitnessCentar.model.dto.TrenerDTOReg;
+import wp.FitnessCentar.model.dto.FitnessCentarDTO;
 import wp.FitnessCentar.model.dto.TrenerDTO;
 import wp.FitnessCentar.model.dto.TrenerDTOPrijava;
 import wp.FitnessCentar.service.TrenerService;
@@ -115,14 +116,18 @@ return new ResponseEntity<>(newTrenerDTOReg, HttpStatus.CREATED);
 		return new ResponseEntity<>(noviTrener,HttpStatus.OK);
 	}
 
-@DeleteMapping(value = "/{id}")
-public ResponseEntity<Void> deleteTrener(@PathVariable Long id) {
-    
-    this.trenerService.delete(id);
-
- 
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-}
+/*Uklanjanje */
+@GetMapping(
+		value="/ukloni/{id}",
+		produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<TrenerDTO> obrisi(@PathVariable(name="id") Long id){
+			Trener trener=this.trenerService.findOne(id);
+			
+			TrenerDTO t=new TrenerDTO(trener.getId(),trener.getKorisnickoIme(),trener.getIme(),trener.getPrezime(),trener.getKontakt_telefon(),trener.getDatum_rodjenja(),trener.getUloga());
+			this.trenerService.delete(id);
+			
+			return new ResponseEntity<>(t,HttpStatus.OK);
+		}
 
 /* Logovanje tj pronalazenje trenera u bazi
  */

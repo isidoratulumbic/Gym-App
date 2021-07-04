@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Fitness Centar</title>
+	<title>Treneri</title>
 	<meta charset="utf-8"/>
 	<link rel="stylesheet" href="/css/naslovna.css"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,7 +13,7 @@
   	 <link rel="stylesheet" href="/css/fitnessCentri.css"/>
   	 <link rel="stylesheet"  href="/css/drop.css"/>	
   	 <script src="/js/jquery.min.js"></script>
-     <script type="text/javascript" src="/js/FitnessCentri.js"></script>	
+     <script type="text/javascript" src="/js/pregledTrenera.js"></script>	
 </head>
 	
 <body>
@@ -69,27 +69,26 @@
 		
 		
 			<!-- Lista FC -->
-		<div class=" z-depth-1" id="fitnessCentri">
+		<div class=" z-depth-1" id="treneri">
 		
 		<section class="text-center" id="prikaz" >
 	
 	    <!-- Section heading -->
-	    <h3 class="font-weight-bold ">PREGLED FITNESS CENTARA:</h3>
+	    <h3 class="font-weight-bold ">PREGLED TRENERA:</h3>
 		<hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;">
-		<button onclick="location.href = 'dodavanjeFC.html'">Dodaj Fitness Centar</button>
 	    <div class="row">
 		
 	<table class="table table-hover table-striped table-dark" id="tabela">
 				  
 				     <tr>
 				      
-				      <th scope="col">Naziv</th>
-				      <th scope="col">Adresa</th>
-				      <th scope="col">Broj centrale</th>
-				      <th scope="col">Email</th>
-				      <th scope="col">Opcija 1</th>
-				      <th scope="col">Opcija 2</th>
-				      <th scope="col">Pregled sala</th>
+				      <th scope="col">Korisničko ime</th>
+				      <th scope="col">Ime</th>
+				      <th scope="col">Prezime</th>
+				      <th scope="col">Kontakt telefon</th>
+				      <th scope="col">Datum rođenja</th>
+				      <th scope="col">Uloga</th>
+				      <th scope="col">Ukloni</th>
 				    </tr>
 				  
 				  
@@ -100,32 +99,7 @@
 	</div>
 	
 	
-	<!-- ADM-PREGLED SALA -->
-	<div class=" z-depth-1 d-none" id="sale">
-		
-		<section class="text-center" id="prikaz">
 	
-	    <!-- Section heading -->
-	    <h3 class="font-weight-bold ">SALE ODABRANOG FITNESS CENTRA</h3>
-		<hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;">
-	
-	    <div class="row">
-		
-	<table class="table table-hover table-striped table-dark" id="tabela1">
-				  
-				    <tr>
-				      <th scope="col">Fitness Centar</th>
-				    <th scope="col">Oznaka</th>
-				      <th scope="col">Kapacitet</th>
-				       <th scope="col">Obriši</th>
-				    </tr>
-				  
-				  
-				</table>
-				
-			</div>
-		</section>
-	</div>
 
 		
 		

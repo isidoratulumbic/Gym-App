@@ -12,6 +12,12 @@ public interface TerminRepository extends JpaRepository<Termin,Long> {
 	
 	List<Termin> findAllByOrderByCena();
 	List<Termin> findAllByTrening(Trening trening);
+	
+	List<Termin> findAllByTreningNazivContaining(String naziv);
+	List<Termin> findAllByTreningOpisContaining(String opis);
+	List<Termin> findAllByTreningTipTreningaContaining(String tipTreninga);
+	List<Termin> findAllByTreningTrajanjeContaining(String trajanje);
+	
 
 
 }

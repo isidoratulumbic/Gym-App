@@ -17,6 +17,9 @@ $(document).ready(function(){
 	              row += "<td>" + btn + "</td>"; 
 	              var izmena = "<button class='izmeniFC' id = " + data[i]['id'] + ">Izmeni</button>";
 	              row += "<td>" + izmena + "</td>"; 
+	              var btn = "<button class='pregled' id = " + data[i]['id'] + ">Pregled sala</button>";
+	              row += "<td>" + btn + "</td>"; 
+	              
 	              row+="</tr>";
 	             row+="<br>";
 	             $('#tabela').append(row);
@@ -89,4 +92,39 @@ $(document).on('click', '.obrisiFC', function () {
     });
 });
 
+//pregled Sala
 
+$(document).on('click', '.pregled', function () {            // kada je button (čija je class = btnSeeMore) kliknuti
+	$("#fitnessCentri").hide(); 
+	$(".sakrij").empty();
+	
+	$.ajax({
+		    type: "GET",
+		url: "http://localhost:8080/api/sala/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
+		dataType: "json",
+		success: function (data){
+			for(i=0;i<data.length;i++){
+        		var row="<tr class='sakrij'>";
+        		row+="<td>"+data[i]['fitnessCentar']+"</td>";
+        		row+="<td>"+data[i]['oznaka']+"</td>";
+        		row+="<td>"+data[i]['kapacitet']+"</td>";
+
+        		
+        		 var btn = "<button class='btnObrisi btn btn-danger' id = " + data[i]['id'] + ">Obriši</button>";
+	              row += "<td>" + btn + "</td>"; 
+	              row+="</tr>";
+        		 
+	             
+	              $('#tabela1').append(row);
+	             
+	              $("#sale").removeClass("d-none").show();
+        	}       
+			
+		   
+		},
+		error: function (data) {
+			alert("Neuspešno, pokušajte opet!");
+		    console.log("ERROR : ", data);
+		    }
+		});
+});

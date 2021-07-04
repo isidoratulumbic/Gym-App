@@ -31,12 +31,12 @@ VALUES ('Pilates', 'Disanje kroz vezbu','Pilates','60min');
 INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje) 
 VALUES ('Aerobik', 'Treninzi bez dodatnog opterecenja','Aerobik','90min');
 
-INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id,trening_id) 
-VALUES (25,450,'Ponedeljak',true,'14-16h',1,1);
-INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id,trening_id) 
-VALUES (15,350,'Utorak',true,'14-16h',1,2);
-INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id,trening_id) 
-VALUES (20,400,'Petak',true,'14-16h',1,3);
+INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,trening_id) 
+VALUES (25,450,'Ponedeljak',true,'14-16h',1);
+INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,trening_id) 
+VALUES (15,350,'Utorak',true,'14-16h',2);
+INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,trening_id) 
+VALUES (20,400,'Petak',true,'14-16h',3);
 
 
 INSERT INTO TRENER (korisnicko_ime,lozinka,ime,prezime,kontakt_telefon,email,datum_rodjenja,uloga,aktivan) 
@@ -46,30 +46,4 @@ VALUES ('senka','senka123','Senka','Pajic','064789523','senka@gmail.com','17/02/
 INSERT INTO TRENER (korisnicko_ime,lozinka,ime,prezime,kontakt_telefon,email,datum_rodjenja,uloga,aktivan) 
 VALUES ('marko','marko123','Marko','Vasic','069874562','marko@gmail.com','18/02/1995','trener',true);
 
-
-
-
-
-INSERT INTO CLAN_REZ_TRENING (clan_id,trening_id) 
-VALUES (3,3);
-INSERT INTO CLAN_REZ_TRENING (clan_id,trening_id) 
-VALUES (4,1);
-
-INSERT INTO CLAN_TRENING (clan_id,trening_id) 
-VALUES (1,3);
-INSERT INTO CLAN_TRENING (clan_id,trening_id) 
-VALUES (2,1);
-
-
-INSERT INTO TRENER_TRENING (trener_id,trening_id) 
-VALUES (2,2);
-INSERT INTO TRENER_TRENING (trener_id,trening_id) 
-VALUES (2,3);
-INSERT INTO TRENER_TRENING (trener_id,trening_id) 
-VALUES (1,2);
-
-INSERT INTO OCENA(clan_id,trening_id)
-VALUES(1,2);
-INSERT INTO OCENA(clan_id,trening_id)
-VALUES(3,1);
 

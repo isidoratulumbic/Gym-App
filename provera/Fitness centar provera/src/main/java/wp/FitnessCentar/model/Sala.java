@@ -13,11 +13,13 @@ public class Sala implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column 
+	private String oznaka;
+	
 	@Column
 	private int kapacitet;
 	
-	@Column 
-	private String oznaka;
+	
 
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -28,6 +30,29 @@ public class Sala implements Serializable{
 	
 	
 	
+	
+
+public Sala() {}
+
+
+
+	public Sala(String oznaka, int kapacitet) {
+		super();
+		this.oznaka = oznaka;
+		this.kapacitet = kapacitet;
+	}
+
+
+
+	public Sala(Long id, String oznaka, int kapacitet) {
+		super();
+		this.id = id;
+		this.oznaka = oznaka;
+		this.kapacitet = kapacitet;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}

@@ -47,5 +47,4 @@ public class TerminServiceImpl implements TerminService {
 		Termin te=this.terminRepository.save(t);
 		return te;
 	}
-    
 }
