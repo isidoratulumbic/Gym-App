@@ -77,6 +77,7 @@
 	    <h3 class="font-weight-bold ">PREGLED FITNESS CENTARA:</h3>
 		<hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;">
 		<button onclick="location.href = 'dodavanjeFC.html'">Dodaj Fitness Centar</button>
+		<button onclick="location.href = 'sale.html'">Pregled sala</button>
 	    <div class="row">
 		
 	<table class="table table-hover table-striped table-dark" id="tabela">
@@ -89,7 +90,7 @@
 				      <th scope="col">Email</th>
 				      <th scope="col">Opcija 1</th>
 				      <th scope="col">Opcija 2</th>
-				      <th scope="col">Pregled sala</th>
+				    <!--  <th scope="col">Pregled sala</th> -->
 				    </tr>
 				  
 				  
@@ -101,11 +102,12 @@
 	
 	
 	<!-- ADM-PREGLED SALA -->
-	<div class=" z-depth-1 d-none" id="sale">
+<!--	<div class=" z-depth-1 d-none" id="sale">
 		
 		<section class="text-center" id="prikaz">
-	
+	-->
 	    <!-- Section heading -->
+	    <!--
 	    <h3 class="font-weight-bold ">SALE ODABRANOG FITNESS CENTRA</h3>
 		<hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;">
 	
@@ -115,9 +117,9 @@
 				  
 				    <tr>
 				      <th scope="col">Fitness Centar</th>
-				    <th scope="col">Oznaka</th>
+				      <th scope="col">Oznaka</th>
 				      <th scope="col">Kapacitet</th>
-				       <th scope="col">Obriši</th>
+				      <th scope="col">Obriši</th>
 				    </tr>
 				  
 				  
@@ -126,8 +128,33 @@
 			</div>
 		</section>
 	</div>
-
+-->
 		
+<!-- Obrazac za izmenu fc-->
+		<div class="d-none" id="Izmena-FC">
+			<div class="d-flex justify-content-center h-100">
+				<div class="card" id="logcard" style="height:550px">
+					<div class="card-header">
+						<h3>Novi podaci za izabrani fitness centar:</h3>
+						
+					</div>
+					<div class="card-body" style="background-color: rgba(0,0,0,0.5)">
+						<form >
+							<div id="izmenaFitnessCentra">
+							</div>
+							
+							
+							
+							<div class="form-group">
+								<input id="izmeni" value="Izmeni" class="btn float-right login_btn" >
+							</div>
+						</form>
+					</div>
+					
+					
+				</div>
+			</div>
+		</div>
 		
 		
 		 <!-- Footer -->

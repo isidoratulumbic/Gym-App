@@ -24,6 +24,18 @@ public class TreningDTO {
 
 	
 
+	public TreningDTO(Long id,String naziv, String opis, String tipTreninga) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.opis = opis;
+		this.tipTreninga = tipTreninga;
+		
+	}
+
+
+
+
 	public TreningDTO(Long id, String naziv, String opis, String tipTreninga, String trajanje, Double srednjaOcjena) {
 		super();
 		this.id = id;

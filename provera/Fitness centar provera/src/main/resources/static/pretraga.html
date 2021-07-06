@@ -71,60 +71,56 @@
 		</nav>
  
 		
-			
-	<div class="container">
-			<div class="d-flex justify-content-center h-100">
-				<div class="card" style="height:450px">
-					<div class="card-header">
-						<h3>Odaberite kriterijum:</h3>
-					</div>
-					<div class="card-body">
-						<form id="pretragaForm">
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fa fa-id-badge"></i></span>
-								</div>
-								<input type="text" id="naziv" class="form-control" placeholder="Naziv" required>
-								
-							</div>
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fa fa-circle"></i></span>
-								</div>
-								<input type="text" id="tipTreninga" class="form-control" placeholder="Tip treninga" required>
-							</div>
-							
-							<div class="form-group input-group">
-						    	<div class="input-group-prepend">
-								    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-								</div>
-								
-					    		<input name=""  id="opis" class="form-control" placeholder="Opis" type="text">
-					   		 </div>
-					   		
-					   		 <div class="form-group input-group">
-						    	<div class="input-group-prepend">
-								    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-								 </div>
-						         <input name="" id="cena" class="form-control" placeholder="Cena" type="text">
-						    </div>
-	     
-						   
-						    
-							
-							<div class="form-group">
-								<input type="submit" value="Pretraži" class="btn float-right login_btn">
-							</div>
-						</form>
-					</div>
-					
-				</div>
-			</div>
-		</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<form action="prijava.html">
+  <div class="container">
+    <h1>Pretraga po jednom ili vise kriterijuma</h1>
+    <p>Odaberite kriterijum(e).</p>
+    <hr>	
+    <label for="naziv"><b>Naziv</b></label>
+    <input type="text"  id="naziv" >
+    
+    <label for="zanr"><b>Tip treninga</b></label>
+    <input type="text"   id="tipTreninga" >
+    
+    <label for="opis"><b>Opis</b></label>
+    <input type="text"   id="opis" >	
 
-		
-		
-		
+    <label for="cena"><b>Cena</b></label>
+    <input type="text"   id="cena" >
+    
+    <label for="dan"><b>Vreme termina</b></label>
+    <input type="text"   id="vreme" >
+    <hr>
+    
+
+    <button type="submit" class="registerbtn">Pretraži</button>
+  </div>
+  <table class="table table-dark table-striped" id="pretrazeno">
+
+	<thead>
+      <tr>
+      
+        <th scope="col">Dan</th>
+        <th scope="col">Vreme</th>
+        <th scope="col">Cena</th>
+        <th scope="col">Broj rezervacija</th>
+        <th scope="col">Naziv</th>
+        <th scope="col">Opis</th>
+        <th scope="col">Tip treninga</th>
+        <th scope="col">Trajanje</th>
+        <th scope="col">Rezerviši</th>
+      </tr>
+     </thead>
+   
+   
+      
+
+  </table>
+</form>
 		
 		
 		 <!-- Footer -->

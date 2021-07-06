@@ -1,6 +1,6 @@
-$(document).ready(function(){
-    $("#pretrazeno").hide();
-});
+//$(document).ready(function(){
+   // $("#pretrazeno").hide();
+//});
 
 
 $(document).on("submit","form",function(event){
@@ -9,29 +9,34 @@ $(document).on("submit","form",function(event){
 	
 	
 	var naziv=$("#naziv").val();
-	var tipTreninga=$("#tipTreninga").val();
-	var opis=$("#opis").val();
-	var cena=$("#cena").val();
-	var dan=$("#dan").val();
+	//var tipTreninga=$("#tipTreninga").val();
+	//var opis=$("#opis").val();
+	//var cena=$("#cena").val();
+	//var dan=$("#vreme").val();
 	
 	
-	var newTreningJSON=formToJSON(naziv,tipTreninga,opis,cena,dan);
+	var newTreningJSON=formToJSON(naziv);
 	
 	$.ajax({
-		type:"POST",
-		url:"http://localhost:8080/api/trening/pretragaTreninga",
+		type:"GET",
+		url:"http://localhost:8080/api/termin/poNazivu",
 		dataType:"json",
 		contentType:"application/json",
 		data:newTreningJSON,
 		success:function(data){
 			for(i=0;i<data.length;i++){
 				var row="<tr>";
-				row+="<td>"+data[i]['naziv']+"</td>";
-				row+="<td>"+data[i]['tipTreninga']+"</td>"
-				row+="<td>"+data[i]['opis']+"</td>";
-				row+="<td>"+data[i]['cena']+"</td>"
 				row+="<td>"+data[i]['dan']+"</td>";
+				row+="<td>"+data[i]['vreme']+"</td>"
+				row+="<td>"+data[i]['cena']+"</td>";
+				row+="<td>"+data[i]['brojRezervacija']+"</td>"
+				row+="<td>"+data[i]['naziv']+"</td>";
+				row+="<td>"+data[i]['opis']+"</td>";
+				row+="<td>"+data[i]['tipTreninga']+"</td>";
+				row+="<td>"+data[i]['trajanje']+"</td>";
 				
+				 var btn = "<button class='rezervisi' id = " + data[i]['id'] + ">Rezerviši</button>";
+	              row += "<td>" + btn + "</td>"; 
 				
 	              row+="</tr>";
 	             row+="<br>";
@@ -51,13 +56,16 @@ $(document).on("submit","form",function(event){
 });
 
 //pomocna funkcija koja od polja praavi JSON
-function formToJSON(naziv,opis,tipTreninga,dan,cena){
+function formToJSON(dan,vreme,cena,brojRezervacija,naziv,opis,tipTeninga,trajanje){
 	return JSON.stringify({
+		"dan":dan,
+		"vreme":vreme,
+		"cena":cena,
+		"brojRezervacija":brojRezervacija,
 		"naziv":naziv,
 		"opis":opis,
 		"tipTreninga":tipTreninga,
-		"dan":dan,
-		"cena":cena
+		"trajanje":trajanje,
 	});
 }
 	

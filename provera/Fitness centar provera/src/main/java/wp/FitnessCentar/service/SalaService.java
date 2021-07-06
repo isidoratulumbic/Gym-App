@@ -2,7 +2,7 @@ package wp.FitnessCentar.service;
 
 import java.util.List;
 
-
+import wp.FitnessCentar.model.FitnessCentar;
 import wp.FitnessCentar.model.Sala;
 
 public interface SalaService {
@@ -18,7 +18,7 @@ public interface SalaService {
 
 	 void delete(Long id);
 
-	
+	 void saveSala(Sala s1);
 	
 
 	

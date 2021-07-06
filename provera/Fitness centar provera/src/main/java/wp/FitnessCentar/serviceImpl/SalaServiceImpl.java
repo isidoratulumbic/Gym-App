@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import wp.FitnessCentar.model.FitnessCentar;
 import wp.FitnessCentar.model.Sala;
 import wp.FitnessCentar.repository.SalaRepository;
 import wp.FitnessCentar.service.SalaService;
@@ -60,6 +61,12 @@ Brisanje FC.
 @Override
 public void delete(Long id) {
 this.salaRepository.deleteById(id);
+}
+
+@Override
+public void saveSala(Sala s1) {
+	 this.salaRepository.save(s1);
+	
 }
 
 	}

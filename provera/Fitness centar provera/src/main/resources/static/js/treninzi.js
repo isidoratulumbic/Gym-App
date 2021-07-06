@@ -53,6 +53,11 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
                 row += "<td>" + termin.vreme + "</td>";    // ubacujemo podatke jednog treninga u polja
                 row += "<td>" + termin.cena + "</td>";
                 row += "<td>" + termin.brojRezervacija + "</td>";
+                row += "<td>" + termin.naziv + "</td>";
+                row += "<td>" + termin.opis + "</td>";
+                row += "<td>" + termin.tipTreninga + "</td>";      
+                row += "<td>" + termin.trajanje + "</td>";   
+                
                 // kreiramo button i definisemo custom data atribut id = id treninga
                 let btn = "<button class='btnRezerviši' data-id=" + termin.id + ">Rezerviši</button>";
                 row += "<td>" + btn + "</td>";                      // ubacujemo button u poslednju ćeliju reda

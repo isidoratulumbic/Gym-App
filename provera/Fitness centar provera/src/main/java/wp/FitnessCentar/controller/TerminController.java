@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import wp.FitnessCentar.model.Termin;
 import wp.FitnessCentar.model.dto.TerminDTO;
+import wp.FitnessCentar.model.dto.TreningDTO;
+import wp.FitnessCentar.model.dto.TreningDTOPretraga;
 import wp.FitnessCentar.service.TerminService;
 
 
@@ -73,19 +77,20 @@ public class TerminController {
 		for(Termin termin:termini) {
 			 TerminDTO terminDTO = new TerminDTO(termin.getTrening().getNaziv(),termin.getTrening().getOpis(),termin.getTrening().getTipTreninga(),termin.getTrening().getTrajanje(), termin.getDan(),
 	                    termin.getVreme(), termin.getCena(), termin.getBrojRezervacija());
+			 terminiDTO.add(terminDTO);
 		}
 		return new ResponseEntity<>(terminiDTO,HttpStatus.OK);
    }
 
-   /*Ptretraga treninga po opisu
-    * */
-  /*  @GetMapping(value="/poopisu")
-    		public ResponseEntity nadjiTerminePoOpisu(@RequestParam String opis) {
-    	try { 
-    		List<TerminDTO> termini=terminService.findByDescription(opis);
-    		return new ResponseEntity(termini, HttpStatus.OK);
-    	} catch (Exception e) {
-    		return new ResponseEntity("Greška", HttpStatus.NOT_FOUND);
-    	}
-    }*/
+   
+	/*Pretraga treninga po nazivu*/
+   @GetMapping(value="/poNazivu")
+   public ResponseEntity nadjiTerminePoNazivu(@RequestParam String naziv) {
+	   	try {
+	   		List<TerminDTO> termini =terminService.findByName(naziv);
+	   		return new ResponseEntity(termini,HttpStatus.OK);
+	   	}catch(Exception e) {
+	   		return new ResponseEntity("greska",HttpStatus.NOT_FOUND);
+	   	}
+   }
 }

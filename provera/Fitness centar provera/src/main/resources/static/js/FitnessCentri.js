@@ -13,13 +13,16 @@ $(document).ready(function(){
 				row+="<td>"+data[i]['broj_telefona_centrale']+"</td>";
 				row+="<td>"+data[i]['email']+"</td>";
 				
-				 var btn = "<button class='obrisiFC' id = " + data[i]['id'] + ">Obriši</button>";
+				  var btn = "<button class='obrisiFC' id = " + data[i]['id'] + ">Obriši</button>";
 	              row += "<td>" + btn + "</td>"; 
 	              var izmena = "<button class='izmeniFC' id = " + data[i]['id'] + ">Izmeni</button>";
 	              row += "<td>" + izmena + "</td>"; 
-	              var btn = "<button class='pregled' id = " + data[i]['id'] + ">Pregled sala</button>";
-	              row += "<td>" + btn + "</td>"; 
+	            
+	             
+	          
 	              
+	              
+                
 	              row+="</tr>";
 	             row+="<br>";
 	             $('#tabela').append(row);
@@ -92,39 +95,95 @@ $(document).on('click', '.obrisiFC', function () {
     });
 });
 
-//pregled Sala
 
-$(document).on('click', '.pregled', function () {            // kada je button (čija je class = btnSeeMore) kliknuti
-	$("#fitnessCentri").hide(); 
-	$(".sakrij").empty();
+//Izmena FC
+
+$(document).on('click', '.izmeniFC', function () {        
 	
-	$.ajax({
+	$("#izmenaFitnessCentra").empty();
+	
+	$.ajax({  //FCController
 		    type: "GET",
-		url: "http://localhost:8080/api/sala/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
+		    //uzimam podatke za gledaoca i od te terminske liste
+		url: "http://localhost:8080/api/fitnessCentar/izmeniFC/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
 		dataType: "json",
 		success: function (data){
-			for(i=0;i<data.length;i++){
-        		var row="<tr class='sakrij'>";
-        		row+="<td>"+data[i]['fitnessCentar']+"</td>";
-        		row+="<td>"+data[i]['oznaka']+"</td>";
-        		row+="<td>"+data[i]['kapacitet']+"</td>";
-
-        		
-        		 var btn = "<button class='btnObrisi btn btn-danger' id = " + data[i]['id'] + ">Obriši</button>";
-	              row += "<td>" + btn + "</td>"; 
-	              row+="</tr>";
-        		 
-	             
-	              $('#tabela1').append(row);
-	             
-	              $("#sale").removeClass("d-none").show();
-        	}       
+	
+			
+			var red="Naziv fitness centra:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
+            red+="<input type='text' class='form-control' id='naziv' placeholder='Naziv fitness centra' value="+data['naziv']+" ></div>"
+            
+           
+            red+="Adresa:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
+            red+="<input type='text' class='form-control' id='adresa' placeholder='Adresa' value="+data['adresa']+"  ></div>"
+            
+            red+="Broj centrale:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
+            red+="<input type='text' class='form-control' id='broj_telefona_centrale' placeholder='broj_telefona_centrale' value="+data['broj_telefona_centrale']+"  ></div>"
+            
+            red+="Email:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
+            red+="<input type='email' class='form-control' id='email' placeholder='email' value="+data['email']+"  ></div>"
+            
+          console.log("EMAIL",data['email']);
+            
+			red+="<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
+            red+="<input type='text' class='form-control' id='fitnessCentarId' placeholder='Izabrnai id' value="+data['id']+"  disabled='disabled'></div>"
+             $('#izmenaFitnessCentra').append(red);
+             $("#Izmena-FC").removeClass("d-none").show();
+			 
 			
 		   
 		},
 		error: function (data) {
-			alert("Neuspešno, pokušajte opet!");
+			alert("Neuspešno, pokušajte opet");
+			 window.location.href="fitnessCentri.html";
 		    console.log("ERROR : ", data);
 		    }
 		});
 });
+
+
+$(document).on('click', '#izmeni', function () {            // kada je button (čija je class = btnSeeMore) kliknut
+	event.preventDefault();
+	$("#Izmena-FC").hide();
+	
+	var naziv=$("#naziv").val();
+	var adresa=$("#adresa").val();
+	var broj_telefona_centrale=$("#broj_telefona_centrale").val();
+	var email=$("#email").val()
+	var id=$("#fitnessCentarId").val();
+	
+
+   
+	var newFCJSON=formToJSON3(naziv,adresa, broj_telefona_centrale,email,id);
+	$.ajax({
+		type:"POST",
+		url:"http://localhost:8080/api/fitnessCentar/izmenjivanjeFC",
+		dataType:"json",
+		contentType:"application/json",
+		data:newFCJSON,
+		success:function(data){
+			alert("Uspešno");
+			window.location.href="fitnessCentri.html";
+			
+			
+		},
+		error:function(data){
+			
+			alert("Greska!");
+			window.location.href="fitnessCentri.html";
+        }
+    });
+});
+
+function formToJSON3(naziv,adresa,broj_telefona_centrale,email,id){
+	return JSON.stringify({
+		"naziv":naziv,
+		"adresa":adresa,
+		"broj_telefona_centrale":broj_telefona_centrale,
+		"email":email,
+		"id":id
+		
+		
+	});
+}
+

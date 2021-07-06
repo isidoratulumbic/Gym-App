@@ -13,20 +13,36 @@ import wp.FitnessCentar.model.Trening;
 
 public class TerminDTO {
 	
+	private Long id;
 	private String naziv;
     private String opis;
 	private String tipTreninga;
 	private String trajanje;
-	private Long id;
 	private String dan;
 	private String vreme;
 	private int cena;
 	private int brojRezervacija;
 
+
 	
-	public TerminDTO() {
-		
+
+	public TerminDTO(Long id, String naziv, String opis, String tipTreninga, String trajanje, String dan, String vreme,
+			int cena, int brojRezervacija) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.opis = opis;
+		this.tipTreninga = tipTreninga;
+		this.trajanje = trajanje;
+		this.dan = dan;
+		this.vreme = vreme;
+		this.cena = cena;
+		this.brojRezervacija = brojRezervacija;
 	}
+
+
+
+
 
 
 

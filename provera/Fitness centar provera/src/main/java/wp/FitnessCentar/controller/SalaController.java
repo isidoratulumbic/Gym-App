@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import wp.FitnessCentar.model.FitnessCentar;
 import wp.FitnessCentar.model.Sala;
 import wp.FitnessCentar.model.dto.FitnessCentarDTO;
@@ -25,7 +27,8 @@ import wp.FitnessCentar.service.SalaService;
 public class SalaController {
 
 	
-    private final SalaService salaService; 
+    private final SalaService salaService;
+	
 
     // constructor-based dependency injection
     @Autowired
@@ -112,4 +115,43 @@ public class SalaController {
     			
     			return new ResponseEntity<>(s,HttpStatus.OK);
     		}
+    
+    /*Izmenjivanje sale*/
+    
+    @GetMapping(
+    		value="izmeniSALU/{id}",
+    		produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Sala> sala1(@PathVariable(name="id") Long id){
+    	Sala sala=this.salaService.findOne(id);
+    	if(sala==null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	Sala s = new Sala();
+    	s.setId(sala.getId());
+    	s.setOznaka(sala.getOznaka());
+    	s.setKapacitet(sala.getKapacitet());
+    	
+    	
+    	return new ResponseEntity<>(s,HttpStatus.OK);
+    }
+    @PostMapping(
+    		value="/izmenjivanjeSALE",
+    		consumes=MediaType.APPLICATION_JSON_VALUE,
+    		produces=MediaType.APPLICATION_JSON_VALUE
+    		)
+    	public ResponseEntity<Sala> izmenaSALE(@RequestBody Sala s) throws Exception{
+     Sala s1 = this.salaService.findOne(s.getId());
+    		if(s1==null) {
+    			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    		}
+    		s1.setOznaka(s.getOznaka());
+    		s1.setKapacitet(s.getKapacitet());
+    		
+    		this.salaService.saveSala(s1);
+    		Sala ret = new Sala();
+    		ret.setId(s1.getId());
+    		return new ResponseEntity<>(ret,HttpStatus.OK);
+    	}   
+    
+   
 }

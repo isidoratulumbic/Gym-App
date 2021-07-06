@@ -127,52 +127,45 @@ public class FitnessCentarController {
  * 
  */
 
-@GetMapping(
-		value="/izmeniFC/{id}",
-		produces=MediaType.APPLICATION_JSON_VALUE)
-public ResponseEntity<FitnessCentarDTO> fitnessCentar(@PathVariable(name="id") Long id){
-	FitnessCentar b=this.fitnessCentarService.findOne(id);
-	FitnessCentarDTO b1=new FitnessCentarDTO();
-		b1.setId(b.getId());
-		b1.setNaziv(b.getNaziv());
-		b1.setAdresa(b.getAdresa());
-		b1.setBroj_telefona_centrale(b.getBroj_telefona_centrale());
-		b1.setEmail(b.getEmail());
-		
-		return new ResponseEntity<>(b1,HttpStatus.OK);
-	
-	
-}
 
-@PostMapping(
-		value="izmenjivanjeFC",
-		consumes=MediaType.APPLICATION_JSON_VALUE,
+@GetMapping(
+		value="izmeniFC/{id}",
 		produces=MediaType.APPLICATION_JSON_VALUE)
-public ResponseEntity<FitnessCentarDTO> izmenaFC(@RequestBody FitnessCentarDTO b)throws Exception{
-	FitnessCentar fitnessCentar=this.fitnessCentarService.findOne(b.getId());
+public ResponseEntity<FitnessCentar> sala(@PathVariable(name="id") Long id){
+	FitnessCentar fitnessCentar=this.fitnessCentarService.findOne(id);
 	if(fitnessCentar==null) {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
-	FitnessCentar b1=new FitnessCentar();
-	FitnessCentar b3=new FitnessCentar();
-	b1.setId(fitnessCentar.getId());
-	b1.setAdresa(b.getAdresa());
-	if(b.getAdresa()==null) {
-		 return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+	FitnessCentar b = new FitnessCentar();
+	b.setId(fitnessCentar.getId());
+	b.setNaziv(fitnessCentar.getNaziv());
+	b.setAdresa(fitnessCentar.getAdresa());
+	b.setEmail(fitnessCentar.getEmail());
+	b.setBroj_telefona_centrale(fitnessCentar.getBroj_telefona_centrale());
+	
+	return new ResponseEntity<>(b,HttpStatus.OK);
+}
+@PostMapping(
+		value="/izmenjivanjeFC",
+		consumes=MediaType.APPLICATION_JSON_VALUE,
+		produces=MediaType.APPLICATION_JSON_VALUE
+		)
+	public ResponseEntity<FitnessCentar> izmenaFC(@RequestBody FitnessCentar b) throws Exception{
+ FitnessCentar fc = this.fitnessCentarService.findOne(b.getId());
+		if(fc==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		fc.setNaziv(b.getNaziv());
+		fc.setAdresa(b.getAdresa());
+		fc.setBroj_telefona_centrale(b.getBroj_telefona_centrale());
+		fc.setEmail(b.getEmail());
+		this.fitnessCentarService.saveFitnessCentar(fc);
+		FitnessCentar ret = new FitnessCentar();
+		ret.setId(fc.getId());
+		return new ResponseEntity<>(ret,HttpStatus.OK);
 	}
-	b1.setBroj_telefona_centrale(b.getBroj_telefona_centrale());
-	b1.setNaziv(b.getNaziv());
-	b1.setEmail(b.getEmail());
-	this.fitnessCentarService.save(b1);
-	FitnessCentarDTO b2=new FitnessCentarDTO();
-	b2.setId(fitnessCentar.getId());
-	return new ResponseEntity<>(b2,HttpStatus.OK);
-	
-	
-}
-}
 
-
+}
 
 
     

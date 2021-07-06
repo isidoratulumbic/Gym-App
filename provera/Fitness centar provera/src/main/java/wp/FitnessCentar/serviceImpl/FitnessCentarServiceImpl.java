@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
 import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.FitnessCentar;
 import wp.FitnessCentar.repository.FitnessCentarRepository;
@@ -32,12 +34,12 @@ public class FitnessCentarServiceImpl implements FitnessCentarService {
     }
 
 	@Override
-	public FitnessCentar save(FitnessCentar f) {
-		return this.fitnessCentarRepository.save(f);
+	public FitnessCentar save(FitnessCentar fc) {
+		return this.fitnessCentarRepository.save(fc);
 		
 	}
 
-		
+	
 	  /*
     Dobavljanje FC po ID-iju.
     Metoda vraća pronađenog FC, ako postoji.
@@ -64,4 +66,12 @@ public void delete(Long id) {
 this.fitnessCentarRepository.deleteById(id);
 }
 
-	}
+@Override
+public void saveFitnessCentar(FitnessCentar fc) {
+	 this.fitnessCentarRepository.save(fc);
+	
+}
+	
+}
+
+	

@@ -19,5 +19,4 @@ public interface TerminRepository extends JpaRepository<Termin,Long> {
 	List<Termin> findAllByTreningTrajanjeContaining(String trajanje);
 	
 
-
 }

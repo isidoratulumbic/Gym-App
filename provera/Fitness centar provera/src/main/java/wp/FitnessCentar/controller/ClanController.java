@@ -115,6 +115,22 @@ public ResponseEntity<Void> deleteClan(@PathVariable Long id) {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 }
 
+@PostMapping(
+		value="/login",
+		consumes = MediaType.APPLICATION_JSON_VALUE,     // tip podataka koje metoda može da primi
+        produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Clan> login(@RequestBody Clan clan) throws Exception{
+		Clan c=this.clanService.Find(clan.getkorisnickoIme(),clan.getLozinka());
+
+		if(c!=null) {
+			Clan povratna=new Clan(c.getId(),c.getkorisnickoIme(),c.getLozinka(),c.getIme(),c.getPrezime(),c.getKontakt_telefon(),c.getEmail(),c.getDatum_rodjenja(),c.getUloga());
+			System.out.println(povratna.getEmail());
+			return new ResponseEntity<>(povratna,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+/*
 @PostMapping("/login")
 public ResponseEntity<?> prijava(@RequestBody ClanDTOPrijava clanDTOPrijava) {
 	Clan clan;
@@ -130,16 +146,17 @@ public ResponseEntity<?> prijava(@RequestBody ClanDTOPrijava clanDTOPrijava) {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	return new ResponseEntity<Clan>(clan, HttpStatus.OK);
-}
+}*/
 /*Profil člana
  
  */
+/*
 @GetMapping("/profilClana/{id}")
 public String account(@PathVariable(name = "id") Long id,Model model) {
 	Clan clan=this.clanService.findOne(id);
 	model.addAttribute("clan", clan);
 	return "clanNaslovna.html";
-}
+}*/
 
 /*Odrađeni treninzi*/
 /*

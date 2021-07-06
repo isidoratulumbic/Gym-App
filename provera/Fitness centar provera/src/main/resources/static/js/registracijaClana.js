@@ -25,6 +25,8 @@ $(document).on("submit","form",function(event){		 // kada je submit-ovana forma 
 		data:newClanDTORegJSON,
 		success:function(){
 			alert(ime+" "+prezime+" je uspešno registrovan kao član!");
+			
+            sessionStorage.setItem("uloga",data["uloga"]);
 			window.location.href="prijava.html";
 		},
 		error:function(data){

@@ -4,6 +4,8 @@ import java.util.List;
 
 import wp.FitnessCentar.model.Termin;
 import wp.FitnessCentar.model.Trening;
+import wp.FitnessCentar.model.dto.TerminDTO;
+
 
 public interface TerminService {
 	
@@ -16,5 +18,7 @@ public interface TerminService {
 	 List<Termin> findByTrening(Trening t);
 	 
 	 Termin save(Termin t);
+	 
+	 List<TerminDTO>findByName(String name);
 
 }
