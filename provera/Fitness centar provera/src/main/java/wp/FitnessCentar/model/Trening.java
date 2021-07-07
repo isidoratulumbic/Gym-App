@@ -38,7 +38,7 @@ public class Trening implements Serializable{
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "odradjeni_treninzi")
-	private Set<Clan> clanovi;
+	private Set<Clan> clanovi=new HashSet<>();;
 	
 	@ManyToMany(mappedBy = "rezervisani_treninzi")
 	private Set<Clan> clan_rez;

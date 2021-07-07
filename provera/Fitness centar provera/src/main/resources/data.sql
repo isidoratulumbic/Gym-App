@@ -26,10 +26,10 @@ VALUES (15,'S3',1);
 INSERT INTO SALA (kapacitet,oznaka,fitness_centar_id) 
 VALUES (15,'S4',1);
 
-INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje) 
-VALUES ('Kondicija', 'Rad na kondiciji','Cardio','90min');
-INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje) 
-VALUES ('Pilates', 'Disanje kroz vezbu','Pilates','60min');
+INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje,srednja_ocena) 
+VALUES ('Kondicija', 'Rad na kondiciji','Cardio','90min',9);
+INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje,srednja_ocena) 
+VALUES ('Pilates', 'Disanje kroz vezbu','Pilates','60min',7.5);
 INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje) 
 VALUES ('Aerobik', 'Treninzi bez dodatnog opterecenja','Aerobik','90min');
 

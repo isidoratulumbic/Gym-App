@@ -3,6 +3,7 @@ package wp.FitnessCentar.controller;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
+import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.Termin;
 import wp.FitnessCentar.model.Trening;
+import wp.FitnessCentar.model.dto.RezervacijaDTO;
+import wp.FitnessCentar.model.dto.TerminDTO;
 import wp.FitnessCentar.model.dto.TreningDTO;
 import wp.FitnessCentar.model.dto.TreninziDTO;
 import wp.FitnessCentar.service.ClanService;
@@ -33,6 +35,10 @@ import wp.FitnessCentar.service.TreningService;
 public class TreningController {
 
     private final TreningService treningService; 
+    @Autowired
+	private TerminService terminSrevice;
+	@Autowired
+	private ClanService clanService;
 
     // constructor-based dependency injection
     @Autowired
@@ -105,59 +111,49 @@ public class TreningController {
 		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
 	}*/
     
-    /*Pretraga treninga po kriterijumima*/
-  /*   
-    @PostMapping(
-			value="/pretragaTreninga",
-			consumes=MediaType.APPLICATION_JSON_VALUE,
+  /*  @GetMapping(
+			value="/rezervisi/{id}",
 			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Trening>> pretraga(Trening t)throws Exception{
-    	
-			List <Termin> termini = this.terminService.findAll();
-			List<Trening> treninzi = new ArrayList<>();
-			//boolean puno = false; //ukoliko ostane na false znaci da nijedno polje nije popunjeno
+	public ResponseEntity<TerminDTO> rezervisi(@PathVariable(name="id")Long id){
+			Termin t=this.terminSrevice.findOne(id);
+			TerminDTO td=new TerminDTO();
+			td.setId(t.getId());
 			
-			for(Termin a:termini)
-			{
-				if(t.getNaziv()!="")
-					if(a.getTrening().getNaziv().equalsIgnoreCase(t.getNaziv()))
-					{
-						treninzi.add(a.getTrening());
-						
-						continue;
-					}
-				if(t.getTipTreninga()!="")
-					if(a.getTrening().getTipTreninga().equalsIgnoreCase(t.getTipTreninga()))
-					{
-						treninzi.add(a.getTrening());
-						continue;
-					}
-				if(t.getOpis()!="")
-					if(a.getTrening().getOpis().equalsIgnoreCase(t.getOpis()))
-					{
-						treninzi.add(a.getTrening());
-						continue;
-					}
+			return new ResponseEntity<>(td,HttpStatus.OK);
+	}
+	@PostMapping(
+			value="/rezervacija",
+			consumes = MediaType.APPLICATION_JSON_VALUE,     
+	        produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<RezervacijaDTO> rez(@RequestBody RezervacijaDTO r)throws Exception{
+			Clan c=this.clanService.Find(r.getKorisnickoIme(), r.getLozinka());
+			RezervacijaDTO rd=new RezervacijaDTO();
+			rd.setId(c.getId().toString());
+			if(c==null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}else {
+				Long id=Long.parseLong(r.getId());
+				Termin te=this.terminService.findOne(id);
+				if(te==null) {
+				//	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+				
+				Set<Termin> rezervisani=c.getRezervisani_treninzi();
+				//uslov da bi mogao da rezervise
+				if(te.getSala_treninga().getKapacitet()>te.getBrojRezervacija()) {
+					te.setBrojRezervacija(te.getBrojRezervacija()+1);
+					rezervisani.add(te);
+
+					this.clanService.save(c);
+				}else {
+					//nema dovoljno mesta
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+				
 			
-    		
-			/*	if(f.getCena()!=0)
-					if(p.getTrening().getCena()==(f.getCena()))
-					{
-						treninzi.add(p.getTrening());
-						return new ResponseEntity<>(treninzi,HttpStatus.OK);
-				
-				
-				
+				return new ResponseEntity<>(rd,HttpStatus.OK);
 			}
-			if(treninzi.isEmpty())
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			
-			return new ResponseEntity<>(treninzi,HttpStatus.OK);
-		}
-		
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		
-	}*/
+	}
 
     
     @GetMapping("/treninzi")
@@ -172,5 +168,5 @@ public class TreningController {
 		Trening trening=this.treningService.findOne(id);
 		model.addAttribute("trening", trening);
 		return "trening.html";
-	}
+	}*/
 }

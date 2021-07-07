@@ -81,6 +81,10 @@ public Clan checkKorisnickoIme(ClanDTOPrijava clanDTOPrijava) {
 	return clan;
 }
 
-
+//cuvanje odredjenog clana
+	public Clan save(Clan clan) {
+		return this.clanRepository.save(clan);
+	}
+	
 
 }

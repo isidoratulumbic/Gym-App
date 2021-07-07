@@ -93,7 +93,7 @@ public class SalaController {
 		    for (Sala sala : salaList) {
 		        
 		    	SalaDTO salaDTO = new SalaDTO(sala.getId(), sala.getOznaka(),
-		    			sala.getKapacitet());
+		    			sala.getKapacitet(),sala.getFitness_centar().getNaziv());
 		    	salaDTOS.add(salaDTO);
 		    }
 

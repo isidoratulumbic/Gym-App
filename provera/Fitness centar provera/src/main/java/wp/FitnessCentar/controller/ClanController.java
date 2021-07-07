@@ -3,6 +3,7 @@ package wp.FitnessCentar.controller;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import wp.FitnessCentar.model.Clan;
+import wp.FitnessCentar.model.Termin;
+import wp.FitnessCentar.model.Trening;
 import wp.FitnessCentar.model.dto.ClanDTO;
 import wp.FitnessCentar.model.dto.ClanDTOPrijava;
 import wp.FitnessCentar.model.dto.ClanDTOReg;
+import wp.FitnessCentar.model.dto.TerminDTO;
+import wp.FitnessCentar.model.dto.TreningDTO;
 import wp.FitnessCentar.service.ClanService;
 
 @RestController
@@ -130,40 +135,52 @@ public ResponseEntity<Void> deleteClan(@PathVariable Long id) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
 /*
-@PostMapping("/login")
-public ResponseEntity<?> prijava(@RequestBody ClanDTOPrijava clanDTOPrijava) {
-	Clan clan;
-	try {
-		clan=this.clanService.checkKorisnickoIme(clanDTOPrijava);
-	} catch (Exception e) {
-		return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+@GetMapping(
+		value="/clan-rezervacije/{id}",
+		produces=MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<List<TerminDTO>> rezervisaneKarte(@PathVariable(name="id")Long id){
+	 Clan c=this.clanService.findOne(id);
+	 Set<Termin> rezervacije=c.getRezervisani_treninzi();
+	 List<TerminDTO> povratna=new ArrayList<>();
+	for (Termin t : rezervacije) {
+		TerminDTO tr=new TerminDTO();
+		tr.setId(t.getId());
+		tr.setBrojRezervacija(t.getTermin().getBrojRezervacija());
+		tr.setNaziv(t.getTrening().getNaziv());
+		tr.setCena(t.getCena());
+		tr.setDan(t.getDan());
+		tr.setVreme(t.getVreme());
+		tr.setClanID(c.getId());
+		povratna.add(tr);
 	}
-	if(clan==null) {
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	}
-	if(!(this.clanService.prijava(clanDTOPrijava, clan))) {
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	}
-	return new ResponseEntity<Clan>(clan, HttpStatus.OK);
-}*/
-/*Profil člana
- 
- */
-/*
-@GetMapping("/profilClana/{id}")
-public String account(@PathVariable(name = "id") Long id,Model model) {
-	Clan clan=this.clanService.findOne(id);
-	model.addAttribute("clan", clan);
-	return "clanNaslovna.html";
+	return new ResponseEntity<>(povratna,HttpStatus.OK);
 }*/
 
-/*Odrađeni treninzi*/
-/*
-@GetMapping("/account/{id}/odradjeni_treninzi")
-	public String odradjeni_treninzi(@PathVariable(name = "id") Long id,Model model) {
-		Clan clan=this.clanService.findOne(id);
-		model.addAttribute("clan", clan);
-		return "odradjeni_treninzi.html";
-	}*/
+/*Odradjeni treninzi*/
+@GetMapping(
+		value="/clan-odradjeniTreninzi/{id}",
+		produces=MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<List<TreningDTO>> odradjeniTreninzi(@PathVariable(name="id") Long id){
+		Clan c=this.clanService.findOne(id);
+		Set<Trening> treninzi=c.getOdradjeni_treninzi();
+		List<TreningDTO> treninziDTO=new ArrayList<>();
+		
+		for (Trening f : treninzi) {
+			TreningDTO fd=new TreningDTO();
+			fd.setId(f.getId());
+			fd.setNaziv(f.getNaziv());
+			fd.setTipTreninga(f.getTipTreninga());
+			fd.setOpis(f.getOpis());
+			fd.setTrajanje(f.getTrajanje());
+			fd.setSrednjaOcena(f.getSrednja_ocena());
+			treninziDTO.add(fd);
+		}
+		
+		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
+}
+
+
+
 }

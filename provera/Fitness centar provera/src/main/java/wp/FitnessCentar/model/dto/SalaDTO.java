@@ -1,14 +1,30 @@
 package wp.FitnessCentar.model.dto;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+
+import wp.FitnessCentar.model.FitnessCentar;
+
 public class SalaDTO {
 	private Long id;
 	private String oznaka;
 	private int kapacitet;
+	private String naziv;
 	
 	
 	public SalaDTO() {
     }
 
+
+	public SalaDTO(Long id, String oznaka, int kapacitet,String naziv) {
+		super();
+		this.id = id;
+		this.oznaka = oznaka;
+		this.kapacitet = kapacitet;
+		this.naziv=naziv;
+	}
+	
 
 	public SalaDTO(Long id, String oznaka, int kapacitet) {
 		super();
@@ -46,6 +62,20 @@ public class SalaDTO {
 	public void setKapacitet(int kapacitet) {
 		this.kapacitet = kapacitet;
 	}
+
+
+	public String getNaziv() {
+		return naziv;
+	}
+
+
+	public void setNaziv(String naziv) {
+		this.naziv = naziv;
+	}
+
+
+	
+	
 	
 	
 }

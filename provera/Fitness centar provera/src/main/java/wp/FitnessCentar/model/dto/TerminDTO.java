@@ -22,9 +22,12 @@ public class TerminDTO {
 	private String vreme;
 	private int cena;
 	private int brojRezervacija;
+	private Long clanID;
 
 
-	
+	public TerminDTO() {
+		
+	}
 
 	public TerminDTO(Long id, String naziv, String opis, String tipTreninga, String trajanje, String dan, String vreme,
 			int cena, int brojRezervacija) {
@@ -155,6 +158,19 @@ public class TerminDTO {
 
 
 
+	public Long getClanID() {
+		return clanID;
+	}
+
+
+
+
+	public void setClanID(Long clanID) {
+		this.clanID = clanID;
+	}
+
+	
+	
 
 	
 }

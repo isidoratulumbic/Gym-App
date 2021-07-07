@@ -1,41 +1,51 @@
-function prijava() {
-    // get the form data
-    // there are many ways to get this data using jQuery (you can use the class or id also)
-    let korisnickoIme = document.getElementById('korisnickoIme').value;
-    let lozinka = document.getElementById('lozinka').value;
-    var formData = JSON.stringify({
-        "korisnickoIme": korisnickoIme,
-        "lozinka": lozinka
-    });
-    console.log(formData);
-    
- $.ajax({
-        url: "http://localhost:8080/api/administrator/login",
-        dataType: "json",
-        type: "POST",
-        contentType: "application/json",
-        data: formData,
-        success: function(data){
+$(document).on("submit","form",function(event){
+	event.preventDefault();
+	var loginKartica=$("#kartica").hide();
 
-            sessionStorage.setItem("id", data["id"]);
-            
+	
+		
+	var korisnickoIme=$("#korisnickoIme").val();
+	var lozinka=$("#lozinka").val();
+	
+	var newKorisnikJSON=formToJSON(korisnickoIme,lozinka);
+	
+	$.ajax({
+		type:"POST",
+		url:"http://localhost:8080/api/administrator/login",
+		dataType:"json",
+		contentType:"application/json",
+		data:newKorisnikJSON,
+		success:function(data){
+			console.log("SUCCESS: ",data);
+			
+			$("#ime").append(data['ime']);
+			$("#korisnicko").append(data['korisnickoIme']);
+			$('#loz').append(data['lozinka']);
+			$('#name').append(data['ime']);
+			$('#prezime').append(data['prezime']);
+			$('#telefon').append(data['kontakt_telefon']);
+			$('#email').append(data['email']);
+			$('#datum').append(data['datum_rodjenja']);
+			$('#uloga').append(data['uloga']);
+			
+			
+			
+			  var profil=$("#profil1").removeClass("d-none").show();
+			
+		},
+		error:function(data){
+			var loginKartica=$("#kartica").show();
+			alert("Greska! Član sa unetim podacima je nepostojeći");
+		}
+	});
+	
+});
 
-            window.location.replace("/administratorNaslovna.html");
-        },
-        error: function( jqXhr, textStatus, errorThrown ){
-            if (jqXhr.status == 404) {
-                alert("Email not found!");
-                return;
-            } else if (jqXhr.status == 400) {
-                alert("Wrong password");
-                return;
-            } else if (jqXhr.status == 406) {
-            	alert("Server error");
-            	return;
-            }
-            // default handling
-            alert("error")
-        }
-    });
-} 
- 
+function formToJSON(korisnickoIme,lozinka){
+	return JSON.stringify({
+		"korisnickoIme":korisnickoIme,
+		"lozinka":lozinka
+		
+	});
+}
+

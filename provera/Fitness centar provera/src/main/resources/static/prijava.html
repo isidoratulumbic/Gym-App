@@ -100,8 +100,9 @@
 							<div class="row align-items-center remember">
 								<input type="checkbox">Zapamti me
 							</div>
+							</div>
 							<div class="form-group">
-								 <button type="button" onclick="prijava()" class="btn btn-primary">Prijavi se</button>
+								<input type="submit" value="Prijava" class="btn float-right login_btn">
 							</div>
 						</form>
 					</div>
@@ -117,7 +118,6 @@
 			</div>
 		</div>
 		
-
 
 	<!-- IZGLED PROFILA-PRIKAZE SE TEK NAKON STO SE NEKO ULOGUJE -->
 <div id="profil1" class="container my-5 py-5 z-depth-1 d-none" >
@@ -138,13 +138,8 @@
 	
 	        <img src="/images/profil1.png" style="width:30%"/>
 		
+      
 		
-	        
-		<!-- 	
-		  <a  class="btn btn-outline-danger btn-lg btn-block dropdown-toggle" data-toggle="dropdown">Odgledani filmovi</a>
-			<div class="menii dropdown-menu" id="odgledaniFilmovi">
-			</div>
-	       -->
 	      </div>
 	
 	      <div class="col-lg-5 text-center text-md-left" id="podaci">
@@ -171,7 +166,7 @@
 	            <p><strong>Kontakt telefon: </strong><span id="telefon"></span></p>
 	          </div>
 			   <div class="ml-xl-5 ml-4">
-	            <p><strong>E adresa: </strong><span id="email"></span></p>
+	            <p><strong>Email: </strong><span id="email"></span></p>
 	          </div>
 			 <div class="ml-xl-5 ml-4">
 	            <p><strong>Datum rođenja: </strong><span id="datum"></span></p>
@@ -185,12 +180,93 @@
 	        </div>
 	
 	      </div>
+	      
+	      <a href="pretraga.html" style="text-decoration : none">
+			<button type="button" class="btn btn-outline-danger btn-lg btn-block">Pretraga treninga</button>
+	        </a>
+		<!--	
+		  <a href="#" class="btn btn-outline-danger btn-lg btn-block dropdown-toggle" data-toggle="dropdown">Pregled treninga</a>
+			<div class="menii dropdown-menu">
+				<a class="dropdown-item btn btn-outline-danger btn-lg btn-block" href="treninzi.html">Treninzi</a>
+				<a class="dropdown-item btn btn-outline-danger btn-lg btn-block" href="bioskopiUkloni.html">Rezervisani treninzi</a>
+				<a class="dropdown-item btn btn-outline-danger btn-lg btn-block" href="odradjeni_treninzi.html">Odrađeni treninzi</a>
+				<a class="dropdown-item btn btn-outline-danger btn-lg btn-block" href="bioskopiUkloni.html">Odrađeni ocenjeni treninzi</a>
+				<a class="dropdown-item btn btn-outline-danger btn-lg btn-block" href="bioskopiUkloni.html">Odrađeni neocenjeni treninzi</a>
+				
+			</div>
+			-->
 	    </div>
 	
 	  </section>
 	  <!--Section: Content-->
 	
 	
+	</div>
+
+
+<!-- CLAN-REERVISANI TRENINZI -->
+	<div class=" py-3 z-depth-1 d-none" id="listaKarte">
+		
+		<section class="text-center" id="prikaz">
+	
+	    <!-- Section heading -->
+	    <h3 class="font-weight-bold ">LISTA REZERVISANIH TRENINGA</h3>
+		<hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;">
+	
+	    <div class="row">
+		
+	<table class="table table-hover table-striped table-dark" id="tabela">
+				  
+				    <tr>
+				    <th scope="col">Naziv</th>
+				      <th scope="col">Dan</th>
+				      <th scope="col">Vreme</th>
+				      <th scope="col">Cena</th>
+				      <th scope="col">Broj rezervacija</th>
+				      <th scope="col">Fitness Centar</th>
+				      <th scope="col">Sala</th>
+				       <th scope="col">Opcija</th>
+				         <th scope="col">Opcija</th>
+				    </tr>
+				  
+				  
+				</table>
+				
+			</div>
+		</section>
+	</div>
+
+
+<!-- CLAN-SVI ODRADJENI TRENINZI -->
+<br>
+<br>
+<br>
+	<div class=" py-3 z-depth-1 d-none" id="odradjeniTreninzi">
+		
+		<section class="text-center" id="prikaz">
+	
+	    <!-- Section heading -->
+	    <h3 class="font-weight-bold ">LISTA ODRADJENIH TRENINGA</h3>
+		<hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;">
+	
+	    <div class="row">
+		
+	<table class="table table-hover table-striped table-dark" id="tabela1">
+				  
+				    <tr>
+				    <th scope="col">Naziv treninga</th>
+				      <th scope="col">Tip treninga</th>
+				      <th scope="col">Opis</th>
+				      <th scope="col">Trajanje</th>
+				      <th scope="col">Srednja ocena</th>
+				      
+				    </tr>
+				  
+				  
+				</table>
+				
+			</div>
+		</section>
 	</div>
 	
 	

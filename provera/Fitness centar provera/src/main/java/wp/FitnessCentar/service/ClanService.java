@@ -19,5 +19,6 @@ public interface ClanService {
 	boolean prijava(ClanDTOPrijava clanDTOPrijava, Clan clan);
 	
 	Clan checkKorisnickoIme(ClanDTOPrijava clanDTOPrijava);
+	Clan save(Clan clan);
 
 }
