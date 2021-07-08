@@ -64,7 +64,7 @@ public class TreningController {
         for (Trening trening : treningList) {
             
             TreningDTO treningDTO = new TreningDTO(trening.getId(), trening.getNaziv(),
-                    trening.getOpis(), trening.getTipTreninga(), trening.getTrajanje(),trening.getSrednja_ocena());
+                    trening.getOpis(), trening.getTipTreninga(), trening.getTrajanje(),trening.getSrednjaOcena());
             treningDTOS.add(treningDTO);
         }
 
@@ -85,7 +85,7 @@ public class TreningController {
 		trening.setTipTreninga(t.getTipTreninga());
 		trening.setTrajanje(t.getTrajanje());
 		Double o=Double.parseDouble("0");
-		trening.setSrednja_ocena(o);
+		trening.setSrednjaOcena(o);
 		this.treningService.save(trening);
 		
 		return new ResponseEntity<>(trening,HttpStatus.OK);

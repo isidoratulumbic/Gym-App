@@ -99,3 +99,89 @@ $(document).on('click', '.btnSvi', function () {            // kada je button (�
         }
     });
 });
+
+
+$(document).on('click', '.btnOcenjeni', function () {            // kada je button (čija je class = btnSeeMore) kliknut
+	  $("#profil1").hide();
+	  $("#listarezervacije").hide();
+	  $("#odradjeniTreninzi").hide();
+	  $("#neocenjeniTreninzi").hide();
+	  $(".sakrij").empty();
+	 
+
+  // nakon što korisnik klikne button See more možemo i samo da se prebacimo na employee.html
+  // tada ajax poziv za dobavljanje jednog zaposlenog moze da bude u fajlu employee.js
+  $.ajax({
+      type: "GET",
+      url: "http://localhost:8080/api/clan/clan-ocenjeniTreninzi/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
+      dataType: "json",
+      success: function (data) {
+     
+      	for(i=0;i<data.length;i++){
+      		var row="<tr class='sakrij'>";
+      		row+="<td>"+data[i]['naziv']+"</td>";
+      		row+="<td>"+data[i]['tipTreninga']+"</td>";
+      		row+="<td>"+data[i]['opis']+"</td>";
+      		row+="<td>"+data[i]['trajanje']+"</td>";
+      		row+="<td>"+data[i]['srednjaOcena']+"</td>";
+      		
+      		
+      		
+	              row+="</tr>";
+	              
+	              $('#tabela2').append(row);
+	              
+	              $("#ocenjeniTreninzi").removeClass("d-none").show();
+	              
+      	}                          
+         
+      },
+      error: function (data) {
+      	alert("Neuspešno, pokušajte opet!");
+          console.log("ERROR : ", data);
+      }
+  });
+});
+
+
+$(document).on('click', '.btnNeocenjeni', function () {            // kada je button (čija je class = btnSeeMore) kliknut
+      $("#profil1").hide();
+	  $("#listarezrvacije").hide();
+	  $("#odradjeniTreninzi").hide();
+	  $("#ocenjeniTreninzi").hide();
+	  $(".sakrij").empty();
+
+// nakon što korisnik klikne button See more možemo i samo da se prebacimo na employee.html
+// tada ajax poziv za dobavljanje jednog zaposlenog moze da bude u fajlu employee.js
+$.ajax({
+    type: "GET",
+    url: "http://localhost:8080/api/clan/clan-neocenjeniTreninzi/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
+    dataType: "json",
+    success: function (data) {
+    	for(i=0;i<data.length;i++){
+    		var row="<tr class='sakrij'>";
+    		row+="<td>"+data[i]['naziv']+"</td>";
+    		row+="<td>"+data[i]['tipTreninga']+"</td>";
+    		row+="<td>"+data[i]['opis']+"</td>";
+    		row+="<td>"+data[i]['trajanje']+"</td>";
+    		row+="<td>"+data[i]['srednjaOcena']+"</td>";
+    		
+
+   		 var btn = "<button class='btnOceni btn btn-danger' value="+data[i]['clanId']+"  id = " + data[i]['id'] + ">Oceni</button>";
+             row += "<td>" + btn + "</td>"; 
+             row+="</tr>";
+             
+	              
+	              $('#tabela3').append(row);
+	              
+	              $("#neocenjeniTreninzi").removeClass("d-none").show();
+	              
+    	}                          
+       
+    },
+    error: function (data) {
+    	alert("Neuspešno, pokušajte opet!");
+        console.log("ERROR : ", data);
+    }
+});
+});

@@ -14,6 +14,10 @@ public class Ocena implements Serializable{
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private  Trening trening;
+	
+	@Column
+	private Double ocena;
+	
 
 	public long getId() {
 		return id;
@@ -37,6 +41,14 @@ public class Ocena implements Serializable{
 
 	public void setTrening(Trening trening) {
 		this.trening = trening;
+	}
+
+	public Double getOcena() {
+		return ocena;
+	}
+
+	public void setOcena(Double ocena) {
+		this.ocena = ocena;
 	}
 	
 	

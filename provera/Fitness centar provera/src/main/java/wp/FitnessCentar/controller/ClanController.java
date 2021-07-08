@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 import wp.FitnessCentar.model.Clan;
+import wp.FitnessCentar.model.Ocena;
 import wp.FitnessCentar.model.Termin;
 import wp.FitnessCentar.model.Trening;
 import wp.FitnessCentar.model.dto.ClanDTO;
@@ -140,18 +140,22 @@ public ResponseEntity<Void> deleteClan(@PathVariable Long id) {
 @GetMapping(
 		value="/clan-rezervacije/{id}",
 		produces=MediaType.APPLICATION_JSON_VALUE)
-public ResponseEntity<List<TerminDTO>> rezervisaneKarte(@PathVariable(name="id")Long id){
+public ResponseEntity<List<TerminDTO>> rezervisaniTreninzi(@PathVariable(name="id")Long id){
 	 Clan c=this.clanService.findOne(id);
 	 Set<Termin> rezervacije=c.getRezervisani_treninzi();
 	 List<TerminDTO> povratna=new ArrayList<>();
 	for (Termin t : rezervacije) {
 		TerminDTO tr=new TerminDTO();
 		tr.setId(t.getId());
-		tr.setBrojRezervacija(t.getTermin().getBrojRezervacija());
-		tr.setNaziv(t.getTrening().getNaziv());
+		tr.setNaziv(t.getNaziv());
+		tr.setTrajanje(t.getTrajanje());
+		tr.setTipTreninga(t.getTipTreninga());
+		tr.setOpis(t.getOpis());
+		tr.setBrojRezervacija(t.getBrojRezervacija());
 		tr.setCena(t.getCena());
 		tr.setDan(t.getDan());
 		tr.setVreme(t.getVreme());
+	//	tr.setSalaOznaka(t.getSala().getOznaka());
 		tr.setClanID(c.getId());
 		povratna.add(tr);
 	}
@@ -174,7 +178,34 @@ public ResponseEntity<List<TreningDTO>> odradjeniTreninzi(@PathVariable(name="id
 			fd.setTipTreninga(f.getTipTreninga());
 			fd.setOpis(f.getOpis());
 			fd.setTrajanje(f.getTrajanje());
-			fd.setSrednjaOcena(f.getSrednja_ocena());
+			fd.setSrednjaOcena(f.getSrednjaOcena());
+			treninziDTO.add(fd);
+		}
+		
+		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
+}
+/*Ocenjeni treninzi*/
+@GetMapping(
+		value="/clan-ocenjeniTreninzi/{id}",
+		produces=MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<List<TreningDTO>> ocenjeniTreninzi(@PathVariable(name="id") Long id){
+		Clan c=this.clanService.findOne(id);
+		Set<Ocena> treninzi=c.getOcene();
+		List<TreningDTO> treninziDTO=new ArrayList<>();
+		
+		for (Ocena f : treninzi) {
+			TreningDTO fd=new TreningDTO();
+			fd.setId(f.getTrening().getId());
+			fd.setNaziv(f.getTrening().getNaziv());
+			fd.setTipTreninga(f.getTrening().getTipTreninga());
+			fd.setOpis(f.getTrening().getOpis());
+			fd.setTrajanje(f.getTrening().getTrajanje());
+			
+			
+			fd.setSrednjaOcena(f.getOcena());
+					
+			
+			//fd.setSrednjaOcena(f.getSrednja_ocena());
 			treninziDTO.add(fd);
 		}
 		
@@ -182,5 +213,36 @@ public ResponseEntity<List<TreningDTO>> odradjeniTreninzi(@PathVariable(name="id
 }
 
 
+@GetMapping(
+		value="/clan-neocenjeniTreninzi/{id}",
+		produces=MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<List<TreningDTO>> neocenjeniTreninzi(@PathVariable(name="id") Long id){
+		Clan c=this.clanService.findOne(id);
+		Set<Trening> odradjeni=c.getOdradjeni_treninzi();
+		Set<Ocena> ocene=c.getOcene();
+		Set<Trening> ocenjeni=new HashSet<>();
+		Trening trening=new Trening();
+		for(Ocena o:ocene) {  //pravim listu ocenjenih filmova
+			trening=o.getTrening();
+			ocenjeni.add(trening);
+		}
+		List<TreningDTO> neocenjeni=new ArrayList<>();
+		for(Trening t: odradjeni) {
+			if(!ocenjeni.contains(t)) {
+				TreningDTO td=new TreningDTO();
+				td.setId(t.getId());
+				td.setNaziv(t.getNaziv());
+				td.setTipTreninga(t.getTipTreninga());
+				td.setOpis(t.getOpis());
+				td.setTrajanje(t.getTrajanje());
+				td.setSrednjaOcena(t.getSrednjaOcena());
+				td.setClanID(c.getId());
+				neocenjeni.add(td);
+			}
+		}
+		
+		return new ResponseEntity<>(neocenjeni,HttpStatus.OK);
+	
+}
 
 }

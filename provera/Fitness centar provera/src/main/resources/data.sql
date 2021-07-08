@@ -30,8 +30,8 @@ INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje,srednja_ocena)
 VALUES ('Kondicija', 'Rad na kondiciji','Cardio','90min',9);
 INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje,srednja_ocena) 
 VALUES ('Pilates', 'Disanje kroz vezbu','Pilates','60min',7.5);
-INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje) 
-VALUES ('Aerobik', 'Treninzi bez dodatnog opterecenja','Aerobik','90min');
+INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje,srednja_ocena) 
+VALUES ('Aerobik', 'Treninzi bez dodatnog opterecenja','Aerobik','90min',8);
 
 
 
@@ -50,6 +50,10 @@ INSERT INTO CLAN_REZ_TRENING (clan_id,trening_id)
 VALUES (4,1);
 
 INSERT INTO CLAN_TRENING (clan_id,trening_id) 
+VALUES (1,1);
+INSERT INTO CLAN_TRENING (clan_id,trening_id) 
+VALUES (1,2);
+INSERT INTO CLAN_TRENING (clan_id,trening_id) 
 VALUES (2,1);
 INSERT INTO CLAN_TRENING (clan_id,trening_id) 
 VALUES (1,3);
@@ -60,6 +64,8 @@ INSERT INTO OCENA (clan_id,trening_id)
 VALUES (2,1);
 INSERT INTO OCENA (clan_id,trening_id) 
 VALUES (1,3);
+INSERT INTO OCENA (clan_id,trening_id) 
+VALUES (1,2);
 INSERT INTO OCENA (clan_id,trening_id) 
 VALUES (3,2);
 

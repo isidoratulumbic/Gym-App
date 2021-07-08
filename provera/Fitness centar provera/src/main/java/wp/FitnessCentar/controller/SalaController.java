@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -101,16 +102,32 @@ public class SalaController {
 		    return new ResponseEntity<>(salaDTOS, HttpStatus.OK);
 		}
     
+    
+    /*
+    Metoda za brisanje postojećeg clana
+ */
+    /*
+@DeleteMapping(value ="obrisi/{id}")
+public ResponseEntity<Void> deleteClan(@PathVariable Long id) {
+    
+    this.salaService.delete(id);
+
+ 
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+}*/
+
+
     /*
     Metoda za brisanje postojeće sale
  */
+
     @GetMapping(
     		value="obrisi/{id}",
     		produces = MediaType.APPLICATION_JSON_VALUE)
     		public ResponseEntity<SalaDTO> obrisi(@PathVariable(name="id") Long id){
     			Sala sala=this.salaService.findOne(id);
     			
-    			SalaDTO s=new SalaDTO(sala.getId(),sala.getOznaka(),sala.getKapacitet());
+    			SalaDTO s=new SalaDTO(sala.getId(),sala.getOznaka(),sala.getKapacitet(),sala.getFitness_centar().getNaziv());
     			this.salaService.delete(id);
     			
     			return new ResponseEntity<>(s,HttpStatus.OK);
@@ -130,7 +147,7 @@ public class SalaController {
     	s.setId(sala.getId());
     	s.setOznaka(sala.getOznaka());
     	s.setKapacitet(sala.getKapacitet());
-    	
+    //	s.setNaziv(sala.getFitness_centar().getNaziv());
     	
     	return new ResponseEntity<>(s,HttpStatus.OK);
     }

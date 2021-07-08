@@ -1,18 +1,13 @@
-//$(document).ready(function(){
-   // $("#pretrazeno").hide();
-//});
-
-
 $(document).on("submit","form",function(event){
 	event.preventDefault();
 	$(".container").hide();
 	
 	
 	var naziv=$("#naziv").val();
-	//var tipTreninga=$("#tipTreninga").val();
-	//var opis=$("#opis").val();
-	//var cena=$("#cena").val();
-	//var dan=$("#vreme").val();
+	var tipTreninga=$("#tipTreninga").val();
+	var opis=$("#opis").val();
+	var cena=$("#cena").val();
+	var dan=$("#vreme").val();
 	
 	
 	var newTreningJSON=formToJSON(naziv);
