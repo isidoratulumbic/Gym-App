@@ -7,10 +7,12 @@ $(document).ready(function(){
 			console.log("SUCCESS:",data);
 			for(i=0;i<data.length;i++){
 				var row="<tr>";
-			
+				
+				
 				row+="<td>"+data[i]['oznaka']+"</td>";
 				row+="<td>"+data[i]['kapacitet']+"</td>";
-				row+="<td>"+data[i]['naziv']+"</td>";
+				row+="<td>"+data[i]['fitnessCentar']+"</td>";
+				
 				
 				
 				 var btn = "<button class='obrisiSalu' id = " + data[i]['id'] + ">Obriši</button>";
@@ -22,7 +24,7 @@ $(document).ready(function(){
 	              row+="</tr>";
 	             row+="<br>";
 	             $('#tabela1').append(row);
-
+				$("#sale").removeClass("d-none").show(); 
 			}
 		},
 		error:function(data){
@@ -34,17 +36,19 @@ $(document).ready(function(){
 // Dodavanje nove sale
 $(document).on("submit", "#salaForm", function (event) {     // kada je submit-ovana forma za kreiranje novog FC
     event.preventDefault();                                         // sprečavamo automatsko slanje zahteva da bismo pokupili (i validirali) podatke iz forme
-
+	$("#Izmena-SALE").hide();
     // preuzimamo vrednosti unete u formi
     let oznaka = $("#oznaka").val();
     let kapacitet = $("#kapacitet").val();
+    let fitnessCentar = $("#fitnessCentar").val();
     
 
     // kreiramo objekat FC
     // nazivi svih atributa moraju se poklapati sa nazivima na backend-u
     let newSala = {
         oznaka,
-        kapacitet
+        kapacitet,
+        fitnessCentar
            // zbog backend-a jobPosition moramo preimenovati u atribut position
         
     }
@@ -92,13 +96,13 @@ $(document).on('click', '.obrisiSalu', function () {
 });
 
 
-//Izmena sale
+//Izmena Sale
 
 $(document).on('click', '.izmeniSalu', function () {        
 	
 	$("#izmenaSale").empty();
 	
-	$.ajax({  //SalaController
+	$.ajax({  //FCController
 		    type: "GET",
 		    //uzimam podatke za gledaoca i od te terminske liste
 		url: "http://localhost:8080/api/sala/izmeniSALU/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
@@ -106,28 +110,33 @@ $(document).on('click', '.izmeniSalu', function () {
 		success: function (data){
 	
 			
-			var red="Oznaka:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
+			
+            
+           
+            var red="Oznaka:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
             red+="<input type='text' class='form-control' id='oznaka' placeholder='Oznaka' value="+data['oznaka']+" ></div>"
             
            
             red+="Kapacitet:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
             red+="<input type='text' class='form-control' id='kapacitet' placeholder='Kapacitet' value="+data['kapacitet']+"  ></div>"
             
-      
+            var red="Fitness centar:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
+            red+="<input type='text' class='form-control' id='fitnessCentar' placeholder='FitnessCentar' value="+data['fitnessCentar']+" ></div>"
             
-          console.log("oznaka",data['oznaka']);
+            
+          
             
 			red+="<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
-            red+="<input type='text' class='form-control' id='salaId' placeholder='Izabrnai id' value="+data['id']+"  disabled='disabled'></div>"
+            red+="<input type='text' class='form-control' id='salaId' placeholder='Izabrani id' value="+data['id']+"  disabled='disabled'></div>"
              $('#izmenaSale').append(red);
-             $("#Izmena-SALE").removeClass("d-none").show();
+             $("#Izmena-SALA").removeClass("d-none").show();
 			 
 			
 		   
 		},
 		error: function (data) {
 			alert("Neuspešno, pokušajte opet");
-			 window.location.href="Sale.html";
+			 window.location.href="sale.html";
 		    console.log("ERROR : ", data);
 		    }
 		});
@@ -136,21 +145,22 @@ $(document).on('click', '.izmeniSalu', function () {
 
 $(document).on('click', '#izmeni', function () {            // kada je button (čija je class = btnSeeMore) kliknut
 	event.preventDefault();
-	$("#Izmena-SALE").hide();
+	$("#Izmena-SALA").hide();
 	
-	var naziv=$("#oznaka").val();
-	var adresa=$("#kapacitet").val();
 	
+	var oznaka=$("#oznaka").val();
+	var kapacitet=$("#kapacitet").val();
+	var fitnessCentar=$("#fitnessCentar").val();
 	
 
    
-	var newsalaJSON=formToJSON3(oznaka,kapacitet);
+	var newFCJSON=formToJSON3(oznaka,kapacitet,fitnessCentar,id);
 	$.ajax({
 		type:"POST",
 		url:"http://localhost:8080/api/sala/izmenjivanjeSALE",
 		dataType:"json",
 		contentType:"application/json",
-		data:newsalaJSON,
+		data:newFCJSON,
 		success:function(data){
 			alert("Uspešno");
 			window.location.href="sale.html";
@@ -165,12 +175,13 @@ $(document).on('click', '#izmeni', function () {            // kada je button (�
     });
 });
 
-function formToJSON3(oznaka,kapacitet){
+function formToJSON3(oznaka,kapacitet,fitnessCentar){
 	return JSON.stringify({
 		"oznaka":oznaka,
-		"kapacitet":kapacitet
+		"kapacitet":kapacitet,
+		"fitnessCentar":fitnessCentar
+		
 		
 		
 	});
 }
-

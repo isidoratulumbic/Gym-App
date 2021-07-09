@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+
 import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.Ocena;
 import wp.FitnessCentar.model.Termin;
@@ -28,15 +29,27 @@ import wp.FitnessCentar.model.Trening;
 import wp.FitnessCentar.model.dto.ClanDTO;
 import wp.FitnessCentar.model.dto.ClanDTOPrijava;
 import wp.FitnessCentar.model.dto.ClanDTOReg;
+import wp.FitnessCentar.model.dto.OcenjivanjeDTO;
 import wp.FitnessCentar.model.dto.TerminDTO;
 import wp.FitnessCentar.model.dto.TreningDTO;
 import wp.FitnessCentar.service.ClanService;
+import wp.FitnessCentar.service.OcenaService;
+import wp.FitnessCentar.service.TerminService;
+import wp.FitnessCentar.service.TreningService;
 
 @RestController
 @RequestMapping(value = "/api/clan") 
 public class ClanController {
-
-    private final ClanService clanService; 
+	
+	
+	private OcenaService ocenaService;
+	@Autowired 
+	private TreningService treningService;
+	@Autowired 
+	private TerminService terminService;
+	@Autowired
+    private ClanService clanService;
+	 
 
     // constructor-based dependency injection
     @Autowired
@@ -136,9 +149,8 @@ public ResponseEntity<Void> deleteClan(@PathVariable Long id) {
 		}
 	}
 
-/*
 @GetMapping(
-		value="/clan-rezervacije/{id}",
+		value="/clan-rezervisaniTreninzi/{id}",
 		produces=MediaType.APPLICATION_JSON_VALUE)
 public ResponseEntity<List<TerminDTO>> rezervisaniTreninzi(@PathVariable(name="id")Long id){
 	 Clan c=this.clanService.findOne(id);
@@ -147,20 +159,19 @@ public ResponseEntity<List<TerminDTO>> rezervisaniTreninzi(@PathVariable(name="i
 	for (Termin t : rezervacije) {
 		TerminDTO tr=new TerminDTO();
 		tr.setId(t.getId());
-		tr.setNaziv(t.getNaziv());
-		tr.setTrajanje(t.getTrajanje());
-		tr.setTipTreninga(t.getTipTreninga());
-		tr.setOpis(t.getOpis());
 		tr.setBrojRezervacija(t.getBrojRezervacija());
+		tr.setNaziv(t.getTrening().getNaziv());
 		tr.setCena(t.getCena());
 		tr.setDan(t.getDan());
+		tr.setSalaOznaka(t.getSala_treninga().getOznaka());
 		tr.setVreme(t.getVreme());
-	//	tr.setSalaOznaka(t.getSala().getOznaka());
+		tr.setFitnessCentar(t.getSala_treninga().getFitness_centar().getNaziv());
 		tr.setClanID(c.getId());
 		povratna.add(tr);
 	}
 	return new ResponseEntity<>(povratna,HttpStatus.OK);
-}*/
+}
+
 
 /*Odradjeni treninzi*/
 @GetMapping(
@@ -202,10 +213,9 @@ public ResponseEntity<List<TreningDTO>> ocenjeniTreninzi(@PathVariable(name="id"
 			fd.setTrajanje(f.getTrening().getTrajanje());
 			
 			
-			fd.setSrednjaOcena(f.getOcena());
+			fd.setSrednjaOcena(f.getTrening().getSrednjaOcena());
 					
 			
-			//fd.setSrednjaOcena(f.getSrednja_ocena());
 			treninziDTO.add(fd);
 		}
 		
@@ -244,5 +254,74 @@ public ResponseEntity<List<TreningDTO>> neocenjeniTreninzi(@PathVariable(name="i
 		return new ResponseEntity<>(neocenjeni,HttpStatus.OK);
 	
 }
+/*ocenjivanje treninga*/
+@GetMapping(
+		value="clan-oceniTrening/{id}",
+		produces=MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<Trening> oceni(@PathVariable(name="id") Long id){
+		Trening t=this.treningService.findOne(id);
+		Trening t1=new Trening();
+		t1.setId(t.getId());
+		
+		return new ResponseEntity<>(t1,HttpStatus.OK);
+		
+}
+@PostMapping(
+		value="/ocenjivanje",
+		consumes = MediaType.APPLICATION_JSON_VALUE,     // tip podataka koje metoda može da primi
+        produces = MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<OcenjivanjeDTO> ocenjivanje(@RequestBody OcenjivanjeDTO o)throws Exception{
+		Clan c=this.clanService.Find(o.getKorisnickoIme(), o.getLozinka());
+		OcenjivanjeDTO oc=new OcenjivanjeDTO();
+		oc.setId(o.getId().toString());
+		
+		if(c==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else {
+			Long id=Long.parseLong(o.getId());
+			Trening t=this.treningService.findOne(id);
+			if(t==null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			Double ocena=o.getOcena();
+			Double srednjaOcena=(ocena+t.getSrednjaOcena())/2;
+			t.setSrednjaOcena(srednjaOcena);
+			Set<Ocena> ocenjeni=c.getOcene();
+			Ocena o1=new Ocena();
+			o1.setTrening(t);
+			o1.setOcena(ocena);
+			this.ocenaService.save(o1);
+			ocenjeni.add(o1);
+			this.clanService.save(c);
+			
+		}
+		return new ResponseEntity<>(oc,HttpStatus.OK);
+}
+
+@GetMapping(
+		value="clan-otkaziRezervaciju/{id}/{value}",
+		produces=MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<Clan> otkazi(@PathVariable(name="id") Long id,@PathVariable(name="value") Long clanId){
+		Termin tr=this.terminService.findOne(id);
+		//smanjenje broja rezervacija jer je otkazano 
+		tr.setBrojRezervacija(tr.getBrojRezervacija()-1);
+		if(tr==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		Clan c=this.clanService.findOne(clanId);
+		if(c==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		Set<Termin> rezervisani=c.getRezervisani_treninzi();
+		rezervisani.remove(tr);
+		this.clanService.save(c);
+		Clan c1=new Clan();
+		c1.setId(c.getId());
+		
+		return new ResponseEntity<>(c1,HttpStatus.OK);
+		
+}
+
+
 
 }

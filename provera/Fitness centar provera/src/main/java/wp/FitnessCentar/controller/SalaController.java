@@ -16,18 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 import wp.FitnessCentar.model.FitnessCentar;
 import wp.FitnessCentar.model.Sala;
 import wp.FitnessCentar.model.dto.FitnessCentarDTO;
 import wp.FitnessCentar.model.dto.SalaDTO;
+import wp.FitnessCentar.service.FitnessCentarService;
 import wp.FitnessCentar.service.SalaService;
 
 @RestController
 @RequestMapping(value = "/api/sala") 
 public class SalaController {
 
-	
+	@Autowired
+	private FitnessCentarService fitnessCentarService;
     private final SalaService salaService;
 	
 
@@ -39,24 +40,23 @@ public class SalaController {
     
     
    /*Dodavanje sale*/
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SalaDTO> createSala(@RequestBody SalaDTO salaDTO) throws Exception {
-        // Kreiramo objekat klase Employee, tako što za vrednosti atributa uzimamo
-        // vrednosti iz primljenog DTO objekta
-    	Sala sala = new Sala(salaDTO.getOznaka(), salaDTO.getKapacitet());
-
-        // Pozivanjem metode servisa kreiramo novog zaposlenog
-    	Sala newSala = salaService.create(sala);
-
-        // Mapiramo novog zaposlenog na DTO objekat koji vraćamo kroz body odgovora
-    	SalaDTO newSalaDTO = new SalaDTO(newSala.getId(), newSala.getOznaka(),
-                newSala.getKapacitet());
-
-        // Vraćamo odgovor 201 CREATED, a kroz body odgovora šaljemo podatke o novokreiranom
-        // zaposlenom, uključujući i ID koji mu je dodeljen
-        return new ResponseEntity<>(newSalaDTO, HttpStatus.CREATED);
-    }
+    
+    @PostMapping(
+			consumes=MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<SalaDTO> dodaj(@RequestBody SalaDTO s) throws Exception	{
+			FitnessCentar f=this.fitnessCentarService.findNaziv(s.getFitnessCentar());
+			if(f==null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			else {
+				Sala sala=new Sala(s.getOznaka(), s.getKapacitet(), f);
+				Sala newSala=this.salaService.save(sala);
+				
+				SalaDTO salaDTO=new SalaDTO(newSala.getId(), newSala.getOznaka(), newSala.getKapacitet(), newSala.getFitness_centar().getNaziv());
+				return new ResponseEntity<>(salaDTO,HttpStatus.OK);
+			}
+		}
     
    /*dobavljanje 1 sale
     	     -----------------*/
@@ -103,18 +103,6 @@ public class SalaController {
 		}
     
     
-    /*
-    Metoda za brisanje postojećeg clana
- */
-    /*
-@DeleteMapping(value ="obrisi/{id}")
-public ResponseEntity<Void> deleteClan(@PathVariable Long id) {
-    
-    this.salaService.delete(id);
-
- 
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-}*/
 
 
     /*
@@ -134,7 +122,35 @@ public ResponseEntity<Void> deleteClan(@PathVariable Long id) {
     		}
     
     /*Izmenjivanje sale*/
-    
+    @GetMapping(
+			value="izmeniSALU/{id}",
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<SalaDTO> salaIzmena(@PathVariable(name="id") Long id){
+		Sala s=this.salaService.findOne(id);
+		SalaDTO s1=new SalaDTO();
+		s1.setId(s.getId());
+		s1.setKapacitet(s.getKapacitet());
+		s1.setOznaka(s.getOznaka());
+		s1.setFitnessCentar(s.getFitness_centar().getNaziv());
+		return new ResponseEntity<>(s1,HttpStatus.OK);
+	}
+	@PostMapping(
+			value="izmjenjivanjeSALE",
+			consumes=MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<SalaDTO> salaIzmjena(@RequestBody SalaDTO s)throws Exception{
+		Sala sala=this.salaService.findOne(s.getId());
+		if(sala==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		sala.setKapacitet(s.getKapacitet());
+		sala.setOznaka(s.getOznaka());
+		this.salaService.save(sala);
+		SalaDTO s1=new SalaDTO();
+		s1.setId(sala.getId());
+		return new ResponseEntity<>(s1,HttpStatus.OK);
+	}
+	/*
     @GetMapping(
     		value="izmeniSALU/{id}",
     		produces=MediaType.APPLICATION_JSON_VALUE)
@@ -147,7 +163,7 @@ public ResponseEntity<Void> deleteClan(@PathVariable Long id) {
     	s.setId(sala.getId());
     	s.setOznaka(sala.getOznaka());
     	s.setKapacitet(sala.getKapacitet());
-    //	s.setNaziv(sala.getFitness_centar().getNaziv());
+    	s.setFitness_centar(sala.getFitness_centar().getNaziv());
     	
     	return new ResponseEntity<>(s,HttpStatus.OK);
     }
@@ -169,6 +185,72 @@ public ResponseEntity<Void> deleteClan(@PathVariable Long id) {
     		ret.setId(s1.getId());
     		return new ResponseEntity<>(ret,HttpStatus.OK);
     	}   
-    
-   
+    */
+/*
+@GetMapping(
+		value="izmeniSALU/{id}",
+		produces=MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<FitnessCentar> sala(@PathVariable(name="id") Long id){
+	Sala sala=this.salaService.findOne(id);
+	if(sala==null) {
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	Sala s = new Sala();
+	s.setId(sala.getId());
+	s.setOznaka(sala.getOznaka());
+	s.setKapacitet(sala.getKapacitet());
+	s.setFitness_centar(sala.getFitness_centar().getNaziv());
+	
+	
+	return new ResponseEntity<>(s,HttpStatus.OK);
+}
+@PostMapping(
+		value="/izmenjivanjeFC",
+		consumes=MediaType.APPLICATION_JSON_VALUE,
+		produces=MediaType.APPLICATION_JSON_VALUE
+		)
+	public ResponseEntity<FitnessCentar> izmenaFC(@RequestBody FitnessCentar b) throws Exception{
+ FitnessCentar fc = this.fitnessCentarService.findOne(b.getId());
+		if(fc==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		fc.setNaziv(b.getNaziv());
+		fc.setAdresa(b.getAdresa());
+		fc.setBroj_telefona_centrale(b.getBroj_telefona_centrale());
+		fc.setEmail(b.getEmail());
+		this.fitnessCentarService.saveFitnessCentar(fc);
+		FitnessCentar ret = new FitnessCentar();
+		ret.setId(fc.getId());
+		return new ResponseEntity<>(ret,HttpStatus.OK);
+	}
+//izmena sale
+	@GetMapping(
+			value="izmeniSALU/{id}",
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Sala> salaIzmeni(@PathVariable(name="id") Long id){
+		Sala s=this.salaService.findOne(id);
+		Sala s1=new Sala();
+		s1.setId(s.getId());
+		s1.setKapacitet(s.getKapacitet());
+		s1.setOznaka(s.getOznaka());
+		
+		return new ResponseEntity<>(s1,HttpStatus.OK);
+	}
+	@PostMapping(
+			value="izmenjivanjeSALE",
+			consumes=MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Sala> salaIzmena(@RequestBody SalaDTO s)throws Exception{
+		Sala sala=this.salaService.findOne(s.getId());
+		if(sala==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		sala.setKapacitet(s.getKapacitet());
+		sala.setOznaka(s.getOznaka());
+		this.salaService.save(sala);
+		Sala s1=new Sala();
+		s1.setId(sala.getId());
+		return new ResponseEntity<>(s1,HttpStatus.OK);
+	}
+*/
 }

@@ -69,4 +69,8 @@ public void saveSala(Sala s1) {
 	
 }
 
+public void deleteById(Long id) {
+	this.salaRepository.deleteById(id);
+}
+
 	}

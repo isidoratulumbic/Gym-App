@@ -13,8 +13,7 @@ VALUES('isi','isi123','Isidora','Tulumbic','0692502122','itulumbic@gmail.com','2
 
 INSERT INTO FITNESS_CENTAR (naziv,adresa,broj_telefona_centrale,email) 
 VALUES ('Fitness Centar X', 'Bulevar oslobodjenja 112','021555333','fitnesscentar@gmail.com');
-VALUES ('E-Perform', 'Đorđa Servičkog 24','021875423','eperfom@gmail.com');
-VALUES ('FitArt', 'Jug Bogdanova 2','021999755','fitart@gmail.com');
+
 
 
 INSERT INTO SALA (kapacitet,oznaka,fitness_centar_id) 
@@ -36,17 +35,19 @@ VALUES ('Aerobik', 'Treninzi bez dodatnog opterecenja','Aerobik','90min',8);
 
 
 INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id,trening_id) 
-VALUES (25,450,'Ponedeljak',true,'14-16h',1,1);
+VALUES (25,450,'15.07.2021.Ponedeljak',true,'14-16h',4,1);
 INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id,trening_id) 
-VALUES (15,350,'Utorak',true,'14-16h',4,2);
+VALUES (15,350,'16.07.2021.Utorak',true,'14-16h',4,2);
 INSERT INTO TERMIN (broj_rezervacija,cena,dan,rezervisan,vreme,sala_treninga_id,trening_id) 
-VALUES (20,400,'Petak',true,'14-16h',2,3);
+VALUES (20,400,'01.08.2021.Petak',true,'14-16h',4,3);
 
-INSERT INTO CLAN_REZ_TRENING (clan_id,trening_id) 
+INSERT INTO CLAN_REZ_TRENING (clan_id,termin_id) 
 VALUES (1,2);
-INSERT INTO CLAN_REZ_TRENING (clan_id,trening_id) 
+INSERT INTO CLAN_REZ_TRENING (clan_id,termin_id) 
+VALUES (1,3);
+INSERT INTO CLAN_REZ_TRENING (clan_id,termin_id) 
 VALUES (2,3);
-INSERT INTO CLAN_REZ_TRENING (clan_id,trening_id) 
+INSERT INTO CLAN_REZ_TRENING (clan_id,termin_id) 
 VALUES (4,1);
 
 INSERT INTO CLAN_TRENING (clan_id,trening_id) 

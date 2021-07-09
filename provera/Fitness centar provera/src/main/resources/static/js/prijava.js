@@ -32,7 +32,7 @@ $(document).on("submit","form",function(event){
 			
 			
 			  var profil=$("#profil1").removeClass("d-none").show();
-			    var rez="<button class='btnRezervisani btn-outline-danger btn-lg btn-block' id="+data['id']+">Rezervisani treninzi</button>";
+			    rez="<button class='btnRezervisani btn-outline-danger btn-lg btn-block' id="+data['id']+">Rezervisani treninzi</button>";
 				   rez+="<button  class='btnSvi btn-outline-danger btn-lg btn-block' id="+data['id']+">Odradjeni treninzi</button>";
 				   rez+="<button class='btnNeocenjeni btn-outline-danger btn-lg btn-block' id="+data['id']+">Neocenjeni treninzi</button>";
 				   rez+="<button class='btnOcenjeni btn-outline-danger btn-lg btn-block' id="+data['id']+">Ocenjeni treninzi</button>";
@@ -57,8 +57,78 @@ function formToJSON(korisnickoIme,lozinka){
 	});
 }
 
+
+
+$(document).on('click', '.btnRezervisani', function () {            // kada je button (čija je class = btnSeeMore) kliknut
+    $("#odradjeniTreninzi").hide();
+    $("#ocenjeniTreninzi").hide();
+    $("#ocenjivanje").hide();
+    $("#neocenjeniTreninzi").hide();
+    $(".sakrij").empty();
+
+    // nakon što korisnik klikne button See more možemo i samo da se prebacimo na employee.html
+    // tada ajax poziv za dobavljanje jednog zaposlenog moze da bude u fajlu employee.js
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/clan/clan-rezervisaniTreninzi/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
+        dataType: "json",
+        success: function (data) {
+        
+        	for(i=0;i<data.length;i++){
+        		var row="<tr class='sakrij'>";
+        		row+="<td>"+data[i]['naziv']+"</td>";
+        		row+="<td>"+data[i]['dan']+"</td>";
+        		row+="<td>"+data[i]['vreme']+"</td>";
+        		row+="<td>"+data[i]['cena']+"</td>";
+        		row+="<td>"+data[i]['brojRezervacija']+"</td>";
+        		row+="<td>"+data[i]['fitnessCentar']+"</td>";
+        		row+="<td>"+data[i]['salaOznaka']+"</td>";
+        		
+        		
+        		 var btn = "<button class='btnOtkazi btn btn-danger' value="+data[i]['clanId']+" id= " + data[i]['id']+ ">Otkaži</button>";
+	              row += "<td>" + btn + "</td>"; 
+
+	            
+	              row+="</tr>";
+	              
+	              $('#tabela').append(row);
+	              $("#listarezervacije").removeClass("d-none").show();
+	              
+        	}                          
+           
+        },
+        error: function (data) {
+        	alert("Neuspešno, pokušajte opet!");
+            console.log("ERROR : ", data);
+        }
+    });
+});
+
+$(document).on('click', '.btnOtkazi', function () {        
+
+	
+	$.ajax({
+		    type: "GET",
+		    //uzimam podatke za clana i od te terminske liste
+		url: "http://localhost:8080/api/clan/clan-otkaziRezervaciju/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
+		dataType: "json",
+		success: function (data){
+			alert("Uspešno uklonjena rezervacija!");
+		     $('#tabela').append(row);
+	              
+	              $("#listarezervacije").removeClass("d-none").show();
+			 
+			
+		   
+		},
+		error: function (data) {
+			alert("Neuspešno, pokušajte opet!");
+		    console.log("ERROR : ", data);
+		    }
+		});
+});
+
 $(document).on('click', '.btnSvi', function () {            // kada je button (čija je class = btnSeeMore) kliknut
-	  $("#profil1").hide();
 	  $("#listarezervacije").hide();
 	  $("#ocenjeniTreninzi").hide();
 	  $("#neocenjeniTreninzi").hide();
@@ -102,7 +172,7 @@ $(document).on('click', '.btnSvi', function () {            // kada je button (�
 
 
 $(document).on('click', '.btnOcenjeni', function () {            // kada je button (čija je class = btnSeeMore) kliknut
-	  $("#profil1").hide();
+	 
 	  $("#listarezervacije").hide();
 	  $("#odradjeniTreninzi").hide();
 	  $("#neocenjeniTreninzi").hide();
@@ -145,7 +215,7 @@ $(document).on('click', '.btnOcenjeni', function () {            // kada je butt
 
 
 $(document).on('click', '.btnNeocenjeni', function () {            // kada je button (čija je class = btnSeeMore) kliknut
-      $("#profil1").hide();
+    
 	  $("#listarezrvacije").hide();
 	  $("#odradjeniTreninzi").hide();
 	  $("#ocenjeniTreninzi").hide();
@@ -185,3 +255,71 @@ $.ajax({
     }
 });
 });
+
+
+
+$(document).on('click', '.btnOceni', function () {        
+
+	
+	$.ajax({
+		    type: "GET",
+		    //uzimam podatke za clana i od te terminske liste
+		url: "http://localhost:8080/api/clan/clan-oceniTrening/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
+		dataType: "json",
+		success: function (data){
+			//alert("Uspešno ocenjen trening!");
+			var red="<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
+            red+="<input type='text' class='form-control' id='podatakOcena' placeholder='Izabrnai id' value="+data['id']+"  disabled='disabled'></div>"
+             $('#treningic').append(red);
+             $("#ocenjivanje").removeClass("d-none").show();
+			 
+			
+		   
+		},
+		error: function (data) {
+			alert("Neuspešno, pokušajte opet!");
+			 window.location.href="prijava.html";
+		    console.log("ERROR : ", data);
+		    }
+		});
+});
+
+$(document).on('click', '#oceniTrening', function () {            // kada je button (čija je class = btnSeeMore) kliknut
+	event.preventDefault();
+	
+	
+	var korisnickoIme=$("#korisnickoImeOcena").val();
+	var lozinka=$("#lozinkaOcena").val();
+	var ocena=$("#ocenaOcena").val();
+	var id=$("#podatakOcena").val();
+   
+	var newKorisnikJSON=formToJSONOcena(korisnickoIme,lozinka,ocena,id);
+	$.ajax({
+		type:"POST",
+		url:"http://localhost:8080/api/clan/ocenjivanje",
+		dataType:"json",
+		contentType:"application/json",
+		data:newKorisnikJSON,
+		success:function(data){
+			alert("Uspešno!");
+			window.location.href="prijava.html";
+			
+			
+		},
+		error:function(data){
+			
+			alert("Greška!!");
+			
+        }
+    });
+});
+
+function formToJSONOcena(korisnickoIme,lozinka,ocena,id){
+	return JSON.stringify({
+		"korisnickoIme":korisnickoIme,
+		"lozinka":lozinka,
+		"ocena":ocena,
+		"id":id
+		
+	});
+}

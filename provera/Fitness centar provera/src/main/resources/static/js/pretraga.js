@@ -1,68 +1,64 @@
 $(document).on("submit","form",function(event){
 	event.preventDefault();
-	$(".container").hide();
 	
 	
-	var naziv=$("#naziv").val();
-	var tipTreninga=$("#tipTreninga").val();
-	var opis=$("#opis").val();
-	var cena=$("#cena").val();
-	var dan=$("#vreme").val();
+	let naziv=$("#naziv").val();
+	let TipTreninga=$("#tipTreninga").val();
+	let opis=$("#opis").val();
+	let cena=$("#cena").val();
+	let vreme=$("#vreme").val();
 	
 	
-	var newTreningJSON=formToJSON(naziv);
+	if(cena==""){
+		cena=1000;
+		}
+	if(vreme==""){
+		vreme=new Date().toISOString();
+		}
 	
 	$.ajax({
-		type:"GET",
-		url:"http://localhost:8080/api/termin/poNazivu",
-		dataType:"json",
-		contentType:"application/json",
-		data:newTreningJSON,
-		success:function(data){
-			for(i=0;i<data.length;i++){
-				var row="<tr>";
-				row+="<td>"+data[i]['dan']+"</td>";
-				row+="<td>"+data[i]['vreme']+"</td>"
-				row+="<td>"+data[i]['cena']+"</td>";
-				row+="<td>"+data[i]['brojRezervacija']+"</td>"
-				row+="<td>"+data[i]['naziv']+"</td>";
-				row+="<td>"+data[i]['opis']+"</td>";
-				row+="<td>"+data[i]['tipTreninga']+"</td>";
-				row+="<td>"+data[i]['trajanje']+"</td>";
-				
-				 var btn = "<button class='rezervisi' id = " + data[i]['id'] + ">Rezerviši</button>";
+		type:"POST",
+		url:"http://localhost:8080/api/termin/pretraga?cena="+cena+"&vreme="+vreme+"&naziv="+naziv+"&opis="+opis+"&tipTreninga="+tipTreninga,
+		dataType:"json",                                       // tip povratne vrednosti
+        success: function (response) { 
+        console.log("SUCCESS: \n.response)
+        console.log(response);                             // ova f-ja se izvršava posle uspešnog zahteva
+        
+        $('.content-table tbody').html("");
+        
+         for(let termin of response){
+        		let row="<tr>";
+        		row+="<td>" +termin.id+"</td>";
+        		row+="<td>" +termin.naziv+"</td>";
+        		row+="<td>"+termin.tipTreninga+"</td>";
+        		row+="<td>"+termin.opis+"</td>";
+        		row+="<td>"+ new Date (termin.vreme).toLocaleString() + "</td>";
+        		row+="<td>"++termin.trajanje+"</td>";
+        		row+="<td>"+termin.cena+"</td>";
+        		
+				var btn = "<button class='btnRezerviši btn btn-danger' value="+data[i]['clanId']+" id= " + data[i]['id']+ ">Rezerviši</button>";
 	              row += "<td>" + btn + "</td>"; 
-				
-	              row+="</tr>";
-	             row+="<br>";
-	             
-	             $('#pretrazeno').append(row);
-				
+				$('#termini').append(row);
 			}
 			
-			$("#pretrazeno").show();
 		},
 		error:function(data){
 			alert("Nema pronadjenih treninga!");
 			window.location.href="pretraga.html";
+			
 		}
+		
 	});
 	
 });
 
-//pomocna funkcija koja od polja praavi JSON
-function formToJSON(dan,vreme,cena,brojRezervacija,naziv,opis,tipTeninga,trajanje){
+function formToJSON(naziv,tipTreninga,opis,cena,vreme){
 	return JSON.stringify({
-		"dan":dan,
-		"vreme":vreme,
-		"cena":cena,
-		"brojRezervacija":brojRezervacija,
 		"naziv":naziv,
-		"opis":opis,
 		"tipTreninga":tipTreninga,
-		"trajanje":trajanje,
+		"opis":opis,
+		"cena":cena,
+		"vreme":vreme
 	});
 }
-	
-
 	

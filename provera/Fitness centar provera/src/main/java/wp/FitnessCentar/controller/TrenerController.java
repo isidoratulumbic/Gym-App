@@ -3,6 +3,7 @@ package wp.FitnessCentar.controller;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,20 +19,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import wp.FitnessCentar.model.FitnessCentar;
+import wp.FitnessCentar.model.Sala;
+
 import wp.FitnessCentar.model.Trener;
-import wp.FitnessCentar.model.Trener;
+import wp.FitnessCentar.model.Termin;
 import wp.FitnessCentar.model.dto.TrenerDTOReg;
 import wp.FitnessCentar.model.dto.FitnessCentarDTO;
+import wp.FitnessCentar.model.dto.SalaDTO;
+import wp.FitnessCentar.model.dto.TerminDTO;
 import wp.FitnessCentar.model.dto.TrenerDTO;
 import wp.FitnessCentar.model.dto.TrenerDTOPrijava;
+import wp.FitnessCentar.service.FitnessCentarService;
+import wp.FitnessCentar.service.SalaService;
 import wp.FitnessCentar.service.TrenerService;
 
 @RestController
 @RequestMapping(value = "/api/trener") 
 public class TrenerController {
 
-    private final TrenerService trenerService; 
+	@Autowired
+	private FitnessCentarService fitnessCentarService;
+	@Autowired
+	private SalaService salaService;
+    private TrenerService trenerService; 
 
     // constructor-based dependency injection
     @Autowired
@@ -167,5 +180,38 @@ return new ResponseEntity<>(newTrenerDTOReg, HttpStatus.CREATED);
 		model.addAttribute("trener", trener);
 		return "trenerNaslovna.html";
 	}
+
+	
+	/*Lista fitness centara i termina  za koje je on zaduzen*/
+	
+/*	@GetMapping(
+			value="/termini/{id}",  //dobijem id fitness centra
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TerminDTO>> termini(@PathVariable(name="id")Long id){
+			FitnessCentar f=this.fitnessCentarService.findOne(id);
+			List<TerminDTO> povratna=new ArrayList<>();
+			List<Termin> rasporedi=f.getTermini();
+			/*if(rasporedi.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}*//*
+			for(Raspored_filmova r:rasporedi) {
+				TerminDTO t=new TerminDTO();
+				t.setId(r.getTermin().getId());
+				t.setFitness_centar(b.getNaziv());
+				t.setSala(r.getTermin().getSala().getOznaka());
+				t.setDan(r.getTermin().getDan());
+				t.setNaziv(r.getTermin().getTrening().getNaziv());
+				t.setVreme(r.getTermin().getVreme());
+				t.setSalaOznaka(r.getTermin().getSala().getOznaka_sale());
+				t.setCijena(r.getTermin().getCijena());
+				t.setBrojRezervacija(r.getTermin().getBrojRezervacija());
+				povratna.add(t);
+				
+			}
+			
+			return new ResponseEntity<>(povratna,HttpStatus.OK);
+			
+			
+	}*/
 
 }

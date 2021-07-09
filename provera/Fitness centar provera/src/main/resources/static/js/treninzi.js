@@ -22,7 +22,7 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
                
                
                 // kreiramo button i definisemo custom data atribut id = id treninga
-                let btn = "<button class='btnRezerviši' data-id=" + termin.id + ">Rezerviši</button>";
+                let btn = "<button class='btnRezervisi' data-id=" + termin.id + ">Rezerviši</button>";
                 row += "<td>" + btn + "</td>";                      // ubacujemo button u poslednju ćeliju reda
                 row += "</tr>";                                     // završavamo kreiranje reda
 
@@ -71,3 +71,73 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
         }
     });
 });
+
+$(document).on('click', '.btnRezervisi', function () {            
+	
+	
+	$("#treningic").empty();
+	$("#kartica1").hide();
+        $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/trening/rezervisi/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
+        dataType: "json",
+        success: function (data) {
+        	
+        	
+        		//var red="<p value="+data['id']+"></p>";
+        		
+        		var red="<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
+	             red+="<input type='text' class='form-control' id='podatak' placeholder='Izabrnai id' value="+data['id']+"></div>"
+	              $('#treningic').append(red);
+	              $("#kartica1").removeClass("d-none").show();
+	              
+        	
+        	 //window.location.href="index.html";
+        	
+                                  
+           
+        },
+        error: function (data) {
+        	alert("Neuspjesno, pokusajte opet");
+            console.log("ERROR : ", data);
+        }
+    });
+});
+
+$(document).on('click', '#rezervacija', function () {            // kada je button (čija je class = btnSeeMore) kliknut
+	event.preventDefault();
+	$("#kartica1").hide();
+	
+	var korisnickoIme=$("#korisnickoIme").val();
+	var lozinka=$("#lozinka").val();
+	var id=$("#podatak").val();
+   
+	var newKorisnikJSON=formToJSON1(korisnickoIme,lozinka,id);
+	$.ajax({
+		type:"POST",
+		url:"http://localhost:8080/api/trening/rezervacija",
+		dataType:"json",
+		contentType:"application/json",
+		data:newKorisnikJSON,
+		success:function(data){
+			alert("Uspjesno");
+			
+			
+			
+		},
+		error:function(data){
+			
+			alert("Greska! Korisnik sa unijetim podacima je neposotjeći");
+			window.location.href="pretraga.html";
+        }
+    });
+});
+
+function formToJSON1(korisnickoIme,lozinka,id){
+	return JSON.stringify({
+		"korisnickoIme":korisnickoIme,
+		"lozinka":lozinka,
+		"id":id
+		
+	});
+}

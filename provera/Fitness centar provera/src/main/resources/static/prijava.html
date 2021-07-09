@@ -21,7 +21,7 @@
     <script src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/prijava.js"></script>
     <script th:inline="javascript">
-	    var clan = /*[[${clan}]]*/;
+	    
 	    </script>
 </head>
 <body>
@@ -41,7 +41,7 @@
 				<div class="navbar-nav ml" >
 					<a href="pocetna.html" class="nav-item nav-link active">Početna</a>
 					<a href="pretraga.html" class="nav-item nav-link ">Pretraga</a>
-					<a href="fitnessCentri.html" class="nav-item nav-link ">Fitness Centri</a>
+					<!--<a href="fitnessCentri.html" class="nav-item nav-link ">Fitness Centri</a>-->
 					<a href="treninzi.html" class="nav-item nav-link">Treninzi</a>
 					
 				</div>
@@ -227,7 +227,7 @@
 				      <th scope="col">Fitness Centar</th>
 				      <th scope="col">Sala</th>
 				       <th scope="col">Opcija</th>
-				         <th scope="col">Opcija</th>
+				        
 				    </tr>
 				  
 				  
@@ -328,11 +328,67 @@
 				  
 				  
 				</table>
-				
+				 
 			</div>
 		</section>
 	</div>
 	
+	
+<!-- Obrazac za ocenjivanje-->
+<
+		<div class="d-none" id="ocenjivanje">
+			<div class="d-flex justify-content-center h-100">
+				<div class="card" id="logcard" style="height:500px">
+					<div class="card-header">
+						<h3>Popuni podatke</h3>
+						
+					</div>
+					<div class="card-body" style="background-color: rgba(0,0,0,0.5)">
+						<form>
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								</div>
+								<input type="text" class="form-control" id="korisnickoImeOcena" placeholder="Korisničko ime">
+								
+							</div>
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-key"></i></span>
+								</div>
+								<input type="password" class="form-control" id="lozinkaOcena" placeholder="Lozinka">
+							</div>
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								</div>
+								<input type="number" class="form-control" id="ocenaOcena" placeholder="Ocena">
+							</div>
+							<div id="treningic">
+							
+							</div>
+							
+							
+							
+							<div class="form-group">
+								<input id="oceniTrening" value="Oceni" class="btn float-right login_btn" >
+							</div>
+						</form>
+					</div>
+					<div class="card-footer">
+						<div class="d-flex justify-content-center links">
+							Niste prijavljeni?
+						</div>
+						<div class="d-flex justify-content-center">
+							<a href="registracija.html">Registrujte se</a>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		
 		 <!-- Footer -->
 <footer class="footer bg-dark text-white">
 

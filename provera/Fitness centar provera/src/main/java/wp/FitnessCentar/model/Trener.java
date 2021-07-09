@@ -56,7 +56,7 @@ public class Trener implements Serializable{
 		private Set<Trening> treninzi;
 
 		@JsonIgnore
-		@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+		@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 		private FitnessCentar fitness_centar;
 
 		public Trener() {

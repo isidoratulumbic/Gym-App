@@ -10,20 +10,33 @@ public class SalaDTO {
 	private Long id;
 	private String oznaka;
 	private int kapacitet;
-	private String naziv;
+	//private String naziv;
+	private String fitnessCentar;
+		
 	
-	
+
 	public SalaDTO() {
     }
 
+	
+	
+	public SalaDTO(Long id, String oznaka, int kapacitet, String fitnessCentar) {
+		super();
+		this.id = id;
+		this.oznaka = oznaka;
+		this.kapacitet = kapacitet;
+		this.fitnessCentar = fitnessCentar;
+	}
 
-	public SalaDTO(Long id, String oznaka, int kapacitet,String naziv) {
+
+
+/*public SalaDTO(Long id, String oznaka, int kapacitet,String naziv) {
 		super();
 		this.id = id;
 		this.oznaka = oznaka;
 		this.kapacitet = kapacitet;
 		this.naziv=naziv;
-	}
+	}*/
 	
 
 	public SalaDTO(Long id, String oznaka, int kapacitet) {
@@ -64,13 +77,25 @@ public class SalaDTO {
 	}
 
 
-	public String getNaziv() {
+	/*public String getNaziv() {
 		return naziv;
 	}
 
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
+	}*/
+
+
+
+	public String getFitnessCentar() {
+		return fitnessCentar;
+	}
+
+
+
+	public void setFitnessCentar(String fitnessCentar) {
+		this.fitnessCentar = fitnessCentar;
 	}
 
 

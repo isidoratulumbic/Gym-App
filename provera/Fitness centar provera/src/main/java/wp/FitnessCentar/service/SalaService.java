@@ -20,7 +20,7 @@ public interface SalaService {
 
 	 void saveSala(Sala s1);
 	
-
+	 void deleteById(Long id);
 	
 
 }

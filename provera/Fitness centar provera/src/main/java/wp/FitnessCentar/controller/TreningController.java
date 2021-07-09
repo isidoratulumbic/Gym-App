@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.Termin;
 import wp.FitnessCentar.model.Trening;
 import wp.FitnessCentar.model.dto.RezervacijaDTO;
 import wp.FitnessCentar.model.dto.TerminDTO;
 import wp.FitnessCentar.model.dto.TreningDTO;
+import wp.FitnessCentar.model.dto.TreningDTOPretraga;
 import wp.FitnessCentar.model.dto.TreninziDTO;
 import wp.FitnessCentar.service.ClanService;
 import wp.FitnessCentar.service.TerminService;
@@ -91,27 +94,135 @@ public class TreningController {
 		return new ResponseEntity<>(trening,HttpStatus.OK);
 	}
 
+    /*1 trening*/
     
-    /*Sortiranje treninga po ceni
-     * 
-     */
-   /* @GetMapping(
-			value="/sortCena",
+    @GetMapping(
+			value="/{id}",
 			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<TreningDTO>> sortCena(){
-		List<Trening> treninzi=this.treningService.orderCena();
+	public ResponseEntity<List<TerminDTO>> prikaz(@PathVariable(name="id") Long id){
+		Trening t=this.treningService.findOne(id);
+		List<TerminDTO> p=new ArrayList<>();
+		Set<Termin> termini=t.getTermini();
+		if(termini.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		for (Termin t1 : termini) {
+			TerminDTO tr=new TerminDTO();
+			tr.setId(t.getId());
+			tr.setBrojRezervacija(t1.getBrojRezervacija());
+			tr.setNaziv(t1.getTrening().getNaziv());
+			tr.setOpis(t1.getTrening().getOpis());
+			tr.setTipTreninga(t1.getTrening().getTipTreninga());
+			tr.setTrajanje(t1.getTrening().getTrajanje());
+			tr.setSrednjaOcena(t1.getTrening().getSrednjaOcena());
+			tr.setCena(t1.getCena());
+			tr.setDan(t1.getDan());
+			tr.setSalaOznaka(t1.getSala_treninga().getOznaka());
+			tr.setVreme(t1.getVreme());
+			tr.setFitnessCentar(t1.getSala_treninga().getFitness_centar().getNaziv());
+			p.add(tr);
+}
 	
 		
-		List<TreningDTO> treninziDTO=new ArrayList<>();
-		
-		for(Trening trening:treninzi) {
-			TreningDTO treningDTO=new TreningDTO(trening.getId(),trening.getNaziv(),trening.getOpis(),trening.getTipTreninga(),trening.getTrajanje(),trening.getSrednja_ocena());
-			treninziDTO.add(treningDTO);
-		}
-		return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
-	}*/
+		return new ResponseEntity<>(p,HttpStatus.OK);
+		//return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+/*Pretraga*/
     
-  /*  @GetMapping(
+    @PostMapping(
+			value="/pretraga",
+			consumes=MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TreningDTO>> pretraga(@RequestBody TreningDTOPretraga f)throws Exception{
+			List<Termin> projekcije=this.terminService.findAll();
+			List<TreningDTO> treninziDTO =new ArrayList<>();
+			
+			int znak=0; //znak da je bar neki parametar bo kad kod nekog filma
+			boolean r=true;  //razlicit
+			for (Termin tr : projekcije) {
+				r=true;
+				if(f.getNaziv()!="") {
+					if(tr.getTrening().getNaziv().equalsIgnoreCase(f.getNaziv())) {
+						znak=1;
+						
+					}else {
+						r=false;
+						
+					}
+				}if(f.getTipTreninga()!="") {
+					if(tr.getTrening().getTipTreninga().equalsIgnoreCase(f.getTipTreninga())) {
+						znak=1;
+						
+						
+					}else {
+						r=false;
+						
+						
+					}
+					
+				}if(f.getOpis()!="") {
+					if(tr.getTrening().getOpis().equalsIgnoreCase(f.getOpis())) {
+						znak=1;
+						
+					}else {
+						r=false;
+						
+					}
+				}
+					
+				if(f.getCena()!=0) {
+					if(tr.getCena()==f.getCena()) {
+						znak=1;
+						
+					}else {
+						r=false;
+						
+					}
+				}if(f.getVreme()!="") {
+					if(tr.getVreme().equalsIgnoreCase(f.getVreme())) {
+						znak=1;
+						
+					}else {
+						r=false;
+						
+					}
+				}
+				
+				if(znak==1) {
+					if(r==true) {
+						TreningDTO treningDTO=new TreningDTO(tr.getTrening().getId(),tr.getTrening().getNaziv(),tr.getTrening().getOpis(),tr.getTrening().getTipTreninga(),tr.getTrening().getTrajanje(),tr.getTrening().getSrednjaOcena());
+						
+						/*if(!filmoviDTO.contains(filmDTO)) {
+							filmoviDTO.add(filmDTO);
+						}*/
+						boolean postoji=false;
+						for (TreningDTO trening : treninziDTO) {
+							if(trening.getNaziv().equalsIgnoreCase(treningDTO.getNaziv())) {
+								postoji=true;
+							}
+						}
+						if(postoji==false) {
+							treninziDTO.add(treningDTO);
+						}
+						
+						
+					}
+				}
+			}
+			
+			
+			if(treninziDTO.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				
+			}
+			return new ResponseEntity<>(treninziDTO,HttpStatus.OK);
+			
+			
+			
+	}
+    /*
+    @GetMapping(
 			value="/rezervisi/{id}",
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<TerminDTO> rezervisi(@PathVariable(name="id")Long id){
@@ -123,7 +234,7 @@ public class TreningController {
 	}
 	@PostMapping(
 			value="/rezervacija",
-			consumes = MediaType.APPLICATION_JSON_VALUE,     
+			consumes = MediaType.APPLICATION_JSON_VALUE,     // tip podataka koje metoda može da primi
 	        produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RezervacijaDTO> rez(@RequestBody RezervacijaDTO r)throws Exception{
 			Clan c=this.clanService.Find(r.getKorisnickoIme(), r.getLozinka());
@@ -133,7 +244,7 @@ public class TreningController {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}else {
 				Long id=Long.parseLong(r.getId());
-				Termin te=this.terminService.findOne(id);
+				Termin te=this.terminSrevice.findOne(id);
 				if(te==null) {
 				//	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				}
@@ -153,20 +264,7 @@ public class TreningController {
 			
 				return new ResponseEntity<>(rd,HttpStatus.OK);
 			}
-	}
-
-    
-    @GetMapping("/treninzi")
-	public String treninzi(Model model) {
-		TreninziDTO treninziDTO=this.treningService.getData();
-		model.addAttribute("treninziDTO", treninziDTO);
-		return "treninzi.html";
-	}
-	
-	@GetMapping("/trening/{id}")
-	public String getTrening(@PathVariable(name = "id") Long id,Model model){
-		Trening trening=this.treningService.findOne(id);
-		model.addAttribute("trening", trening);
-		return "trening.html";
 	}*/
+    
+
 }

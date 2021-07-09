@@ -20,8 +20,9 @@
 	<link rel="stylesheet"  href="/css/drop.css"/>	
     <script src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/prijavaAdm.js"></script>
+   
     <script th:inline="javascript">
-	    var clan = /*[[${clan}]]*/;
+	    
 	    </script>
 </head>
 <body>
@@ -178,9 +179,23 @@
 	      </div>
 	      
 	      <a href="pretraga.html" style="text-decoration : none">
-			<button type="button" class="btn btn-outline-danger btn-lg btn-block">Pretraga treninga</button>
+	      <button type="button" class="btn btn-outline-danger btn-lg btn-block">Pretraga treninga</button>
 	        </a>
-			
+	         <a href="treninzi.html" style="text-decoration : none">
+			<button type="button" class="btn btn-outline-danger btn-lg btn-block">Treninzi</button>
+			</a>
+			 <a href="fitnessCentri.html" style="text-decoration : none">
+			<button type="button" class="btn btn-outline-danger btn-lg btn-block">Fitness Centri</button>
+			</a>
+			 <a href="registracijaTrenera.html" style="text-decoration : none">
+			<button type="button" class="btn btn-outline-danger btn-lg btn-block">Registracija trenera</button>
+			</a>
+			 <a href="pregledTrenera.html" style="text-decoration : none">
+			<button type="button" class="btn btn-outline-danger btn-lg btn-block">Uklanjanje trenera</button>
+			</a>
+			 <a href="pretraga.html" style="text-decoration : none">
+	        </a>
+			<!--
 		  <a href="#" class="btn btn-outline-danger btn-lg btn-block dropdown-toggle" data-toggle="dropdown">Pregled</a>
 			<div class="menii dropdown-menu">
 				<a class="dropdown-item btn btn-outline-danger btn-lg btn-block" href="treninzi.html">Treninzi</a>
@@ -190,6 +205,7 @@
 				<a class="dropdown-item btn btn-outline-danger btn-lg btn-block" href="pregledTrenera.html">Uklanjanje trenera</a>
 				
 			</div>
+			-->
 	    </div>
 	
 	  </section>
@@ -197,7 +213,67 @@
 	
 	
 	</div>
-			
+	
+<!-- ADM-LISTA SALA  -->
+	<div class=" py-3 z-depth-1 d-none" id="sale">
+		
+		<section class="text-center" id="prikaz">
+	
+	    <!-- Section heading -->
+	    <h3 class="font-weight-bold ">LISTA SALA</h3>
+		<hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;">
+	
+	    <div class="row">
+		
+	<table class="table table-hover table-striped table-dark" id="tabela5">
+				  
+				    <tr>
+				    <th scope="col">Fitness Centar</th>
+				    <th scope="col">Oznaka sale</th>
+				      <th scope="col">Kapacitet</th>
+				      <th scope="col">Opcija</th>
+				       <th scope="col">Opcija</th>
+	
+				      
+				      
+				    </tr>
+				  
+				  
+				  
+				</table>
+				
+			</div>
+		</section>
+	</div>	
+	
+	
+	<!-- Obrazac za izmenu sale-->
+		<div class="d-none" id="Izmena-sala">
+			<div class="d-flex justify-content-center h-100">
+				<div class="card" id="logcard">
+					<div class="card-header">
+						<h3>Novi podaci za izabranu salu:</h3>
+						
+					</div>
+					<div class="card-body" style="background-color: rgba(0,0,0,0.5)">
+						<form >
+							<div id="izmenaSala">
+							</div>
+							
+							
+							
+							<div class="form-group">
+								<input id="izmeni1" value="Izmeni" class="btn float-right login_btn" >
+							</div>
+						</form>
+					</div>
+					
+					
+				</div>
+			</div>
+		</div>
+		
+	
 		 <!-- Footer -->
 <footer class="footer bg-dark text-white">
 

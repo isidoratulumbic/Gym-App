@@ -22,16 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 import wp.FitnessCentar.model.Administrator;
 import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.FitnessCentar;
+import wp.FitnessCentar.model.Sala;
 import wp.FitnessCentar.model.dto.ClanDTOReg;
 import wp.FitnessCentar.model.dto.FitnessCentarDTO;
-
+import wp.FitnessCentar.model.dto.SalaDTO;
 import wp.FitnessCentar.service.AdministratorService;
 import wp.FitnessCentar.service.FitnessCentarService;
+import wp.FitnessCentar.service.SalaService;
 
 @RestController
 @RequestMapping(value = "/api/fitnessCentar") 
 public class FitnessCentarController {
-
+	@Autowired
+	private SalaService salaService;
 	
     private final FitnessCentarService fitnessCentarService; 
 
@@ -163,6 +166,35 @@ public ResponseEntity<FitnessCentar> sala(@PathVariable(name="id") Long id){
 		FitnessCentar ret = new FitnessCentar();
 		ret.setId(fc.getId());
 		return new ResponseEntity<>(ret,HttpStatus.OK);
+	}
+//izmena sale
+	@GetMapping(
+			value="izmeniSALU/{id}",
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Sala> salaIzmeni(@PathVariable(name="id") Long id){
+		Sala s=this.salaService.findOne(id);
+		Sala s1=new Sala();
+		s1.setId(s.getId());
+		s1.setKapacitet(s.getKapacitet());
+		s1.setOznaka(s.getOznaka());
+		
+		return new ResponseEntity<>(s1,HttpStatus.OK);
+	}
+	@PostMapping(
+			value="izmenjivanjeSALE",
+			consumes=MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Sala> salaIzmena(@RequestBody SalaDTO s)throws Exception{
+		Sala sala=this.salaService.findOne(s.getId());
+		if(sala==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		sala.setKapacitet(s.getKapacitet());
+		sala.setOznaka(s.getOznaka());
+		this.salaService.save(sala);
+		Sala s1=new Sala();
+		s1.setId(sala.getId());
+		return new ResponseEntity<>(s1,HttpStatus.OK);
 	}
 
 }

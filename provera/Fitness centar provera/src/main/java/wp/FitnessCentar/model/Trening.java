@@ -40,8 +40,8 @@ public class Trening implements Serializable{
 	@ManyToMany(mappedBy = "odradjeni_treninzi")
 	private Set<Clan> clanovi=new HashSet<>();;
 	
-	@ManyToMany(mappedBy = "rezervisani_treninzi")
-	private Set<Clan> clan_rez;
+	/*@ManyToMany(mappedBy = "rezervisani_treninzi")
+	private Set<Clan> clan_rez;*/
 	
 
 	@ManyToMany(mappedBy = "treninzi")
@@ -170,16 +170,6 @@ public class Trening implements Serializable{
 
 
 
-	public Set<Clan> getClan_rez() {
-		return clan_rez;
-	}
-
-
-
-
-	public void setClan_rez(Set<Clan> clan_rez) {
-		this.clan_rez = clan_rez;
-	}
 
 
 

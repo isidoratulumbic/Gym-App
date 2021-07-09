@@ -53,8 +53,8 @@ public class Clan implements Serializable{
 	 @ManyToMany
 	    @JoinTable(name = "clan_rez_trening",
 	    joinColumns = @JoinColumn(name = "clan_id", referencedColumnName = "id"),
-	    inverseJoinColumns = @JoinColumn(name = "trening_id", referencedColumnName = "id"))
-		private Set<Trening> rezervisani_treninzi ;
+	    inverseJoinColumns = @JoinColumn(name = "termin_id", referencedColumnName = "id"))
+		private Set<Termin> rezervisani_treninzi ;
 	@JsonIgnore
 	 @OneToMany (mappedBy="clan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 	private Set<Ocena> ocene;
@@ -64,7 +64,7 @@ public class Clan implements Serializable{
 	    }
 
 	 
-	public Clan(Set<Trening> odradjeni_treninzi, Set<Trening> rezervisani_treninzi, Set<Ocena> ocene) {
+	public Clan(Set<Trening> odradjeni_treninzi, Set<Termin> rezervisani_treninzi, Set<Ocena> ocene) {
 		super();
 		this.odradjeni_treninzi = odradjeni_treninzi;
 		this.rezervisani_treninzi = rezervisani_treninzi;
@@ -187,11 +187,11 @@ public class Clan implements Serializable{
 		this.odradjeni_treninzi = odradjeni_treninzi;
 	}
 
-	public Set<Trening> getRezervisani_treninzi() {
+	public Set<Termin> getRezervisani_treninzi() {
 		return rezervisani_treninzi;
 	}
 
-	public void setRezervisani_treninzi(Set<Trening> rezervisani_treninzi) {
+	public void setRezervisani_treninzi(Set<Termin> rezervisani_treninzi) {
 		this.rezervisani_treninzi = rezervisani_treninzi;
 	}
 

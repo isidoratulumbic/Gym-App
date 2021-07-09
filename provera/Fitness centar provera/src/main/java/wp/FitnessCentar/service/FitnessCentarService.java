@@ -20,7 +20,7 @@ public interface FitnessCentarService {
 
 	void saveFitnessCentar(FitnessCentar fc);
 
-	
+	FitnessCentar findNaziv(String naziv);
 
 	
 	

@@ -22,10 +22,10 @@ public class Sala implements Serializable{
 	
 
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.PERSIST)
 	private FitnessCentar fitness_centar;
 
-	@OneToMany(mappedBy="sala_treninga", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="sala_treninga", fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Set<Termin> termini=new HashSet<>();
 	
 	
@@ -33,6 +33,15 @@ public class Sala implements Serializable{
 	
 
 public Sala() {}
+
+
+	
+	public Sala(String oznaka, int kapacitet, FitnessCentar fitness_centar) {
+	super();
+	this.oznaka = oznaka;
+	this.kapacitet = kapacitet;
+	this.fitness_centar = fitness_centar;
+}
 
 
 

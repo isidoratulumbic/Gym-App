@@ -23,7 +23,9 @@ public class TerminDTO {
 	private int cena;
 	private int brojRezervacija;
 	private Long clanID;
-
+	private Double srednjaOcena;
+	private String salaOznaka;
+	private String fitnessCentar;
 
 	public TerminDTO() {
 		
@@ -167,6 +169,30 @@ public class TerminDTO {
 
 	public void setClanID(Long clanID) {
 		this.clanID = clanID;
+	}
+
+	public Double getSrednjaOcena() {
+		return srednjaOcena;
+	}
+
+	public void setSrednjaOcena(Double srednjaOcena) {
+		this.srednjaOcena = srednjaOcena;
+	}
+
+	public String getSalaOznaka() {
+		return salaOznaka;
+	}
+
+	public void setSalaOznaka(String salaOznaka) {
+		this.salaOznaka = salaOznaka;
+	}
+
+	public String getFitnessCentar() {
+		return fitnessCentar;
+	}
+
+	public void setFitnessCentar(String fitnessCentar) {
+		this.fitnessCentar = fitnessCentar;
 	}
 
 	

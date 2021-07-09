@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-
 import wp.FitnessCentar.model.Clan;
 import wp.FitnessCentar.model.Trening;
 import wp.FitnessCentar.model.dto.TreninziDTO;
@@ -44,10 +43,6 @@ public Trening create(Trening trening) throws Exception {
     Trening newTrening = this.treningRepository.save(trening);
     return newTrening;
 }
-/*@Override
-public Trening save(Trening t) {
-	return this.treningRepository.save(t);
-}*/
 
 /*@Override
 public List<Trening> orderCena(){
@@ -59,8 +54,8 @@ public List<Trening> orderVreme(){
 }*/
 
 public Trening findOne(Long id) {
-	Trening trening=this.treningRepository.findById(id).get();
-	return trening;
+    Trening trening = this.treningRepository.getOne(id);
+    return trening;
 }
 
 public List<Trening> findAll(){

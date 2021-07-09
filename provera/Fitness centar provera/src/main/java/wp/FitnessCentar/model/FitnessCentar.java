@@ -1,10 +1,14 @@
 package wp.FitnessCentar.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
+
+
 
 
 @Entity
@@ -31,10 +35,9 @@ public class FitnessCentar implements Serializable{
 	@OneToMany(mappedBy="fitness_centar",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Trener> treneri=new HashSet<>() ;
 	
-	@OneToMany(mappedBy = "fitness_centar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "fitness_centar", fetch = FetchType.LAZY, cascade=CascadeType.PERSIST)
 	private Set<Sala> sale=new HashSet<>();
 
-	
 
 	
 

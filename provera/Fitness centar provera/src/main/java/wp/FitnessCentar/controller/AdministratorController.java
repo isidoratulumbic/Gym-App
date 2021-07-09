@@ -3,6 +3,7 @@ package wp.FitnessCentar.controller;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,18 +20,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import wp.FitnessCentar.model.Administrator;
+import wp.FitnessCentar.model.Clan;
+import wp.FitnessCentar.model.FitnessCentar;
+import wp.FitnessCentar.model.Sala;
 import wp.FitnessCentar.model.Administrator;
 import wp.FitnessCentar.model.Administrator;
 import wp.FitnessCentar.model.dto.AdministratorDTO;
 import wp.FitnessCentar.model.dto.AdministratorDTOPrijava;
 import wp.FitnessCentar.model.dto.AdministratorDTOReg;
 import wp.FitnessCentar.model.dto.ClanDTOPrijava;
+import wp.FitnessCentar.model.dto.SalaDTO;
 import wp.FitnessCentar.service.AdministratorService;
+import wp.FitnessCentar.service.ClanService;
+import wp.FitnessCentar.service.FitnessCentarService;
+import wp.FitnessCentar.service.SalaService;
+import wp.FitnessCentar.service.TerminService;
 
 @RestController
 @RequestMapping(value = "/api/administrator") 
 public class AdministratorController {
 
+	@Autowired
+	private TerminService terminSrevice;
+	@Autowired
+	private SalaService salaService;
+	@Autowired
+	private FitnessCentarService fitnessCentarService;
     private final AdministratorService administratorService; 
 
     // constructor-based dependency injection
@@ -121,26 +136,60 @@ public ResponseEntity<Void> deleteAdministrator(@PathVariable Long id) {
 }
 
 
-@PostMapping("/login")
-public ResponseEntity<?> prijava(@RequestBody AdministratorDTOPrijava administratorDTOPrijava) {
-	Administrator administrator;
-	try {
-		administrator=this.administratorService.checkKorisnickoIme(administratorDTOPrijava);
-	} catch (Exception e) {
-		return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+@PostMapping(
+		value="/login",
+		consumes = MediaType.APPLICATION_JSON_VALUE,     // tip podataka koje metoda može da primi
+        produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Administrator> login(@RequestBody Administrator administrator) throws Exception{
+	Administrator a=this.administratorService.Find(administrator.getKorisnickoIme(),administrator.getLozinka());
+
+		if(a!=null) {
+			Administrator povratna=new Administrator(a.getId(),a.getKorisnickoIme(),a.getLozinka(),a.getIme(),a.getPrezime(),a.getKontakt_telefon(),a.getEmail(),a.getDatum_rodjenja(),a.getUloga());
+			System.out.println(povratna.getEmail());
+			return new ResponseEntity<>(povratna,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
-	if(administrator==null) {
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	}
-	if(!(this.administratorService.prijava(administratorDTOPrijava, administrator))) {
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	}
-	return new ResponseEntity<Administrator>(administrator, HttpStatus.OK);
+
+/*Pregled sala*/
+
+@GetMapping(
+		value="/sale/{id}", //id fitness centra
+		produces=MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<List<SalaDTO>> sale(@PathVariable(name="id") Long id){
+		FitnessCentar f=this.fitnessCentarService.findOne(id);
+		if(f==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		Set<Sala> sale=f.getSale();
+		/*if(sale.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}*/
+		List<SalaDTO> povratna=new ArrayList<>();
+		for(Sala s:sale) {
+			SalaDTO sd=new SalaDTO();
+			sd.setId(s.getId());
+			sd.setKapacitet(s.getKapacitet());
+			sd.setOznaka(s.getOznaka());
+			sd.setFitnessCentar(f.getNaziv());
+			povratna.add(sd);
+		}
+		
+		return new ResponseEntity<>(povratna,HttpStatus.OK);
 }
-@GetMapping("/profilAdministratora/{id}")
-public String account(@PathVariable(name = "id") Long id,Model model) {
-	Administrator administrator=this.administratorService.findOne(id);
-	model.addAttribute("administrator", administrator);
-	return "administratorNaslovna.html";
+
+/*Ukloni salu*/
+
+@GetMapping(
+		value="/saleUkloni/{id}",  //id sale
+		produces=MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<SalaDTO> ukloniSalu(@PathVariable(name="id")Long id){
+		Sala s=this.salaService.findOne(id);
+		 SalaDTO salaDTO=new SalaDTO(s.getId(), s.getOznaka(), s.getKapacitet(), s.getFitness_centar().getNaziv());
+		 this.salaService.deleteById(id);
+		 
+		 return new ResponseEntity<>(salaDTO,HttpStatus.OK);
 }
+
 }

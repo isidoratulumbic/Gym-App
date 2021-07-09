@@ -33,16 +33,16 @@ public class TreningDTO {
 
 	
 
-	public TreningDTO(Long id, String naziv, String opis, String tipTreninga, String trajanje, Double srednjaOcjena,
+	public TreningDTO(Long id, String naziv, String opis, String tipTreninga, String trajanje, Double srednjaOcena,
 			String dan, String vreme, int cena, int brojRezervacija, String salaOznaka, String fitnessCentar,
-			Long clanID, Double srednjaOcena) {
+			Long clanID) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
 		this.opis = opis;
 		this.tipTreninga = tipTreninga;
 		this.trajanje = trajanje;
-		this.srednjaOcjena = srednjaOcjena;
+		this.srednjaOcena = srednjaOcena;
 		this.dan = dan;
 		this.vreme = vreme;
 		this.cena = cena;
@@ -75,7 +75,7 @@ public class TreningDTO {
 		this.opis = opis;
 		this.tipTreninga = tipTreninga;
 		this.trajanje = trajanje;
-		this.srednjaOcjena = srednjaOcjena;
+		this.srednjaOcena = srednjaOcena;
 		
 	}
 
@@ -120,14 +120,6 @@ public class TreningDTO {
 	public void setTrajanje(String trajanje) {
 		this.trajanje = trajanje;
 	}
-	
-	public Double getSrednjaOcjena() {
-		return srednjaOcjena;
-	}
-	public void setSrednjaOcjena(Double srednjaOcjena) {
-		this.srednjaOcjena = srednjaOcjena;
-	}
-
 
 
 

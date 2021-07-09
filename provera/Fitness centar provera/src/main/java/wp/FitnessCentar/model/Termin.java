@@ -30,10 +30,12 @@ public class Termin  implements Serializable{
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Trening trening;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Sala sala_treninga;
 
-
+	@ManyToMany(mappedBy = "rezervisani_treninzi")
+	private Set<Clan> clan_rez;
+	
 	public Long getId() {
 		return id;
 	}
@@ -96,6 +98,14 @@ public class Termin  implements Serializable{
 
 	public void setSala_treninga(Sala sala_treninga) {
 		this.sala_treninga = sala_treninga;
+	}
+
+	public Set<Clan> getClan_rez() {
+		return clan_rez;
+	}
+
+	public void setClan_rez(Set<Clan> clan_rez) {
+		this.clan_rez = clan_rez;
 	}
 
 

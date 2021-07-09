@@ -71,7 +71,10 @@ public void saveFitnessCentar(FitnessCentar fc) {
 	 this.fitnessCentarRepository.save(fc);
 	
 }
-	
+public FitnessCentar findNaziv(String naziv) {
+	FitnessCentar fitnessCentar=this.fitnessCentarRepository.findByNazivIgnoreCase(naziv);
+	return fitnessCentar;
+}
 }
 
 	

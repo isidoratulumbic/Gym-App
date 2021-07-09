@@ -9,13 +9,16 @@ import org.springframework.stereotype.Service;
 
 
 import wp.FitnessCentar.model.Clan;
+import wp.FitnessCentar.model.Termin;
 import wp.FitnessCentar.model.dto.ClanDTOPrijava;
 import wp.FitnessCentar.repository.ClanRepository;
 import wp.FitnessCentar.service.ClanService;
+import wp.FitnessCentar.service.TerminService;
 
 @Service
 public class ClanServiceImpl implements ClanService {
-	
+	@Autowired
+	private TerminService terminService;
 	private final ClanRepository clanRepository;
 	
 	 // constructor-based dependency injection
@@ -81,10 +84,12 @@ public Clan checkKorisnickoIme(ClanDTOPrijava clanDTOPrijava) {
 	return clan;
 }
 
+
+
+
 //cuvanje odredjenog clana
 	public Clan save(Clan clan) {
 		return this.clanRepository.save(clan);
 	}
-	
 
 }
