@@ -182,36 +182,6 @@ return new ResponseEntity<>(newTrenerDTOReg, HttpStatus.CREATED);
 	}
 
 	
-	/*Lista fitness centara i termina  za koje je on zaduzen*/
-	
-/*	@GetMapping(
-			value="/termini/{id}",  //dobijem id fitness centra
-			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<TerminDTO>> termini(@PathVariable(name="id")Long id){
-			FitnessCentar f=this.fitnessCentarService.findOne(id);
-			List<TerminDTO> povratna=new ArrayList<>();
-			List<Termin> rasporedi=f.getTermini();
-			/*if(rasporedi.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}*//*
-			for(Raspored_filmova r:rasporedi) {
-				TerminDTO t=new TerminDTO();
-				t.setId(r.getTermin().getId());
-				t.setFitness_centar(b.getNaziv());
-				t.setSala(r.getTermin().getSala().getOznaka());
-				t.setDan(r.getTermin().getDan());
-				t.setNaziv(r.getTermin().getTrening().getNaziv());
-				t.setVreme(r.getTermin().getVreme());
-				t.setSalaOznaka(r.getTermin().getSala().getOznaka_sale());
-				t.setCijena(r.getTermin().getCijena());
-				t.setBrojRezervacija(r.getTermin().getBrojRezervacija());
-				povratna.add(t);
-				
-			}
-			
-			return new ResponseEntity<>(povratna,HttpStatus.OK);
-			
-			
-	}*/
+
 
 }

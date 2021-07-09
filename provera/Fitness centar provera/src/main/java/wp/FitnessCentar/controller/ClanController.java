@@ -232,7 +232,7 @@ public ResponseEntity<List<TreningDTO>> neocenjeniTreninzi(@PathVariable(name="i
 		Set<Ocena> ocene=c.getOcene();
 		Set<Trening> ocenjeni=new HashSet<>();
 		Trening trening=new Trening();
-		for(Ocena o:ocene) {  //pravim listu ocenjenih filmova
+		for(Ocena o:ocene) {  //pravim listu ocenjenih treninga
 			trening=o.getTrening();
 			ocenjeni.add(trening);
 		}

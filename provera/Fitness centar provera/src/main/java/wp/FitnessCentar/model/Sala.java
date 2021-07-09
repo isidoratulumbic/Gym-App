@@ -126,6 +126,13 @@ public Sala() {}
 	public String toString() {
 		return "Sala [id=" + id + ", kapacitet=" + kapacitet + ", oznaka=" + oznaka + "]";
 	}
+
+
+
+	public void setFitness_centar(String naziv) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

@@ -129,7 +129,7 @@ public class TreningController {
 	}
 
 /*Pretraga*/
-    
+  /*  
     @PostMapping(
 			value="/pretraga",
 			consumes=MediaType.APPLICATION_JSON_VALUE,
@@ -138,7 +138,7 @@ public class TreningController {
 			List<Termin> projekcije=this.terminService.findAll();
 			List<TreningDTO> treninziDTO =new ArrayList<>();
 			
-			int znak=0; //znak da je bar neki parametar bo kad kod nekog filma
+			int znak=0; //znak da je bar neki parametar bo kad kod nekog treninga
 			boolean r=true;  //razlicit
 			for (Termin tr : projekcije) {
 				r=true;
@@ -193,9 +193,7 @@ public class TreningController {
 					if(r==true) {
 						TreningDTO treningDTO=new TreningDTO(tr.getTrening().getId(),tr.getTrening().getNaziv(),tr.getTrening().getOpis(),tr.getTrening().getTipTreninga(),tr.getTrening().getTrajanje(),tr.getTrening().getSrednjaOcena());
 						
-						/*if(!filmoviDTO.contains(filmDTO)) {
-							filmoviDTO.add(filmDTO);
-						}*/
+					
 						boolean postoji=false;
 						for (TreningDTO trening : treninziDTO) {
 							if(trening.getNaziv().equalsIgnoreCase(treningDTO.getNaziv())) {
@@ -220,7 +218,7 @@ public class TreningController {
 			
 			
 			
-	}
+	}*/
     /*
     @GetMapping(
 			value="/rezervisi/{id}",

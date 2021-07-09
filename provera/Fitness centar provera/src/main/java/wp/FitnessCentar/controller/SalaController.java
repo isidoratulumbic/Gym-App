@@ -122,7 +122,7 @@ public class SalaController {
     		}
     
     /*Izmenjivanje sale*/
-    @GetMapping(
+  @GetMapping(
 			value="izmeniSALU/{id}",
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SalaDTO> salaIzmena(@PathVariable(name="id") Long id){
@@ -134,123 +134,27 @@ public class SalaController {
 		s1.setFitnessCentar(s.getFitness_centar().getNaziv());
 		return new ResponseEntity<>(s1,HttpStatus.OK);
 	}
-	@PostMapping(
-			value="izmjenjivanjeSALE",
-			consumes=MediaType.APPLICATION_JSON_VALUE,
-			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SalaDTO> salaIzmjena(@RequestBody SalaDTO s)throws Exception{
-		Sala sala=this.salaService.findOne(s.getId());
-		if(sala==null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		sala.setKapacitet(s.getKapacitet());
-		sala.setOznaka(s.getOznaka());
-		this.salaService.save(sala);
-		SalaDTO s1=new SalaDTO();
-		s1.setId(sala.getId());
-		return new ResponseEntity<>(s1,HttpStatus.OK);
-	}
-	/*
-    @GetMapping(
-    		value="izmeniSALU/{id}",
-    		produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Sala> sala1(@PathVariable(name="id") Long id){
-    	Sala sala=this.salaService.findOne(id);
-    	if(sala==null) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
-    	Sala s = new Sala();
-    	s.setId(sala.getId());
-    	s.setOznaka(sala.getOznaka());
-    	s.setKapacitet(sala.getKapacitet());
-    	s.setFitness_centar(sala.getFitness_centar().getNaziv());
-    	
-    	return new ResponseEntity<>(s,HttpStatus.OK);
-    }
+  
     @PostMapping(
     		value="/izmenjivanjeSALE",
     		consumes=MediaType.APPLICATION_JSON_VALUE,
     		produces=MediaType.APPLICATION_JSON_VALUE
     		)
     	public ResponseEntity<Sala> izmenaSALE(@RequestBody Sala s) throws Exception{
-     Sala s1 = this.salaService.findOne(s.getId());
-    		if(s1==null) {
+     Sala fc = this.salaService.findOne(s.getId());
+    		if(fc==null) {
     			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     		}
-    		s1.setOznaka(s.getOznaka());
-    		s1.setKapacitet(s.getKapacitet());
+    		fc.setOznaka(s.getOznaka());
+    		fc.setKapacitet(s.getKapacitet());
     		
-    		this.salaService.saveSala(s1);
+    		this.salaService.saveSala(fc);
     		Sala ret = new Sala();
-    		ret.setId(s1.getId());
+    		ret.setId(fc.getId());
     		return new ResponseEntity<>(ret,HttpStatus.OK);
-    	}   
-    */
-/*
-@GetMapping(
-		value="izmeniSALU/{id}",
-		produces=MediaType.APPLICATION_JSON_VALUE)
-public ResponseEntity<FitnessCentar> sala(@PathVariable(name="id") Long id){
-	Sala sala=this.salaService.findOne(id);
-	if(sala==null) {
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	}
-	Sala s = new Sala();
-	s.setId(sala.getId());
-	s.setOznaka(sala.getOznaka());
-	s.setKapacitet(sala.getKapacitet());
-	s.setFitness_centar(sala.getFitness_centar().getNaziv());
+    	}
 	
-	
-	return new ResponseEntity<>(s,HttpStatus.OK);
-}
-@PostMapping(
-		value="/izmenjivanjeFC",
-		consumes=MediaType.APPLICATION_JSON_VALUE,
-		produces=MediaType.APPLICATION_JSON_VALUE
-		)
-	public ResponseEntity<FitnessCentar> izmenaFC(@RequestBody FitnessCentar b) throws Exception{
- FitnessCentar fc = this.fitnessCentarService.findOne(b.getId());
-		if(fc==null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		fc.setNaziv(b.getNaziv());
-		fc.setAdresa(b.getAdresa());
-		fc.setBroj_telefona_centrale(b.getBroj_telefona_centrale());
-		fc.setEmail(b.getEmail());
-		this.fitnessCentarService.saveFitnessCentar(fc);
-		FitnessCentar ret = new FitnessCentar();
-		ret.setId(fc.getId());
-		return new ResponseEntity<>(ret,HttpStatus.OK);
-	}
-//izmena sale
-	@GetMapping(
-			value="izmeniSALU/{id}",
-			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Sala> salaIzmeni(@PathVariable(name="id") Long id){
-		Sala s=this.salaService.findOne(id);
-		Sala s1=new Sala();
-		s1.setId(s.getId());
-		s1.setKapacitet(s.getKapacitet());
-		s1.setOznaka(s.getOznaka());
-		
-		return new ResponseEntity<>(s1,HttpStatus.OK);
-	}
-	@PostMapping(
-			value="izmenjivanjeSALE",
-			consumes=MediaType.APPLICATION_JSON_VALUE,
-			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Sala> salaIzmena(@RequestBody SalaDTO s)throws Exception{
-		Sala sala=this.salaService.findOne(s.getId());
-		if(sala==null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		sala.setKapacitet(s.getKapacitet());
-		sala.setOznaka(s.getOznaka());
-		this.salaService.save(sala);
-		Sala s1=new Sala();
-		s1.setId(sala.getId());
-		return new ResponseEntity<>(s1,HttpStatus.OK);
-	}
-*/
+    
+
+
 }

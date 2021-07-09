@@ -13,17 +13,19 @@ VALUES('isi','isi123','Isidora','Tulumbic','0692502122','itulumbic@gmail.com','2
 
 INSERT INTO FITNESS_CENTAR (naziv,adresa,broj_telefona_centrale,email) 
 VALUES ('Fitness Centar X', 'Bulevar oslobodjenja 112','021555333','fitnesscentar@gmail.com');
+INSERT INTO FITNESS_CENTAR (naziv,adresa,broj_telefona_centrale,email) 
+VALUES ('Izy', 'Jug Bogdanova 52','0983725','izy@gmail.com');
 
 
 
 INSERT INTO SALA (kapacitet,oznaka,fitness_centar_id) 
 VALUES (25,'S1',1);
 INSERT INTO SALA (kapacitet,oznaka,fitness_centar_id) 
-VALUES (15,'S2',1);
+VALUES (15,'S2',2);
 INSERT INTO SALA (kapacitet,oznaka,fitness_centar_id) 
 VALUES (15,'S3',1);
 INSERT INTO SALA (kapacitet,oznaka,fitness_centar_id) 
-VALUES (15,'S4',1);
+VALUES (15,'S4',2);
 
 INSERT INTO TRENING (naziv,opis,tip_treninga,trajanje,srednja_ocena) 
 VALUES ('Kondicija', 'Rad na kondiciji','Cardio','90min',9);

@@ -108,26 +108,20 @@ $(document).on('click', '.izmeniSalu', function () {
 		url: "http://localhost:8080/api/sala/izmeniSALU/" + this.id,  // this.id je button id, a kao button id je postavljen id zaposlenog
 		dataType: "json",
 		success: function (data){
-	
-			
-			
-            
-           
-            var red="Oznaka:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
+		
+	var red="Oznaka:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
             red+="<input type='text' class='form-control' id='oznaka' placeholder='Oznaka' value="+data['oznaka']+" ></div>"
             
            
             red+="Kapacitet:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
             red+="<input type='text' class='form-control' id='kapacitet' placeholder='Kapacitet' value="+data['kapacitet']+"  ></div>"
             
-            var red="Fitness centar:<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
-            red+="<input type='text' class='form-control' id='fitnessCentar' placeholder='FitnessCentar' value="+data['fitnessCentar']+" ></div>"
-            
             
           
+           
             
 			red+="<div class='input-group form-group'><div class='input-group-prepend'><span class='input-group-text'><i class='fa fa-film'></i></span></div>";
-            red+="<input type='text' class='form-control' id='salaId' placeholder='Izabrani id' value="+data['id']+"  disabled='disabled'></div>"
+            red+="<input type='text' class='form-control' id='salaId' placeholder='Izabrnai id' value="+data['id']+"  disabled='disabled'></div>"
              $('#izmenaSale').append(red);
              $("#Izmena-SALA").removeClass("d-none").show();
 			 
@@ -150,17 +144,18 @@ $(document).on('click', '#izmeni', function () {            // kada je button (Ä
 	
 	var oznaka=$("#oznaka").val();
 	var kapacitet=$("#kapacitet").val();
-	var fitnessCentar=$("#fitnessCentar").val();
+	
+	var id=$("#salaId").val();
 	
 
    
-	var newFCJSON=formToJSON3(oznaka,kapacitet,fitnessCentar,id);
+	var newCLANJSON=formToJSON3(oznaka,kapacitet,id);
 	$.ajax({
 		type:"POST",
 		url:"http://localhost:8080/api/sala/izmenjivanjeSALE",
 		dataType:"json",
 		contentType:"application/json",
-		data:newFCJSON,
+		data:newCLANJSON,
 		success:function(data){
 			alert("UspeÅ¡no");
 			window.location.href="sale.html";
@@ -175,11 +170,10 @@ $(document).on('click', '#izmeni', function () {            // kada je button (Ä
     });
 });
 
-function formToJSON3(oznaka,kapacitet,fitnessCentar){
+function formToJSON3(oznaka,kapacitet){
 	return JSON.stringify({
 		"oznaka":oznaka,
-		"kapacitet":kapacitet,
-		"fitnessCentar":fitnessCentar
+		"kapacitet":kapacitet
 		
 		
 		
